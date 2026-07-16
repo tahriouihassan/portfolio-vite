@@ -1,0 +1,72 @@
+---
+import { getCollection } from "astro:content";
+import BaseLayout from "../../../layouts/BaseLayout.astro";
+import ProjectDetail from "../../../components/ProjectDetail.astro";
+import Divider from "../../../components/Divider.astro";
+import CtaSection from "../../../components/CtaSection.astro";
+import Icon from "../../../components/Icon.astro";
+
+const all = await getCollection("projects");
+const active = all
+  .filter((p) => p.data.status === "active")
+  .sort((a, b) => a.data.order - b.data.order);
+const archived = all
+  .filter((p) => p.data.status === "archived")
+  .sort((a, b) => a.data.order - b.data.order);
+---
+
+<BaseLayout
+  title="Projets"
+  description="Une sélection de projets de Hassan Tahrioui : plateformes commerciales, produits SaaS et job boards construits avec Next.js, Strapi, Laravel et Vue."
+>
+  <div class="flex flex-col gap-16 slg:gap-24">
+    <section class="flex flex-col gap-5 slg:gap-8">
+      <h1 class="font-theme_bold text-3xl text-head_text sm:text-4xl slg:text-5xl">
+        Projets<span class="text-link_text_hover">.</span>
+      </h1>
+      <p class="max-w-2xl text-base slg:text-lg">
+        Une sélection de produits que j'ai conçus, construits et livrés, des plateformes de
+        billetterie en production aux outils SaaS. Les cartes avec un lien
+        <span class="text-head_text">Étude de cas</span> vont plus loin (études en anglais).
+      </p>
+    </section>
+
+    <Divider />
+
+    <div class="flex flex-col items-center justify-center gap-24 slg:gap-28">
+      {active.map((p) => <ProjectDetail project={p} />)}
+    </div>
+
+    {
+      archived.length > 0 && (
+        <>
+          <Divider />
+          <section class="flex flex-col gap-2">
+            <h2 class="font-theme_bold text-2xl text-head_text slg:text-3xl">Le cimetière</h2>
+            <p class="text-sm slg:text-base">
+              Des projets sur lesquels j'ai travaillé et qui ne sont plus maintenus.
+            </p>
+            <div class="mt-8 flex flex-col gap-8">
+              {archived.map((p) => (
+                <div class="flex flex-col gap-1">
+                  <a
+                    href={p.data.link}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    class="flex w-fit items-center gap-1 font-theme_bold text-lg text-head_text hover:text-link_text_hover"
+                  >
+                    {p.data.title}
+                    <Icon name="arrow-up-right" size={18} />
+                  </a>
+                  <p class="text-sm lg:text-base">{p.data.description}</p>
+                </div>
+              ))}
+            </div>
+          </section>
+        </>
+      )
+    }
+
+    <CtaSection />
+  </div>
+</BaseLayout>

@@ -1,0 +1,58 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+import LinkBtn from "../components/LinkBtn.astro";
+import { SITE } from "../consts";
+
+const updated = "July 16, 2026";
+---
+
+<BaseLayout
+  title="Privacy policy"
+  description="How this site handles your data: what is collected, why, and your rights."
+>
+  <article class="flex flex-col gap-8">
+    <section class="flex flex-col gap-3">
+      <h1 class="font-theme_bold text-3xl text-head_text sm:text-4xl slg:text-5xl">
+        Privacy policy<span class="text-link_text_hover">.</span>
+      </h1>
+      <p class="text-sm text-p_text">Last updated: {updated}</p>
+    </section>
+
+    <div class="text-content max-w-3xl text-sm leading-relaxed slg:text-base">
+      <p>
+        This is the personal portfolio of {SITE.name}. I keep data collection to the minimum needed
+        to run the site and answer your messages. This page explains what is collected and why.
+      </p>
+
+      <h2 class="font-theme_bold text-xl text-head_text">Contact form</h2>
+      <p>
+        When you submit the contact form, your name, email address and message are delivered to my
+        inbox through <LinkBtn link="https://web3forms.com">Web3Forms</LinkBtn>, a form-delivery
+        service. I use this information only to reply to you. It is not added to any mailing list
+        and never sold or shared.
+      </p>
+
+      <h2 class="font-theme_bold text-xl text-head_text">Analytics</h2>
+      <p>
+        The site uses Google Analytics to understand which pages are visited. Google Analytics sets
+        cookies and processes your IP address; you can opt out with the
+        <LinkBtn link="https://tools.google.com/dlpage/gaoptout">Google Analytics opt-out add-on</LinkBtn>
+        or by blocking cookies in your browser. No analytics data is used for advertising.
+      </p>
+
+      <h2 class="font-theme_bold text-xl text-head_text">Third-party links</h2>
+      <p>
+        Booking a call happens on Calendly, and links to GitHub, Upwork, LinkedIn, WhatsApp and
+        similar services take you to those platforms. Each has its own privacy policy that applies
+        once you are there.
+      </p>
+
+      <h2 class="font-theme_bold text-xl text-head_text">Your rights</h2>
+      <p>
+        You can ask me at any time to access, correct or delete any personal data I hold about you
+        (in practice: your emails and form submissions). Write to
+        <LinkBtn link={`mailto:${SITE.email}`}>{SITE.email}</LinkBtn> and I'll take care of it.
+      </p>
+    </div>
+  </article>
+</BaseLayout>

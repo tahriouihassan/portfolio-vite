@@ -2,10 +2,13 @@
 import type { CollectionEntry } from "astro:content";
 import ProjectImage from "./ProjectImage.astro";
 import Icon from "./Icon.astro";
+import { getLocale, ui } from "../i18n";
 
 interface Props {
   project: CollectionEntry<"projects">;
 }
+const locale = getLocale(Astro.url);
+const t = ui[locale];
 const { project } = Astro.props;
 const { data, slug, body } = project;
 
@@ -39,7 +42,7 @@ const Tag = href ? "a" : "div";
       {
         hasCaseStudy ? (
           <span class="inline-flex items-center gap-1 font-theme_bold text-sm text-link_text_hover">
-            Read case study
+            {t.readCaseStudy}
             <Icon name="arrow-right" size={16} class="transition-transform group-hover:translate-x-1" />
           </span>
         ) : domain ? (

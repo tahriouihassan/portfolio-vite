@@ -1,17 +1,17 @@
 ---
 import { getCollection } from "astro:content";
-import BaseLayout from "../layouts/BaseLayout.astro";
-import Hero from "../components/Hero.astro";
-import Divider from "../components/Divider.astro";
-import ServiceCard from "../components/ServiceCard.astro";
-import ProjectCard from "../components/ProjectCard.astro";
-import TestimonialCard from "../components/TestimonialCard.astro";
-import CtaSection from "../components/CtaSection.astro";
-import TheSocials from "../components/TheSocials.astro";
-import Icon from "../components/Icon.astro";
-import LinkBtn from "../components/LinkBtn.astro";
-import { SOCIALS } from "../consts";
-import { resolveService } from "../i18n";
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import Hero from "../../components/Hero.astro";
+import Divider from "../../components/Divider.astro";
+import ServiceCard from "../../components/ServiceCard.astro";
+import ProjectCard from "../../components/ProjectCard.astro";
+import TestimonialCard from "../../components/TestimonialCard.astro";
+import CtaSection from "../../components/CtaSection.astro";
+import TheSocials from "../../components/TheSocials.astro";
+import Icon from "../../components/Icon.astro";
+import LinkBtn from "../../components/LinkBtn.astro";
+import { SOCIALS } from "../../consts";
+import { resolveService } from "../../i18n";
 
 const upworkUrl = SOCIALS.find((s) => s.icon === "upwork")?.url;
 
@@ -26,7 +26,10 @@ const testimonials = (await getCollection("testimonials")).sort(
 );
 ---
 
-<BaseLayout>
+<BaseLayout
+  title="Développeur Full-Stack Lead"
+  description="Je conçois, construis et exploite des plateformes web commerciales de bout en bout : Next.js, Strapi, Laravel, paiements et infrastructure. Disponible en freelance."
+>
   <div class="flex flex-col gap-16 slg:gap-24">
     <Hero />
     <TheSocials />
@@ -37,44 +40,44 @@ const testimonials = (await getCollection("testimonials")).sort(
     <section class="flex flex-col gap-8">
       <div class="flex flex-col gap-3">
         <h2 class="font-theme_bold text-2xl text-head_text slg:text-4xl">
-          What I build for clients<span class="text-link_text_hover">.</span>
+          Ce que je construis pour mes clients<span class="text-link_text_hover">.</span>
         </h2>
         <p class="max-w-2xl text-sm slg:text-lg">
-          One developer who can own the whole product: design, frontend, backend, payments,
-          infrastructure and the support after launch.
+          Un seul développeur qui prend en charge tout le produit : design, frontend, backend,
+          paiements, infrastructure et support après le lancement.
         </p>
       </div>
       <div class="grid grid-cols-1 gap-5 md:grid-cols-2">
-        {services.map((s) => <ServiceCard {...resolveService(s.data, "en")} />)}
+        {services.map((s) => <ServiceCard {...resolveService(s.data, "fr")} />)}
       </div>
       <a
-        href="/services"
+        href="/fr/services"
         class="inline-flex w-fit items-center gap-1 font-theme_bold text-sm text-link_text_hover hover:underline underline-offset-4"
       >
-        See how I work <Icon name="arrow-right" size={16} />
+        Voir comment je travaille <Icon name="arrow-right" size={16} />
       </a>
     </section>
 
     <Divider />
 
-    <!-- FEATURED WORK -->
+    <!-- PROJETS PHARES -->
     <section class="flex flex-col gap-8">
       <div class="flex flex-col gap-3">
         <h2 class="font-theme_bold text-2xl text-head_text slg:text-4xl">
-          Featured work<span class="text-link_text_hover">.</span>
+          Projets phares<span class="text-link_text_hover">.</span>
         </h2>
         <p class="max-w-2xl text-sm slg:text-lg">
-          Real, commercial products: ticketing platforms, SaaS tools and job boards.
+          De vrais produits commerciaux : plateformes de billetterie, outils SaaS et job boards.
         </p>
       </div>
       <div class="grid grid-cols-1 gap-6 slg:grid-cols-2">
         {featured.map((p) => <ProjectCard project={p} />)}
       </div>
       <a
-        href="/projects"
+        href="/fr/projects"
         class="inline-flex w-fit items-center gap-1 font-theme_bold text-sm text-link_text_hover hover:underline underline-offset-4"
       >
-        View all projects <Icon name="arrow-right" size={16} />
+        Voir tous les projets <Icon name="arrow-right" size={16} />
       </a>
     </section>
 
@@ -84,13 +87,13 @@ const testimonials = (await getCollection("testimonials")).sort(
           <Divider />
           <section class="flex flex-col gap-8">
             <h2 class="font-theme_bold text-2xl text-head_text slg:text-4xl">
-              What clients say<span class="text-link_text_hover">.</span>
+              Ce que disent mes clients<span class="text-link_text_hover">.</span>
             </h2>
             {
               upworkUrl && (
                 <p class="text-sm slg:text-base">
-                  Real reviews from my <LinkBtn link={upworkUrl}>Upwork profile</LinkBtn>, where I
-                  hold a 100% Job Success Score. Verify them there.
+                  De vrais avis (en anglais) de mon <LinkBtn link={upworkUrl}>profil Upwork</LinkBtn>,
+                  où j'affiche un Job Success Score de 100 %. Vérifiez-les sur place.
                 </p>
               )
             }

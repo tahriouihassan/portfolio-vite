@@ -2,14 +2,15 @@
 import ActionButton from "./ActionButton.astro";
 import Icon from "./Icon.astro";
 import { CONTACT } from "../consts";
+import { getLocale, ui } from "../i18n";
+
 interface Props {
   heading?: string;
   sub?: string;
 }
-const {
-  heading = "Have a project in mind?",
-  sub = "I'm available for freelance work, from a focused fix to a full platform. Tell me what you're building and I'll tell you how I'd approach it.",
-} = Astro.props;
+const locale = getLocale(Astro.url);
+const t = ui[locale];
+const { heading = t.cta.heading, sub = t.cta.sub } = Astro.props;
 ---
 
 <section class="relative overflow-hidden rounded-lg border border-border_sm bg-item_back px-8 py-12 text-center slg:px-12 slg:py-16">
@@ -19,10 +20,10 @@ const {
     <p class="text-sm slg:text-lg">{sub}</p>
     <div class="flex flex-wrap items-center justify-center gap-3">
       <ActionButton link={CONTACT.bookingUrl} variant="primary">
-        <Icon name="calendar" size={18} />Book a call
+        <Icon name="calendar" size={18} />{t.cta.book}
       </ActionButton>
-      <ActionButton link="/contact">
-        <Icon name="mail" size={18} />Send a message
+      <ActionButton link={t.contactHref}>
+        <Icon name="mail" size={18} />{t.cta.message}
       </ActionButton>
     </div>
   </div>

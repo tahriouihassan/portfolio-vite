@@ -51,6 +51,14 @@ const services = defineCollection({
     // Icon name from src/components/Icon.astro.
     icon: z.string().default("spark"),
     order: z.number().default(0),
+    // Optional French translation (shown on /fr pages; falls back to English).
+    fr: z
+      .object({
+        title: z.string(),
+        blurb: z.string(),
+        points: z.array(z.string()),
+      })
+      .optional(),
   }),
 });
 

@@ -3,10 +3,13 @@ import type { CollectionEntry } from "astro:content";
 import ProjectImage from "./ProjectImage.astro";
 import ActionButton from "./ActionButton.astro";
 import Icon from "./Icon.astro";
+import { getLocale, ui } from "../i18n";
 
 interface Props {
   project: CollectionEntry<"projects">;
 }
+const locale = getLocale(Astro.url);
+const t = ui[locale];
 const { project } = Astro.props;
 const { data, slug, body } = project;
 
@@ -45,7 +48,7 @@ const domain = data.link ? new URL(data.link).hostname.replace(/^www\./, "") : n
       {
         hasCaseStudy && (
           <ActionButton link={`/projects/${slug}`} variant="primary">
-            Read case study
+            {t.readCaseStudy}
             <Icon name="arrow-right" size={18} />
           </ActionButton>
         )

@@ -2,55 +2,42 @@
 import ActionButton from "./ActionButton.astro";
 import Icon from "./Icon.astro";
 import { CONTACT } from "../consts";
+import { getLocale, ui, localizePath } from "../i18n";
 
-const stats = [
-  { value: "9+", label: "years of experience" },
-  { value: "End-to-end", label: "design → code → servers" },
-  { value: "EU hours", label: "remote from Morocco" },
-];
+const locale = getLocale(Astro.url);
+const t = ui[locale].hero;
 ---
 
 <section class="flex flex-col gap-8">
   <p class="font-theme_bold text-sm uppercase tracking-widest text-link_text_hover">
-    Lead Full-Stack Developer · Freelance
+    {t.eyebrow}
   </p>
 
   <h1
     class="text-3xl font-theme_bold leading-tight text-head_text sm:text-4xl slg:text-5xl slg:leading-tight"
   >
-    I build commercial web platforms from idea to production, and keep them running.
+    {t.h1}
   </h1>
 
   <div class="text-content max-w-3xl">
-    <p class="text-sm leading-relaxed slg:text-lg lg:leading-loose">
-      I'm Hassan, a product-minded full-stack developer. For 9+ years I've taken web products from a
-      rough idea and UI all the way through backend architecture, payments, integrations, deployment
-      and production support. Right now I lead development on
-      <span class="text-head_text">VisitFootball</span>, a live football ticketing and travel
-      platform serving customers in three languages.
-    </p>
-    <p class="text-sm leading-relaxed slg:text-lg lg:leading-loose">
-      I work across <span class="text-head_text">Next.js, Strapi, Laravel and Vue</span>, and I'm
-      comfortable owning the servers too: DigitalOcean, Docker, Nginx, Postgres, Redis. If you need
-      one person who can design the workflow, build the whole thing, and be there when it breaks,
-      that's what I do.
-    </p>
+    <p class="text-sm leading-relaxed slg:text-lg lg:leading-loose" set:html={t.p1} />
+    <p class="text-sm leading-relaxed slg:text-lg lg:leading-loose" set:html={t.p2} />
   </div>
 
   <div class="flex flex-wrap items-center gap-3">
     <ActionButton link={CONTACT.bookingUrl} variant="primary">
-      <Icon name="calendar" size={18} />Book a free intro call
+      <Icon name="calendar" size={18} />{t.ctaPrimary}
     </ActionButton>
-    <ActionButton link="/projects">
-      See my work <Icon name="arrow-right" size={18} />
+    <ActionButton link={localizePath("/projects", locale)}>
+      {t.ctaSecondary} <Icon name="arrow-right" size={18} />
     </ActionButton>
   </div>
 
-  <dl class="mt-2 grid grid-cols-3 gap-4 border-t border-border_sm pt-6">
+  <dl class="mt-2 grid grid-cols-1 gap-4 border-t border-border_sm pt-6 sm:grid-cols-3">
     {
-      stats.map((s) => (
-        <div class="flex flex-col gap-1">
-          <dt class="font-theme_bold text-xl text-head_text slg:text-2xl">{s.value}</dt>
+      t.stats.map((s) => (
+        <div class="flex items-baseline gap-3 sm:flex-col sm:items-start sm:gap-1">
+          <dt class="font-theme_bold text-lg text-head_text sm:text-xl slg:text-2xl">{s.value}</dt>
           <dd class="text-xs text-p_text slg:text-sm">{s.label}</dd>
         </div>
       ))

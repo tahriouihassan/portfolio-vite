@@ -33,6 +33,8 @@ export const CONTACT = {
   bookingUrl: "https://calendly.com/tahrioui-hsn/30min",
   /** Web3Forms access key (delivers the contact form to your email). */
   web3formsKey: "eeebe9cc-f5bb-4262-8c77-7af020fa87fd",
+  /** WhatsApp number, digits only (used for wa.me links). */
+  whatsapp: "212687904064",
 } as const;
 
 /** Social / profile links. `icon` maps to a name in src/components/Icon.astro. */

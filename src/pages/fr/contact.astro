@@ -1,13 +1,13 @@
 ---
-import BaseLayout from "../layouts/BaseLayout.astro";
-import ContactForm from "../components/ContactForm.astro";
-import Divider from "../components/Divider.astro";
-import Icon from "../components/Icon.astro";
-import SocialIcon from "../components/SocialIcon.astro";
-import { SITE, CONTACT, SOCIALS } from "../consts";
-import { ui } from "../i18n";
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import ContactForm from "../../components/ContactForm.astro";
+import Divider from "../../components/Divider.astro";
+import Icon from "../../components/Icon.astro";
+import SocialIcon from "../../components/SocialIcon.astro";
+import { SITE, CONTACT, SOCIALS } from "../../consts";
+import { ui } from "../../i18n";
 
-const faq = ui.en.faq;
+const faq = ui.fr.faq;
 const faqLd = {
   "@context": "https://schema.org",
   "@type": "FAQPage",
@@ -21,17 +21,18 @@ const faqLd = {
 
 <BaseLayout
   title="Contact"
-  description="Start a project with Hassan Tahrioui. Book a free intro call, send a message or reach out on WhatsApp about your web platform, SaaS or e-commerce build."
+  description="Lancez un projet avec Hassan Tahrioui. Réservez un appel de découverte gratuit, envoyez un message ou contactez-moi sur WhatsApp pour votre plateforme web, SaaS ou e-commerce."
 >
   <script slot="head" type="application/ld+json" set:html={JSON.stringify(faqLd)} />
   <div class="flex flex-col gap-14">
     <section class="flex flex-col gap-5">
       <h1 class="font-theme_bold text-3xl text-head_text sm:text-4xl slg:text-5xl">
-        Let's build it<span class="text-link_text_hover">.</span>
+        Construisons-le<span class="text-link_text_hover">.</span>
       </h1>
       <p class="max-w-2xl text-base slg:text-lg">
-        Tell me what you're working on: a new platform, a rescue project, or a specific feature.
-        I'll reply with how I'd approach it and whether I'm the right fit.
+        Dites-moi sur quoi vous travaillez : une nouvelle plateforme, un projet à sauver ou une
+        fonctionnalité précise. Je vous répondrai avec mon approche et vous dirai si je suis la
+        bonne personne.
       </p>
     </section>
 
@@ -48,7 +49,7 @@ const faqLd = {
           class="flex items-center gap-3 rounded-md border border-accent bg-accent px-5 py-4 font-theme_bold text-white transition hover:brightness-110"
         >
           <Icon name="calendar" size={20} />
-          Book a free intro call
+          Réserver un appel gratuit
         </a>
 
         <a
@@ -58,7 +59,7 @@ const faqLd = {
           class="flex items-center gap-3 rounded-md border border-border_sm bg-action_back px-5 py-4 text-action_text transition-colors hover:bg-item_hover_back"
         >
           <Icon name="whatsapp" size={20} />
-          Message me on WhatsApp
+          Écrivez-moi sur WhatsApp
         </a>
 
         <a
@@ -70,13 +71,13 @@ const faqLd = {
         </a>
 
         <div class="flex flex-col gap-3 rounded-md border border-border_sm p-5 text-sm">
-          <span class="font-theme_bold text-head_text">Availability</span>
-          <p>{SITE.location}</p>
-          <p>Currently taking on new freelance projects.</p>
+          <span class="font-theme_bold text-head_text">Disponibilité</span>
+          <p>Maroc · À distance (horaires européens)</p>
+          <p>J'accepte actuellement de nouveaux projets freelance.</p>
         </div>
 
         <div class="flex flex-col gap-2">
-          <span class="text-sm font-theme_bold text-head_text">Elsewhere</span>
+          <span class="text-sm font-theme_bold text-head_text">Ailleurs</span>
           <div class="flex gap-1">
             {SOCIALS.map((s) => <SocialIcon title={s.name} link={s.url} icon={s.icon} />)}
           </div>

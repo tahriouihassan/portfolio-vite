@@ -3,6 +3,7 @@ import "../styles/global.css";
 import monoLisaRegular from "../assets/fonts/MonoLisa-Regular.woff2";
 import monoLisaBold from "../assets/fonts/MonoLisa-Bold.woff2";
 import southamLogo from "../assets/fonts/Southam Demo.otf";
+import { getLocale, alternates } from "../i18n";
 import TheNavbar from "../components/TheNavbar.astro";
 import Footer from "../components/Footer.astro";
 import { SITE, SOCIALS } from "../consts";
@@ -27,6 +28,8 @@ const pageTitle = title ? `${title} | ${SITE.name}` : SITE.title;
 // Keep the trailing slash so canonical matches the sitemap URLs exactly.
 const canonical = new URL(Astro.url.pathname, SITE.url).href;
 const ogImage = new URL(image, SITE.url).href;
+const locale = getLocale(Astro.url);
+const alt = alternates(Astro.url.pathname);
 
 const personLd = {
   "@context": "https://schema.org",
@@ -58,7 +61,7 @@ const personLd = {
 ---
 
 <!doctype html>
-<html lang="en">
+<html lang={locale}>
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -81,6 +84,15 @@ const personLd = {
     <link rel="canonical" href={canonical} />
     {noindex && <meta name="robots" content="noindex, nofollow" />}
     <meta name="author" content={SITE.name} />
+    {
+      alt && (
+        <>
+          <link rel="alternate" hreflang="en" href={new URL(alt.en, SITE.url).href} />
+          <link rel="alternate" hreflang="fr" href={new URL(alt.fr, SITE.url).href} />
+          <link rel="alternate" hreflang="x-default" href={new URL(alt.en, SITE.url).href} />
+        </>
+      )
+    }
 
     <!-- Open Graph -->
     <meta property="og:type" content={article ? "article" : "website"} />

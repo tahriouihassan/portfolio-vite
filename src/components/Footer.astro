@@ -1,7 +1,11 @@
 ---
-import { NAV, SOCIALS, SITE, CONTACT } from "../consts";
+import { SOCIALS, SITE, CONTACT } from "../consts";
+import { getLocale, ui, localizePath } from "../i18n";
 import SocialIcon from "./SocialIcon.astro";
 import Icon from "./Icon.astro";
+
+const locale = getLocale(Astro.url);
+const t = ui[locale];
 const year = new Date().getFullYear();
 ---
 
@@ -11,26 +15,30 @@ const year = new Date().getFullYear();
       <div class="flex max-w-md flex-col gap-3">
         <span class="font-logo text-3xl">{SITE.logo}</span>
         <p class="text-sm leading-relaxed">
-          {SITE.role} building commercial web platforms end-to-end. Have a project in mind?
-          <a href="/contact" class="text-head_text underline decoration-link_border underline-offset-4 hover:text-link_text_hover">
-            Let's talk.
+          {t.footer.blurb}
+          <a href={t.contactHref} class="text-head_text underline decoration-link_border underline-offset-4 hover:text-link_text_hover">
+            {t.footer.talk}
           </a>
         </p>
       </div>
 
       <nav class="flex flex-col gap-2 text-sm" aria-label="Footer">
-        <span class="font-theme_bold text-head_text">Navigate</span>
-        {NAV.map((i) => <a href={i.href} class="w-fit hover:text-head_text">{i.label}</a>)}
-        <a href="/contact" class="w-fit hover:text-head_text">Contact</a>
+        <span class="font-theme_bold text-head_text">{t.footer.navigate}</span>
+        {t.nav.map((i) => <a href={i.href} class="w-fit hover:text-head_text">{i.label}</a>)}
+        <a href={t.contactHref} class="w-fit hover:text-head_text">{t.footer.contact}</a>
+        <a href={localizePath("/privacy", locale)} class="w-fit hover:text-head_text">{t.footer.privacy}</a>
       </nav>
 
       <div class="flex flex-col gap-3 text-sm">
-        <span class="font-theme_bold text-head_text">Get in touch</span>
+        <span class="font-theme_bold text-head_text">{t.footer.getInTouch}</span>
         <a href={`mailto:${SITE.email}`} class="flex w-fit items-center gap-2 hover:text-head_text">
           <Icon name="mail" size={16} />{SITE.email}
         </a>
         <a href={CONTACT.bookingUrl} target="_blank" rel="noopener noreferrer" class="flex w-fit items-center gap-2 hover:text-head_text">
-          <Icon name="calendar" size={16} />Book a call
+          <Icon name="calendar" size={16} />{t.footer.book}
+        </a>
+        <a href={`https://wa.me/${CONTACT.whatsapp}`} target="_blank" rel="noopener noreferrer" class="flex w-fit items-center gap-2 hover:text-head_text">
+          <Icon name="whatsapp" size={16} />{t.footer.whatsapp}
         </a>
         <div class="mt-1 flex gap-1">
           {SOCIALS.map((s) => <SocialIcon title={s.name} link={s.url} icon={s.icon} />)}
@@ -39,7 +47,7 @@ const year = new Date().getFullYear();
     </div>
 
     <div class="flex flex-col gap-1 border-t border-border_sm pt-6 text-xs text-p_text sm:flex-row sm:justify-between">
-      <span>© {year} {SITE.name}. All rights reserved.</span>
+      <span>© {year} {SITE.name}. {t.footer.rights}</span>
       <span>{SITE.location}</span>
     </div>
   </div>

@@ -1,8 +1,19 @@
 ---
-import { NAV, SITE } from "../consts";
+import { SITE } from "../consts";
+import { getLocale, alternates, ui } from "../i18n";
+
+const locale = getLocale(Astro.url);
+const t = ui[locale];
 const path = Astro.url.pathname.replace(/\/+$/, "") || "/";
-const isActive = (href: string) =>
-  href === "/" ? path === "/" : path === href || path.startsWith(href + "/");
+const isActive = (href: string) => {
+  const h = href.replace(/\/+$/, "") || "/";
+  return h === "/" || h === "/fr" ? path === h : path === h || path.startsWith(h + "/");
+};
+
+// Language switcher: link to this page's translation, or the other locale's home.
+const alt = alternates(Astro.url.pathname);
+const switchTo = locale === "en" ? { label: "FR", href: alt?.fr ?? "/fr/" } : { label: "EN", href: alt?.en ?? "/" };
+const homeHref = locale === "fr" ? "/fr/" : "/";
 ---
 
 <nav
@@ -11,7 +22,7 @@ const isActive = (href: string) =>
   <div class="absolute left-0 top-0 h-[1px] w-full bg-topbar lg:h-1"></div>
 
   <a
-    href="/"
+    href={homeHref}
     class="select-none font-logo text-2xl font-normal sm:text-3xl slg:font-semibold lg:text-4xl"
     aria-label={`${SITE.name} home`}
   >
@@ -20,22 +31,33 @@ const isActive = (href: string) =>
 
   <div class="flex items-center text-[13px] sm:gap-2 sm:text-sm lg:text-base">
     {
-      NAV.map((item) => (
+      t.nav.map((item, i) => (
         <a
           href={item.href}
           aria-current={isActive(item.href) ? "page" : undefined}
-          class="rounded-md px-2 py-1.5 font-theme_bold transition-all hover:bg-action_back sm:px-4 sm:py-2"
+          class:list={[
+            "rounded-md px-2 py-1.5 font-theme_bold transition-all hover:bg-action_back sm:px-4 sm:py-2",
+            // The logo already links home; hide the first item on the tight mobile bar.
+            i === 0 && "hidden sm:inline-block",
+          ]}
         >
           {item.label}
         </a>
       ))
     }
     <a
-      href="/contact"
-      aria-current={isActive("/contact") ? "page" : undefined}
+      href={t.contactHref}
+      aria-current={isActive(t.contactHref) ? "page" : undefined}
       class="ml-1 hidden rounded-md border border-accent bg-accent px-4 py-2 font-theme_bold text-white transition-colors hover:brightness-110 sm:inline-block"
     >
-      Let's talk
+      {t.navCta}
+    </a>
+    <a
+      href={switchTo.href}
+      class="ml-1 rounded-md border border-border_sm px-2 py-1.5 font-theme_bold text-p_text transition-colors hover:bg-action_back hover:text-head_text sm:px-3 sm:py-2"
+      aria-label={locale === "en" ? "Version française" : "English version"}
+    >
+      {switchTo.label}
     </a>
   </div>
 </nav>

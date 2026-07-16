@@ -6,3 +6,10 @@ points:
   - "Mollie & Stripe integrations"
   - "Subscriptions, installments & webhooks"
   - "Invoices, PDFs & order automation"
+fr:
+  title: "E-Commerce & Paiements"
+  blurb: "Checkout, facturation et abonnements bien faits. Du code critique pour vos revenus, qui doit fonctionner à chaque fois."
+  points:
+    - "Intégrations Mollie & Stripe"
+    - "Abonnements, paiements échelonnés & webhooks"
+    - "Factures, PDF & automatisation des commandes"

@@ -6,3 +6,10 @@ points:
   - "OpenAI & DeepSeek integrations"
   - "Structured JSON generation & scoring"
   - "Cost-efficient, plan-based model selection"
+fr:
+  title: "Fonctionnalités IA"
+  blurb: "De l'IA utile dans de vrais produits. Structurée, maîtrisée en coûts, pas un chatbot plaqué sur un formulaire."
+  points:
+    - "Intégrations OpenAI & DeepSeek"
+    - "Génération JSON structurée & scoring"
+    - "Choix de modèle selon le plan, coûts maîtrisés"

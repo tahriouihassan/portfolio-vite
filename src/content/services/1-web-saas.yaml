@@ -6,3 +6,10 @@ points:
   - "Next.js, Nuxt, Laravel & Strapi"
   - "Dashboards, multi-step flows & auth"
   - "Multi-tenant / team-based SaaS"
+fr:
+  title: "Applications Web & SaaS Full-Stack"
+  blurb: "De l'idée et de l'UI au backend, à la base de données et au lancement. Je construis des produits complets, pas seulement des écrans ou des endpoints."
+  points:
+    - "Next.js, Nuxt, Laravel & Strapi"
+    - "Dashboards, parcours multi-étapes & auth"
+    - "SaaS multi-tenant / en équipe"

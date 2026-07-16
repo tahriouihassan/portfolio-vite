@@ -1,0 +1,61 @@
+---
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import LinkBtn from "../../components/LinkBtn.astro";
+import { SITE } from "../../consts";
+
+const updated = "16 juillet 2026";
+---
+
+<BaseLayout
+  title="Politique de confidentialité"
+  description="Comment ce site traite vos données : ce qui est collecté, pourquoi, et vos droits."
+>
+  <article class="flex flex-col gap-8">
+    <section class="flex flex-col gap-3">
+      <h1 class="font-theme_bold text-3xl text-head_text sm:text-4xl slg:text-5xl">
+        Politique de confidentialité<span class="text-link_text_hover">.</span>
+      </h1>
+      <p class="text-sm text-p_text">Dernière mise à jour : {updated}</p>
+    </section>
+
+    <div class="text-content max-w-3xl text-sm leading-relaxed slg:text-base">
+      <p>
+        Ce site est le portfolio personnel de {SITE.name}. Je limite la collecte de données au
+        minimum nécessaire pour faire fonctionner le site et répondre à vos messages. Cette page
+        explique ce qui est collecté et pourquoi.
+      </p>
+
+      <h2 class="font-theme_bold text-xl text-head_text">Formulaire de contact</h2>
+      <p>
+        Quand vous envoyez le formulaire de contact, votre nom, votre adresse email et votre message
+        me sont transmis via <LinkBtn link="https://web3forms.com">Web3Forms</LinkBtn>, un service
+        d'acheminement de formulaires. J'utilise ces informations uniquement pour vous répondre.
+        Elles ne sont ajoutées à aucune liste de diffusion et ne sont jamais vendues ni partagées.
+      </p>
+
+      <h2 class="font-theme_bold text-xl text-head_text">Statistiques</h2>
+      <p>
+        Le site utilise Google Analytics pour comprendre quelles pages sont visitées. Google
+        Analytics dépose des cookies et traite votre adresse IP ; vous pouvez vous y opposer avec le
+        <LinkBtn link="https://tools.google.com/dlpage/gaoptout">module de désactivation Google Analytics</LinkBtn>
+        ou en bloquant les cookies dans votre navigateur. Aucune donnée statistique n'est utilisée à
+        des fins publicitaires.
+      </p>
+
+      <h2 class="font-theme_bold text-xl text-head_text">Liens vers des services tiers</h2>
+      <p>
+        La réservation d'un appel se fait sur Calendly, et les liens vers GitHub, Upwork, LinkedIn,
+        WhatsApp et autres services vous redirigent vers ces plateformes. Chacune applique sa propre
+        politique de confidentialité une fois que vous y êtes.
+      </p>
+
+      <h2 class="font-theme_bold text-xl text-head_text">Vos droits</h2>
+      <p>
+        Vous pouvez me demander à tout moment d'accéder aux données personnelles que je détiens à
+        votre sujet, de les corriger ou de les supprimer (en pratique : vos emails et envois de
+        formulaire). Écrivez-moi à
+        <LinkBtn link={`mailto:${SITE.email}`}>{SITE.email}</LinkBtn> et je m'en occupe.
+      </p>
+    </div>
+  </article>
+</BaseLayout>

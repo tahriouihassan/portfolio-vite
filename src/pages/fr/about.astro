@@ -1,0 +1,146 @@
+---
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import Divider from "../../components/Divider.astro";
+import LinkBtn from "../../components/LinkBtn.astro";
+import CtaSection from "../../components/CtaSection.astro";
+import { SOCIALS } from "../../consts";
+
+const github = SOCIALS.find((s) => s.name === "GitHub")?.url ?? "#";
+
+const work = [
+  {
+    company: "VisitFootball",
+    role: "Développeur Full-Stack Lead",
+    period: "2023 – Aujourd'hui",
+    link: "https://visitfootball.com",
+  },
+  {
+    company: "Inbetween",
+    role: "Développeur Full-Stack",
+    period: "2020 – 2022",
+    link: "https://inbetween.tech/",
+  },
+  {
+    company: "e-Coopera",
+    role: "Développeur Full-Stack",
+    period: "2019 – 2021",
+    link: null,
+  },
+  {
+    company: "FCPO",
+    role: "Développeur Full-Stack",
+    period: "2020",
+    link: null,
+  },
+  {
+    company: "Audit Action Plus",
+    role: "Développeur Full-Stack Junior",
+    period: "2019",
+    link: "https://auditactionplus.com/",
+  },
+];
+
+const skills = [
+  { group: "Frontend", items: ["Next.js", "React", "Vue", "Nuxt", "TypeScript", "Tailwind", "Inertia"] },
+  { group: "Backend", items: ["Laravel", "PHP", "Strapi", "Node.js", "Express", "API REST"] },
+  { group: "Data & Infra", items: ["PostgreSQL", "MySQL", "Redis", "DigitalOcean", "Docker", "Nginx", "Cloudflare", "PM2"] },
+  { group: "Paiements & IA", items: ["Stripe", "Mollie", "Puppeteer", "Playwright", "OpenAI", "DeepSeek"] },
+  { group: "Pratiques", items: ["SSR / SSG", "SEO technique", "Marque blanche", "Gestion d'incidents", "Lead d'équipe"] },
+];
+---
+
+<BaseLayout
+  title="À propos"
+  description="Hassan Tahrioui, développeur Full-Stack Lead orienté produit, basé au Maroc, avec plus de 9 ans d'expérience dans la construction de plateformes web commerciales de bout en bout."
+>
+  <article class="flex flex-col gap-12">
+    <section class="flex flex-col gap-5">
+      <h1 class="font-theme_bold text-3xl text-head_text sm:text-4xl slg:text-5xl">
+        À propos<span class="text-link_text_hover">.</span>
+      </h1>
+      <div class="text-content max-w-3xl">
+        <p class="text-sm leading-relaxed slg:text-lg lg:leading-loose">
+          Je suis Hassan Tahrioui, <span class="text-head_text">développeur Full-Stack Lead</span>
+          orienté produit, basé au Maroc, travaillant à distance et généralement aligné sur les
+          horaires européens. En plus de 9 ans, j'ai appris à mener un produit d'une idée brute et
+          d'une UI jusqu'à l'architecture backend, les paiements, les intégrations, le déploiement
+          et le support qui suit le lancement.
+        </p>
+        <p class="text-sm leading-relaxed slg:text-lg lg:leading-loose">
+          Je dirige actuellement le développement de
+          <LinkBtn link="https://visitfootball.com">VisitFootball</LinkBtn>, une plateforme de
+          billetterie et de voyages football construite avec Next.js et Strapi, qui sert ses clients
+          en trois langues. J'en maîtrise toute la chaîne : la boutique et le checkout, les API, le
+          backend PostgreSQL et Redis, et l'infrastructure qui fait tourner l'ensemble.
+        </p>
+        <p class="text-sm leading-relaxed slg:text-lg lg:leading-loose">
+          Je suis aussi à l'aise avec <span class="text-head_text">Next.js, Strapi, Laravel et Vue</span>
+          que sur le serveur (Docker, Nginx, PM2, Postgres, Redis), et dans les détails que la
+          plupart négligent : des flux de paiement qui ne débitent jamais deux fois, des URL sûres
+          pour le SEO, un tracking respectueux du consentement, et du debugging en production avec
+          sang-froid. J'intègre aussi de l'IA utile dans de vrais produits plutôt que de plaquer un
+          chatbot sur un formulaire.
+        </p>
+        <p class="text-sm leading-relaxed slg:text-lg lg:leading-loose">
+          À côté, je construis mes propres produits SaaS, comme
+          <LinkBtn link="/projects/tracefox">Tracefox</LinkBtn>, un outil de monitoring UX et de test
+          de parcours pour les boutiques en ligne. Mon code est visible sur
+          <LinkBtn link={github}>GitHub</LinkBtn>.
+        </p>
+        <p class="text-sm leading-relaxed slg:text-lg lg:leading-loose">
+          Je parle arabe (langue maternelle), anglais et français (couramment). En dehors du
+          travail, vous me trouverez en train de jouer, d'écouter de la musique ou de bricoler le
+          prochain side project.
+        </p>
+      </div>
+    </section>
+
+    <Divider />
+
+    <section class="flex flex-col gap-6">
+      <h2 class="font-theme_bold text-2xl text-head_text slg:text-3xl">Compétences</h2>
+      <div class="flex flex-col gap-5">
+        {
+          skills.map((s) => (
+            <div class="flex flex-col gap-2 sm:flex-row sm:gap-6">
+              <span class="w-36 shrink-0 font-theme_bold text-head_text">{s.group}</span>
+              <div class="flex flex-wrap gap-2 text-xs">
+                {s.items.map((i) => (
+                  <span class="bg-btn_back px-2 py-1">{i}</span>
+                ))}
+              </div>
+            </div>
+          ))
+        }
+      </div>
+    </section>
+
+    <Divider />
+
+    <section class="flex flex-col gap-6">
+      <h2 class="font-theme_bold text-2xl text-head_text slg:text-3xl">Expérience</h2>
+      <div class="flex flex-col gap-6 py-2">
+        {
+          work.map((w) => (
+            <div class="flex flex-col gap-1 sm:flex-row sm:items-baseline sm:gap-6">
+              <span class="font-theme_bold text-head_text">
+                {w.link ? (
+                  <a href={w.link} target="_blank" rel="noopener noreferrer" class="hover:text-link_text_hover">
+                    {w.company}
+                  </a>
+                ) : (
+                  w.company
+                )}
+              </span>
+              <span class="hidden flex-1 border-b border-border_sm sm:block" />
+              <span class="text-sm sm:text-right sm:text-base">{w.role}</span>
+              <span class="text-sm text-p_text sm:w-32 sm:text-right">{w.period}</span>
+            </div>
+          ))
+        }
+      </div>
+    </section>
+
+    <CtaSection />
+  </article>
+</BaseLayout>

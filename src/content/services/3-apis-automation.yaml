@@ -6,3 +6,10 @@ points:
   - "REST & authenticated partner APIs"
   - "Webhooks & third-party integrations"
   - "Background jobs & scheduled tasks"
+fr:
+  title: "API, Intégrations & Automatisation"
+  blurb: "Connectez vos systèmes et laissez les tâches répétitives tourner toutes seules : API partenaires, webhooks et jobs planifiés."
+  points:
+    - "API REST & partenaires authentifiées"
+    - "Webhooks & intégrations tierces"
+    - "Jobs en arrière-plan & tâches planifiées"

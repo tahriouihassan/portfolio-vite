@@ -6,3 +6,10 @@ points:
   - "SSR/SSG, sitemaps & Core Web Vitals"
   - "Multilingual & technical SEO architecture"
   - "White-label / multi-brand platforms"
+fr:
+  title: "Performance, SEO & Marque blanche"
+  blurb: "Des sites rapides, indexables et multilingues, et un seul codebase qui alimente plusieurs marques."
+  points:
+    - "SSR/SSG, sitemaps & Core Web Vitals"
+    - "SEO technique & multilingue"
+    - "Plateformes marque blanche / multi-marques"

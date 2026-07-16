@@ -6,3 +6,10 @@ points:
   - "DigitalOcean, Docker, Nginx & PM2"
   - "PostgreSQL, Redis & queue monitoring"
   - "Cloudflare, staging/prod & incident fixes"
+fr:
+  title: "DevOps & Support Production"
+  blurb: "Je ne fais pas que livrer, je garde le tout en ligne : déploiements, monitoring et résolution d'incidents avec sang-froid."
+  points:
+    - "DigitalOcean, Docker, Nginx & PM2"
+    - "PostgreSQL, Redis & monitoring des files"
+    - "Cloudflare, staging/prod & correctifs d'incidents"

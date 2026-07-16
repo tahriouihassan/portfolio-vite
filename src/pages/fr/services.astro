@@ -1,52 +1,52 @@
 ---
 import { getCollection } from "astro:content";
-import BaseLayout from "../layouts/BaseLayout.astro";
-import ServiceCard from "../components/ServiceCard.astro";
-import Divider from "../components/Divider.astro";
-import CtaSection from "../components/CtaSection.astro";
-import { ui, resolveService } from "../i18n";
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import ServiceCard from "../../components/ServiceCard.astro";
+import Divider from "../../components/Divider.astro";
+import CtaSection from "../../components/CtaSection.astro";
+import { ui, resolveService } from "../../i18n";
 
 const services = (await getCollection("services")).sort(
   (a, b) => a.data.order - b.data.order
 );
-const engagements = ui.en.engagements;
+const engagements = ui.fr.engagements;
 
 const process = [
   {
     step: "01",
-    title: "Understand the goal",
-    body: "I start from the commercial outcome, not the ticket. What has to happen, for whom, and why it matters.",
+    title: "Comprendre l'objectif",
+    body: "Je pars du résultat commercial, pas du ticket. Ce qui doit se passer, pour qui, et pourquoi c'est important.",
   },
   {
     step: "02",
-    title: "Design the workflow",
-    body: "UX, data model and architecture together, so the thing is usable, scalable and sane to maintain.",
+    title: "Concevoir le workflow",
+    body: "UX, modèle de données et architecture ensemble, pour un produit utilisable, scalable et sain à maintenir.",
   },
   {
     step: "03",
-    title: "Build the whole thing",
-    body: "Frontend, backend, payments, integrations and infrastructure. One person, one coherent system.",
+    title: "Tout construire",
+    body: "Frontend, backend, paiements, intégrations et infrastructure. Une seule personne, un système cohérent.",
   },
   {
     step: "04",
-    title: "Ship & support",
-    body: "Deploy, monitor and stay on call. I fix the production issues most freelancers hand back to you.",
+    title: "Livrer & assurer le suivi",
+    body: "Déploiement, monitoring et astreinte. Je corrige les problèmes de production que la plupart des freelances vous laissent.",
   },
 ];
 
 const differentiators = [
-  "I understand complete products: design, frontend, backend, infra, payments, SEO and operations.",
-  "I've shipped commercial platforms that sell tickets, take payments and manage real bookings.",
-  "I take production responsibility. Servers, databases, queues, tracking and outages included.",
-  "I combine engineering with product thinking: UX, conversion, SEO, pricing and onboarding.",
-  "I've led development and coordinated other developers and non-technical stakeholders.",
-  "I build reusable, multi-brand systems and white-label platforms with controlled customization.",
+  "Je comprends les produits dans leur ensemble : design, frontend, backend, infra, paiements, SEO et exploitation.",
+  "J'ai livré des plateformes commerciales qui vendent des billets, encaissent des paiements et gèrent de vraies réservations.",
+  "J'assume la responsabilité de la production. Serveurs, bases de données, files, tracking et incidents compris.",
+  "J'allie ingénierie et vision produit : UX, conversion, SEO, pricing et onboarding.",
+  "J'ai dirigé des développements et coordonné d'autres développeurs et des interlocuteurs non techniques.",
+  "Je construis des systèmes réutilisables et multi-marques, en marque blanche avec une personnalisation maîtrisée.",
 ];
 ---
 
 <BaseLayout
   title="Services"
-  description="Freelance full-stack development: SaaS platforms, e-commerce and payments, APIs and automation, AI features, DevOps and technical SEO, built and supported end-to-end."
+  description="Développement full-stack freelance : plateformes SaaS, e-commerce et paiements, API et automatisation, fonctionnalités IA, DevOps et SEO technique, construits et suivis de bout en bout."
 >
   <div class="flex flex-col gap-16 slg:gap-24">
     <section class="flex flex-col gap-5">
@@ -54,13 +54,13 @@ const differentiators = [
         Services<span class="text-link_text_hover">.</span>
       </h1>
       <p class="max-w-2xl text-base slg:text-lg">
-        I help founders and teams ship revenue-generating web products, and I stay involved after
-        launch. Here's what I take on.
+        J'aide les fondateurs et les équipes à livrer des produits web générateurs de revenus, et je
+        reste impliqué après le lancement. Voici ce que je prends en charge.
       </p>
     </section>
 
     <section class="grid grid-cols-1 gap-5 md:grid-cols-2">
-      {services.map((s) => <ServiceCard {...resolveService(s.data, "en")} />)}
+      {services.map((s) => <ServiceCard {...resolveService(s.data, "fr")} />)}
     </section>
 
     <Divider />
@@ -90,7 +90,7 @@ const differentiators = [
 
     <section class="flex flex-col gap-8">
       <h2 class="font-theme_bold text-2xl text-head_text slg:text-4xl">
-        How I work<span class="text-link_text_hover">.</span>
+        Ma façon de travailler<span class="text-link_text_hover">.</span>
       </h2>
       <div class="grid grid-cols-1 gap-5 sm:grid-cols-2 slg:grid-cols-4">
         {
@@ -109,7 +109,7 @@ const differentiators = [
 
     <section class="flex flex-col gap-8">
       <h2 class="font-theme_bold text-2xl text-head_text slg:text-4xl">
-        Why work with me<span class="text-link_text_hover">.</span>
+        Pourquoi travailler avec moi<span class="text-link_text_hover">.</span>
       </h2>
       <ul class="grid grid-cols-1 gap-x-8 gap-y-4 slg:grid-cols-2">
         {
@@ -123,6 +123,6 @@ const differentiators = [
       </ul>
     </section>
 
-    <CtaSection heading="Let's scope your project" />
+    <CtaSection heading="Cadrons votre projet" />
   </div>
 </BaseLayout>
