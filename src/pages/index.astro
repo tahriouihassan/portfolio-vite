@@ -1,0 +1,108 @@
+---
+import { getCollection } from "astro:content";
+import BaseLayout from "../layouts/BaseLayout.astro";
+import Hero from "../components/Hero.astro";
+import Divider from "../components/Divider.astro";
+import ServiceCard from "../components/ServiceCard.astro";
+import ProjectCard from "../components/ProjectCard.astro";
+import TestimonialCard from "../components/TestimonialCard.astro";
+import CtaSection from "../components/CtaSection.astro";
+import TheSocials from "../components/TheSocials.astro";
+import Icon from "../components/Icon.astro";
+import LinkBtn from "../components/LinkBtn.astro";
+import { SOCIALS } from "../consts";
+
+const upworkUrl = SOCIALS.find((s) => s.icon === "upwork")?.url;
+
+const services = (await getCollection("services")).sort(
+  (a, b) => a.data.order - b.data.order
+);
+const featured = (await getCollection("projects"))
+  .filter((p) => p.data.featured && p.data.status === "active")
+  .sort((a, b) => a.data.order - b.data.order);
+const testimonials = (await getCollection("testimonials")).sort(
+  (a, b) => a.data.order - b.data.order
+);
+---
+
+<BaseLayout>
+  <div class="flex flex-col gap-16 slg:gap-24">
+    <Hero />
+    <TheSocials />
+
+    <Divider />
+
+    <!-- SERVICES -->
+    <section class="flex flex-col gap-8">
+      <div class="flex flex-col gap-3">
+        <h2 class="font-theme_bold text-2xl text-head_text slg:text-4xl">
+          What I build for clients<span class="text-link_text_hover">.</span>
+        </h2>
+        <p class="max-w-2xl text-sm slg:text-lg">
+          One developer who can own the whole product: design, frontend, backend, payments,
+          infrastructure and the support after launch.
+        </p>
+      </div>
+      <div class="grid grid-cols-1 gap-5 sm:grid-cols-2 slg:grid-cols-3">
+        {services.map((s) => <ServiceCard {...s.data} />)}
+      </div>
+      <a
+        href="/services"
+        class="inline-flex w-fit items-center gap-1 font-theme_bold text-sm text-link_text_hover hover:underline underline-offset-4"
+      >
+        See how I work <Icon name="arrow-right" size={16} />
+      </a>
+    </section>
+
+    <Divider />
+
+    <!-- FEATURED WORK -->
+    <section class="flex flex-col gap-8">
+      <div class="flex flex-col gap-3">
+        <h2 class="font-theme_bold text-2xl text-head_text slg:text-4xl">
+          Featured work<span class="text-link_text_hover">.</span>
+        </h2>
+        <p class="max-w-2xl text-sm slg:text-lg">
+          Real, commercial products: ticketing platforms, SaaS tools and job boards.
+        </p>
+      </div>
+      <div class="grid grid-cols-1 gap-6 slg:grid-cols-2">
+        {featured.map((p) => <ProjectCard project={p} />)}
+      </div>
+      <a
+        href="/projects"
+        class="inline-flex w-fit items-center gap-1 font-theme_bold text-sm text-link_text_hover hover:underline underline-offset-4"
+      >
+        View all projects <Icon name="arrow-right" size={16} />
+      </a>
+    </section>
+
+    {
+      testimonials.length > 0 && (
+        <>
+          <Divider />
+          <section class="flex flex-col gap-8">
+            <h2 class="font-theme_bold text-2xl text-head_text slg:text-4xl">
+              What clients say<span class="text-link_text_hover">.</span>
+            </h2>
+            {
+              upworkUrl && (
+                <p class="text-sm slg:text-base">
+                  Real reviews from my <LinkBtn link={upworkUrl}>Upwork profile</LinkBtn>, where I
+                  hold a 100% Job Success Score. Verify them there.
+                </p>
+              )
+            }
+            <div class="grid grid-cols-1 gap-5 slg:grid-cols-3">
+              {testimonials.map((t) => (
+                <TestimonialCard {...t.data} />
+              ))}
+            </div>
+          </section>
+        </>
+      )
+    }
+
+    <CtaSection />
+  </div>
+</BaseLayout>

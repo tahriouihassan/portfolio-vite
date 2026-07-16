@@ -1,0 +1,54 @@
+---
+import type { CollectionEntry } from "astro:content";
+import ProjectImage from "./ProjectImage.astro";
+import Icon from "./Icon.astro";
+
+interface Props {
+  project: CollectionEntry<"projects">;
+}
+const { project } = Astro.props;
+const { data, slug, body } = project;
+
+const hasCaseStudy = body.trim().length > 0;
+const href = hasCaseStudy ? `/projects/${slug}` : data.link ?? null;
+const external = !hasCaseStudy && !!data.link;
+const domain = data.link ? new URL(data.link).hostname.replace(/^www\./, "") : null;
+const Tag = href ? "a" : "div";
+---
+
+<Tag
+  href={href}
+  target={external ? "_blank" : undefined}
+  rel={external ? "noopener noreferrer" : undefined}
+  class="group flex h-full flex-col gap-6 rounded-md border border-border_sm bg-item_back p-6 transition-colors hover:bg-item_hover_back lg:py-8"
+>
+  <ProjectImage image={data.image} title={data.title} class="h-44 slg:h-48" />
+  <div class="flex flex-1 flex-col gap-4">
+    <h3 class="font-theme_bold text-lg text-head_text slg:text-xl">{data.title}</h3>
+    {
+      data.tech.length > 0 && (
+        <div class="flex flex-wrap gap-2 text-xs">
+          {data.tech.slice(0, 6).map((t) => (
+            <span class="bg-btn_back px-2 py-1">{t}</span>
+          ))}
+        </div>
+      )
+    }
+    <p class="text-sm md:text-base">{data.description}</p>
+    <div class="mt-auto pt-1">
+      {
+        hasCaseStudy ? (
+          <span class="inline-flex items-center gap-1 font-theme_bold text-sm text-link_text_hover">
+            Read case study
+            <Icon name="arrow-right" size={16} class="transition-transform group-hover:translate-x-1" />
+          </span>
+        ) : domain ? (
+          <span class="inline-flex items-center gap-1 text-sm text-action_text">
+            {domain}
+            <Icon name="arrow-up-right" size={16} />
+          </span>
+        ) : null
+      }
+    </div>
+  </div>
+</Tag>

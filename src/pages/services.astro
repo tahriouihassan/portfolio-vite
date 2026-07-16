@@ -1,0 +1,103 @@
+---
+import { getCollection } from "astro:content";
+import BaseLayout from "../layouts/BaseLayout.astro";
+import ServiceCard from "../components/ServiceCard.astro";
+import Divider from "../components/Divider.astro";
+import CtaSection from "../components/CtaSection.astro";
+
+const services = (await getCollection("services")).sort(
+  (a, b) => a.data.order - b.data.order
+);
+
+const process = [
+  {
+    step: "01",
+    title: "Understand the goal",
+    body: "I start from the commercial outcome, not the ticket. What has to happen, for whom, and why it matters.",
+  },
+  {
+    step: "02",
+    title: "Design the workflow",
+    body: "UX, data model and architecture together, so the thing is usable, scalable and sane to maintain.",
+  },
+  {
+    step: "03",
+    title: "Build the whole thing",
+    body: "Frontend, backend, payments, integrations and infrastructure. One person, one coherent system.",
+  },
+  {
+    step: "04",
+    title: "Ship & support",
+    body: "Deploy, monitor and stay on call. I fix the production issues most freelancers hand back to you.",
+  },
+];
+
+const differentiators = [
+  "I understand complete products: design, frontend, backend, infra, payments, SEO and operations.",
+  "I've shipped commercial platforms that sell tickets, take payments and manage real bookings.",
+  "I take production responsibility. Servers, databases, queues, tracking and outages included.",
+  "I combine engineering with product thinking: UX, conversion, SEO, pricing and onboarding.",
+  "I've led development and coordinated other developers and non-technical stakeholders.",
+  "I build reusable, multi-brand systems and white-label platforms with controlled customization.",
+];
+---
+
+<BaseLayout
+  title="Services"
+  description="Freelance full-stack development: SaaS platforms, e-commerce and payments, APIs and automation, AI features, DevOps and technical SEO, built and supported end-to-end."
+>
+  <div class="flex flex-col gap-16 slg:gap-24">
+    <section class="flex flex-col gap-5">
+      <h1 class="font-theme_bold text-3xl text-head_text sm:text-4xl slg:text-5xl">
+        Services<span class="text-link_text_hover">.</span>
+      </h1>
+      <p class="max-w-2xl text-base slg:text-lg">
+        I help founders and teams ship revenue-generating web products, and I stay involved after
+        launch. Here's what I take on.
+      </p>
+    </section>
+
+    <section class="grid grid-cols-1 gap-5 sm:grid-cols-2 slg:grid-cols-3">
+      {services.map((s) => <ServiceCard {...s.data} />)}
+    </section>
+
+    <Divider />
+
+    <section class="flex flex-col gap-8">
+      <h2 class="font-theme_bold text-2xl text-head_text slg:text-4xl">
+        How I work<span class="text-link_text_hover">.</span>
+      </h2>
+      <div class="grid grid-cols-1 gap-5 sm:grid-cols-2 slg:grid-cols-4">
+        {
+          process.map((p) => (
+            <div class="flex flex-col gap-3 rounded-md border border-border_sm bg-item_back p-6">
+              <span class="font-theme_bold text-2xl text-link_text_hover">{p.step}</span>
+              <h3 class="font-theme_bold text-head_text">{p.title}</h3>
+              <p class="text-sm">{p.body}</p>
+            </div>
+          ))
+        }
+      </div>
+    </section>
+
+    <Divider />
+
+    <section class="flex flex-col gap-8">
+      <h2 class="font-theme_bold text-2xl text-head_text slg:text-4xl">
+        Why work with me<span class="text-link_text_hover">.</span>
+      </h2>
+      <ul class="grid grid-cols-1 gap-x-8 gap-y-4 slg:grid-cols-2">
+        {
+          differentiators.map((d) => (
+            <li class="flex items-start gap-3 text-sm slg:text-base">
+              <span class="mt-1.5 h-2 w-2 shrink-0 rounded-full bg-topbar" />
+              <span>{d}</span>
+            </li>
+          ))
+        }
+      </ul>
+    </section>
+
+    <CtaSection heading="Let's scope your project" />
+  </div>
+</BaseLayout>

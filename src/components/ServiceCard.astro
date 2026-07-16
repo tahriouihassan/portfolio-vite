@@ -1,0 +1,28 @@
+---
+import Icon from "./Icon.astro";
+interface Props {
+  title: string;
+  blurb: string;
+  points: string[];
+  icon: string;
+}
+const { title, blurb, points, icon } = Astro.props;
+---
+
+<div class="flex h-full flex-col gap-4 rounded-md border border-border_sm bg-item_back p-6 transition-colors hover:bg-item_hover_back">
+  <div class="flex h-11 w-11 items-center justify-center rounded-md border border-action_border bg-action_back text-link_text_hover">
+    <Icon name={icon} size={22} />
+  </div>
+  <h3 class="font-theme_bold text-lg text-head_text">{title}</h3>
+  <p class="text-sm">{blurb}</p>
+  <ul class="mt-auto flex flex-col gap-2 pt-2 text-sm">
+    {
+      points.map((p) => (
+        <li class="flex items-start gap-2">
+          <Icon name="check" size={16} class="mt-0.5 shrink-0 text-link_text_hover" />
+          <span>{p}</span>
+        </li>
+      ))
+    }
+  </ul>
+</div>

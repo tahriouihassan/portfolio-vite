@@ -1,11 +1,4 @@
 User-agent: *
 Allow: /
-Disallow: /api/
-Disallow: /admin/
-Disallow: /private/
 
-# Optimize crawling rate
-Crawl-delay: 10
-
-# Sitemap location
-Sitemap: https://tahrioui.dev/sitemap.xml
+Sitemap: https://tahrioui.dev/sitemap-index.xml

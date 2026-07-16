@@ -1,0 +1,79 @@
+---
+import { CONTACT, SITE } from "../consts";
+import Icon from "./Icon.astro";
+---
+
+<form id="contact-form" class="flex flex-col gap-5" action="https://api.web3forms.com/submit" method="POST">
+  <input type="hidden" name="access_key" value={CONTACT.web3formsKey} />
+  <input type="hidden" name="subject" value={`New project enquiry from your portfolio (${SITE.name})`} />
+  <input type="hidden" name="from_name" value={`${SITE.name} portfolio`} />
+  <!-- Honeypot: bots fill this, humans don't. -->
+  <input type="checkbox" name="botcheck" class="hidden" style="display:none" tabindex="-1" autocomplete="off" />
+
+  <div class="grid gap-5 sm:grid-cols-2">
+    <label class="flex flex-col gap-2 text-sm">
+      <span class="font-theme_bold text-head_text">Name</span>
+      <input name="name" required autocomplete="name" class="input" placeholder="Your name" />
+    </label>
+    <label class="flex flex-col gap-2 text-sm">
+      <span class="font-theme_bold text-head_text">Email</span>
+      <input type="email" name="email" required autocomplete="email" class="input" placeholder="you@company.com" />
+    </label>
+  </div>
+
+  <label class="flex flex-col gap-2 text-sm">
+    <span class="font-theme_bold text-head_text">Project details</span>
+    <textarea
+      name="message"
+      required
+      rows="6"
+      class="input resize-y"
+      placeholder="What are you building? Rough timeline and budget range help too."></textarea>
+  </label>
+
+  <div class="flex flex-wrap items-center gap-4">
+    <button
+      type="submit"
+      class="inline-flex items-center gap-2 rounded-md border border-accent bg-accent px-6 py-3 font-theme_bold text-white transition hover:brightness-110 disabled:opacity-60"
+    >
+      <Icon name="mail" size={18} /> Send message
+    </button>
+    <p id="form-status" class="text-sm" role="status" aria-live="polite"></p>
+  </div>
+</form>
+
+<script is:inline>
+  (function () {
+    var form = document.getElementById("contact-form");
+    var status = document.getElementById("form-status");
+    if (!form) return;
+    form.addEventListener("submit", async function (e) {
+      e.preventDefault();
+      var btn = form.querySelector('button[type="submit"]');
+      btn.disabled = true;
+      status.textContent = "Sending…";
+      status.style.color = "#b1b1b1";
+      try {
+        var res = await fetch(form.action, {
+          method: "POST",
+          headers: { Accept: "application/json" },
+          body: new FormData(form),
+        });
+        var data = await res.json();
+        if (res.ok) {
+          form.reset();
+          status.textContent = "Thanks, I'll get back to you shortly.";
+          status.style.color = "#4ade80";
+        } else {
+          status.textContent = data.message || "Something went wrong. Please email me directly.";
+          status.style.color = "#f87171";
+        }
+      } catch (err) {
+        status.textContent = "Network error. Please email me directly.";
+        status.style.color = "#f87171";
+      } finally {
+        btn.disabled = false;
+      }
+    });
+  })();
+</script>

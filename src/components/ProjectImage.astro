@@ -1,0 +1,42 @@
+---
+import { Image } from "astro:assets";
+import type { ImageMetadata } from "astro";
+
+interface Props {
+  image?: ImageMetadata;
+  title: string;
+  /** Aspect / sizing utility classes for the frame. */
+  class?: string;
+}
+const { image, title, class: className = "aspect-video" } = Astro.props;
+---
+
+{
+  image ? (
+    <div class:list={["w-full overflow-hidden rounded-lg", className]}>
+      <Image
+        src={image}
+        alt={`${title} screenshot`}
+        widths={[400, 800, 1200]}
+        sizes="(max-width: 978px) 100vw, 50vw"
+        class="h-full w-full object-cover"
+        loading="lazy"
+      />
+    </div>
+  ) : (
+    <div
+      class:list={[
+        "relative flex w-full items-center justify-center overflow-hidden rounded-lg border border-border_sm bg-item_back",
+        className,
+      ]}
+    >
+      <div class="absolute inset-x-0 top-0 h-1 bg-topbar opacity-80" />
+      <span class="px-6 text-center font-theme_bold text-xl text-head_text/80 slg:text-2xl">
+        {title}
+      </span>
+      <span class="absolute bottom-3 right-4 text-[10px] uppercase tracking-widest text-p_text/60">
+        preview
+      </span>
+    </div>
+  )
+}

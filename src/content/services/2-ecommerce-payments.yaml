@@ -1,0 +1,8 @@
+title: "E-Commerce & Payments"
+blurb: "Checkout, billing and subscriptions done right. Revenue-critical code that has to work every single time."
+icon: "cart"
+order: 2
+points:
+  - "Mollie & Stripe integrations"
+  - "Subscriptions, installments & webhooks"
+  - "Invoices, PDFs & order automation"

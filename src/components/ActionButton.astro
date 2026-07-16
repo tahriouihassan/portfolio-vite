@@ -1,0 +1,24 @@
+---
+interface Props {
+  link: string;
+  variant?: "default" | "primary";
+  external?: boolean;
+  class?: string;
+}
+const { link, variant = "default", external, class: className = "" } = Astro.props;
+
+const isExternal = external ?? /^https?:\/\//.test(link);
+const rel = isExternal ? "noopener noreferrer" : undefined;
+const target = isExternal ? "_blank" : undefined;
+
+const base =
+  "inline-flex items-center gap-2 rounded-md font-theme_bold text-sm transition-colors px-3 py-2 md:px-4 slg:text-base slg:px-6 slg:py-3 w-fit border";
+const variants = {
+  default: "bg-btn_back border-link_border text-btn_text hover:bg-border_sm",
+  primary: "bg-accent border-accent text-white hover:brightness-110",
+};
+---
+
+<a href={link} target={target} rel={rel} class:list={[base, variants[variant], className]}>
+  <slot />
+</a>

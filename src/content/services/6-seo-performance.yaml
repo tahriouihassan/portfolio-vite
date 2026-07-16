@@ -1,0 +1,8 @@
+title: "Performance, SEO & White-Label"
+blurb: "Fast, crawlable, multilingual sites, and one codebase that can power multiple brands."
+icon: "gauge"
+order: 6
+points:
+  - "SSR/SSG, sitemaps & Core Web Vitals"
+  - "Multilingual & technical SEO architecture"
+  - "White-label / multi-brand platforms"

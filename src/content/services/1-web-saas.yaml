@@ -1,0 +1,8 @@
+title: "Full-Stack Web & SaaS Platforms"
+blurb: "From idea and UI to backend, database and launch. I build complete products, not just screens or endpoints."
+icon: "layers"
+order: 1
+points:
+  - "Next.js, Nuxt, Laravel & Strapi"
+  - "Dashboards, multi-step flows & auth"
+  - "Multi-tenant / team-based SaaS"

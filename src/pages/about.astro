@@ -1,0 +1,142 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+import Divider from "../components/Divider.astro";
+import LinkBtn from "../components/LinkBtn.astro";
+import CtaSection from "../components/CtaSection.astro";
+import { SOCIALS } from "../consts";
+
+const github = SOCIALS.find((s) => s.name === "GitHub")?.url ?? "#";
+
+const work = [
+  {
+    company: "VisitFootball",
+    role: "Lead Full-Stack Developer",
+    period: "2023 – Present",
+    link: "https://visitfootball.com",
+  },
+  {
+    company: "Inbetween",
+    role: "Full-Stack Developer",
+    period: "2020 – 2022",
+    link: "https://inbetween.tech/",
+  },
+  {
+    company: "e-Coopera",
+    role: "Full-Stack Developer",
+    period: "2019 – 2021",
+    link: null,
+  },
+  {
+    company: "FCPO",
+    role: "Full-Stack Developer",
+    period: "2020",
+    link: null,
+  },
+  {
+    company: "Audit Action Plus",
+    role: "Junior Full-Stack Developer",
+    period: "2019",
+    link: "https://auditactionplus.com/",
+  },
+];
+
+const skills = [
+  { group: "Frontend", items: ["Next.js", "React", "Vue", "Nuxt", "TypeScript", "Tailwind", "Inertia"] },
+  { group: "Backend", items: ["Laravel", "PHP", "Strapi", "Node.js", "Express", "REST APIs"] },
+  { group: "Data & Infra", items: ["PostgreSQL", "MySQL", "Redis", "DigitalOcean", "Docker", "Nginx", "Cloudflare", "PM2"] },
+  { group: "Payments & AI", items: ["Stripe", "Mollie", "Puppeteer", "Playwright", "OpenAI", "DeepSeek"] },
+  { group: "Practices", items: ["SSR / SSG", "Technical SEO", "White-label", "Incident response", "Team leadership"] },
+];
+---
+
+<BaseLayout
+  title="About"
+  description="Hassan Tahrioui, a product-minded Lead Full-Stack Developer from Morocco with 9+ years building commercial web platforms end-to-end."
+>
+  <article class="flex flex-col gap-12">
+    <section class="flex flex-col gap-5">
+      <h1 class="font-theme_bold text-3xl text-head_text sm:text-4xl slg:text-5xl">
+        About<span class="text-link_text_hover">.</span>
+      </h1>
+      <div class="text-content max-w-3xl">
+        <p class="text-sm leading-relaxed slg:text-lg lg:leading-loose">
+          I'm Hassan Tahrioui, a product-minded <span class="text-head_text">Lead Full-Stack Developer</span>
+          based in Morocco, working remotely and generally aligned with European hours. Over 9+ years I've
+          learned to take a product from a rough idea and UI all the way through backend architecture,
+          payments, integrations, deployment and the support that comes after launch.
+        </p>
+        <p class="text-sm leading-relaxed slg:text-lg lg:leading-loose">
+          These days I lead development on
+          <LinkBtn link="https://visitfootball.com">VisitFootball</LinkBtn>, a football ticketing and
+          travel platform built with Next.js and Strapi, serving customers in three languages. I own the
+          whole path: the storefront and checkout, the APIs, the PostgreSQL and Redis backend, and the
+          infrastructure it all runs on.
+        </p>
+        <p class="text-sm leading-relaxed slg:text-lg lg:leading-loose">
+          I'm equally at home in <span class="text-head_text">Next.js, Strapi, Laravel and Vue</span>, on the
+          server (Docker, Nginx, PM2, Postgres, Redis), and in the details most people skip: payment flows
+          that never double-charge, SEO-safe URLs, consent-aware tracking, and calmly debugging production
+          when it matters. I also build practical AI into real products rather than bolting a chatbot onto
+          a form.
+        </p>
+        <p class="text-sm leading-relaxed slg:text-lg lg:leading-loose">
+          On the side I'm building my own SaaS products, like
+          <LinkBtn link="/projects/tracefox">Tracefox</LinkBtn>, a UX-monitoring and journey-testing
+          tool for online stores. You can browse my code on <LinkBtn link={github}>GitHub</LinkBtn>.
+        </p>
+        <p class="text-sm leading-relaxed slg:text-lg lg:leading-loose">
+          I speak Arabic (native), English and French (both fluent). Outside of work you'll find me gaming,
+          listening to music, or tinkering with the next side project.
+        </p>
+      </div>
+    </section>
+
+    <Divider />
+
+    <section class="flex flex-col gap-6">
+      <h2 class="font-theme_bold text-2xl text-head_text slg:text-3xl">Skills</h2>
+      <div class="flex flex-col gap-5">
+        {
+          skills.map((s) => (
+            <div class="flex flex-col gap-2 sm:flex-row sm:gap-6">
+              <span class="w-36 shrink-0 font-theme_bold text-head_text">{s.group}</span>
+              <div class="flex flex-wrap gap-2 text-xs">
+                {s.items.map((i) => (
+                  <span class="bg-btn_back px-2 py-1">{i}</span>
+                ))}
+              </div>
+            </div>
+          ))
+        }
+      </div>
+    </section>
+
+    <Divider />
+
+    <section class="flex flex-col gap-6">
+      <h2 class="font-theme_bold text-2xl text-head_text slg:text-3xl">Experience</h2>
+      <div class="flex flex-col gap-6 py-2">
+        {
+          work.map((w) => (
+            <div class="flex flex-col gap-1 sm:flex-row sm:items-baseline sm:gap-6">
+              <span class="font-theme_bold text-head_text">
+                {w.link ? (
+                  <a href={w.link} target="_blank" rel="noopener noreferrer" class="hover:text-link_text_hover">
+                    {w.company}
+                  </a>
+                ) : (
+                  w.company
+                )}
+              </span>
+              <span class="hidden flex-1 border-b border-border_sm sm:block" />
+              <span class="text-sm sm:text-right sm:text-base">{w.role}</span>
+              <span class="text-sm text-p_text sm:w-32 sm:text-right">{w.period}</span>
+            </div>
+          ))
+        }
+      </div>
+    </section>
+
+    <CtaSection />
+  </article>
+</BaseLayout>

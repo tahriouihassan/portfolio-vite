@@ -1,16 +1,29 @@
-# My Personal Portfolio
+# Portfolio — Hassan Tahrioui
 
-This is the source code to my personal page on the internet. You can give it a look at the link below!
+Personal freelance portfolio. Built with **Astro** + **Tailwind CSS**, content-driven by Markdown/YAML so adding work is a one-file change.
 
-## View Site
+## Develop
 
-Check it out: https://tahrioui.me/
+```bash
+npm install      # first time
+npm run dev      # http://localhost:4321
+npm run build    # production build to ./dist
+npm run preview  # preview the production build
+```
 
-## Technologies Used
+## Editing content
 
-- Vue.js
-- Tailwind CSS
+**All content lives in `src/content/` and `src/consts.ts`. See [CONTENT.md](CONTENT.md) for the full guide.** The short version:
 
-<!-- ## Screenshot -->
+- **Add a project** → copy `src/content/projects/_template.md`, fill the frontmatter, drop a screenshot in `src/assets/featured/`. A markdown body turns it into a full case study automatically.
+- **Edit services** → the YAML files in `src/content/services/`.
+- **Edit testimonials** → the YAML files in `src/content/testimonials/` (replace the placeholders!).
+- **Your name, links, email, booking URL, form key, analytics** → `src/consts.ts` (one file).
 
-<!-- ![Hero](https://github.com/mightykillrr/portfolio-update/blob/main/src/assets/preview.png?raw=true) -->
+## Tech
+
+- [Astro](https://astro.build) — static site, real server-rendered HTML for SEO
+- Tailwind CSS (via `postcss.config.cjs`) — design tokens in `tailwind.config.mjs`
+- Content Collections (typed Markdown/YAML) — schema in `src/content/config.ts`
+- `@astrojs/sitemap` — auto-generated `sitemap-index.xml`
+- Contact form via [Web3Forms](https://web3forms.com); booking via Calendly/cal.com

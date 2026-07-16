@@ -1,0 +1,63 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+import ContactForm from "../components/ContactForm.astro";
+import Icon from "../components/Icon.astro";
+import SocialIcon from "../components/SocialIcon.astro";
+import { SITE, CONTACT, SOCIALS } from "../consts";
+---
+
+<BaseLayout
+  title="Contact"
+  description="Start a project with Hassan Tahrioui. Book a free intro call or send a message about your web platform, SaaS or e-commerce build."
+>
+  <div class="flex flex-col gap-10">
+    <section class="flex flex-col gap-5">
+      <h1 class="font-theme_bold text-3xl text-head_text sm:text-4xl slg:text-5xl">
+        Let's build it<span class="text-link_text_hover">.</span>
+      </h1>
+      <p class="max-w-2xl text-base slg:text-lg">
+        Tell me what you're working on: a new platform, a rescue project, or a specific feature.
+        I'll reply with how I'd approach it and whether I'm the right fit.
+      </p>
+    </section>
+
+    <div class="grid grid-cols-1 gap-10 slg:grid-cols-[1.4fr_1fr]">
+      <div class="rounded-lg border border-border_sm bg-item_back p-6 slg:p-8">
+        <ContactForm />
+      </div>
+
+      <aside class="flex flex-col gap-6">
+        <a
+          href={CONTACT.bookingUrl}
+          target="_blank"
+          rel="noopener noreferrer"
+          class="flex items-center gap-3 rounded-md border border-accent bg-accent px-5 py-4 font-theme_bold text-white transition hover:brightness-110"
+        >
+          <Icon name="calendar" size={20} />
+          Book a free intro call
+        </a>
+
+        <a
+          href={`mailto:${SITE.email}`}
+          class="flex items-center gap-3 rounded-md border border-border_sm bg-action_back px-5 py-4 text-action_text transition-colors hover:bg-item_hover_back"
+        >
+          <Icon name="mail" size={20} />
+          {SITE.email}
+        </a>
+
+        <div class="flex flex-col gap-3 rounded-md border border-border_sm p-5 text-sm">
+          <span class="font-theme_bold text-head_text">Availability</span>
+          <p>{SITE.location}</p>
+          <p>Currently taking on new freelance projects.</p>
+        </div>
+
+        <div class="flex flex-col gap-2">
+          <span class="text-sm font-theme_bold text-head_text">Elsewhere</span>
+          <div class="flex gap-1">
+            {SOCIALS.map((s) => <SocialIcon title={s.name} link={s.url} icon={s.icon} />)}
+          </div>
+        </div>
+      </aside>
+    </div>
+  </div>
+</BaseLayout>

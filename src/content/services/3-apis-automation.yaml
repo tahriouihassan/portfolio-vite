@@ -1,0 +1,8 @@
+title: "APIs, Integrations & Automation"
+blurb: "Connect your systems and let the boring work run itself: partner APIs, webhooks and scheduled jobs."
+icon: "plug"
+order: 3
+points:
+  - "REST & authenticated partner APIs"
+  - "Webhooks & third-party integrations"
+  - "Background jobs & scheduled tasks"

@@ -1,0 +1,8 @@
+---
+interface Props {
+  class?: string;
+}
+const { class: className = "" } = Astro.props;
+---
+
+<hr class:list={["bg-squgily bg-repeat border-0 h-[6px] opacity-25", className]} aria-hidden="true" />

@@ -1,0 +1,8 @@
+title: "DevOps & Production Support"
+blurb: "I don't just ship it, I keep it running: deployments, monitoring and calm incident troubleshooting."
+icon: "server"
+order: 5
+points:
+  - "DigitalOcean, Docker, Nginx & PM2"
+  - "PostgreSQL, Redis & queue monitoring"
+  - "Cloudflare, staging/prod & incident fixes"

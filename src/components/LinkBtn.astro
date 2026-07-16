@@ -1,0 +1,19 @@
+---
+interface Props {
+  link: string;
+  external?: boolean;
+}
+const { link, external } = Astro.props;
+const isExternal = external ?? /^https?:\/\//.test(link);
+const rel = isExternal ? "noopener noreferrer" : undefined;
+const target = isExternal ? "_blank" : undefined;
+---
+
+<a
+  href={link}
+  target={target}
+  rel={rel}
+  class="border-b-2 border-link_border text-link transition-colors hover:border-link_border_hover hover:text-link_text_hover"
+>
+  <slot />
+</a>

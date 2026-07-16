@@ -1,0 +1,8 @@
+title: "AI-Powered Features"
+blurb: "Practical AI inside real products. Structured, cost-aware and useful, not a chatbot bolted onto a form."
+icon: "sparkles"
+order: 4
+points:
+  - "OpenAI & DeepSeek integrations"
+  - "Structured JSON generation & scoring"
+  - "Cost-efficient, plan-based model selection"

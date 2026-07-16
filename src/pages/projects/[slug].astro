@@ -1,0 +1,144 @@
+---
+import { getCollection } from "astro:content";
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import ProjectImage from "../../components/ProjectImage.astro";
+import ActionButton from "../../components/ActionButton.astro";
+import CtaSection from "../../components/CtaSection.astro";
+import Icon from "../../components/Icon.astro";
+
+export async function getStaticPaths() {
+  const projects = (await getCollection("projects")).filter(
+    (p) => p.body.trim().length > 0
+  );
+  return projects.map((p) => ({ params: { slug: p.slug }, props: { project: p } }));
+}
+
+const { project } = Astro.props;
+const { data } = project;
+const { Content } = await project.render();
+
+const meta = [data.role, data.year, data.client].filter(Boolean).join(" · ");
+const domain = data.link ? new URL(data.link).hostname.replace(/^www\./, "") : null;
+---
+
+<BaseLayout title={data.title} description={data.description} article={true}>
+  <article class="flex flex-col gap-10">
+    <a
+      href="/projects"
+      class="inline-flex w-fit items-center gap-1 text-sm text-p_text transition-colors hover:text-head_text"
+    >
+      <Icon name="arrow-right" size={16} class="rotate-180" /> Back to projects
+    </a>
+
+    <header class="flex flex-col gap-5">
+      <h1 class="font-theme_bold text-3xl text-head_text sm:text-4xl slg:text-5xl">
+        {data.title}
+      </h1>
+      {meta && <p class="text-sm text-p_text">{meta}</p>}
+      {data.outcome && <p class="text-base text-link_text_hover slg:text-lg">{data.outcome}</p>}
+      {
+        data.tech.length > 0 && (
+          <div class="flex flex-wrap gap-2 text-xs">
+            {data.tech.map((t) => (
+              <span class="bg-btn_back px-2 py-1">{t}</span>
+            ))}
+          </div>
+        )
+      }
+      <div class="flex flex-wrap gap-3 pt-1">
+        {
+          data.link && (
+            <ActionButton link={data.link} variant="primary">
+              Visit {domain}
+              <Icon name="arrow-up-right" size={18} />
+            </ActionButton>
+          )
+        }
+        {
+          data.repo && (
+            <ActionButton link={data.repo}>
+              <Icon name="github" size={18} />Source
+            </ActionButton>
+          )
+        }
+      </div>
+    </header>
+
+    {data.image && <ProjectImage image={data.image} title={data.title} class="aspect-video" />}
+
+    {
+      data.video && (
+        <div
+          class="relative w-full overflow-hidden rounded-lg border border-border_sm"
+          style="padding-bottom:56.25%"
+        >
+          <iframe
+            src={data.video}
+            class="absolute inset-0 h-full w-full"
+            loading="lazy"
+            allowfullscreen
+            title={`${data.title} demo`}
+          />
+        </div>
+      )
+    }
+
+    <div class="case-study-body max-w-3xl">
+      <Content />
+    </div>
+
+    <CtaSection heading="Want something like this?" />
+  </article>
+</BaseLayout>
+
+<style>
+  .case-study-body :global(h2) {
+    font-family: "MonoLisaBold", "Monaco", monospace;
+    color: #eaeaea;
+    font-size: 1.35rem;
+    margin-top: 2.5rem;
+    margin-bottom: 0.75rem;
+  }
+  .case-study-body :global(h3) {
+    font-family: "MonoLisaBold", "Monaco", monospace;
+    color: #eaeaea;
+    font-size: 1.1rem;
+    margin-top: 2rem;
+    margin-bottom: 0.5rem;
+  }
+  .case-study-body :global(p) {
+    color: #b1b1b1;
+    line-height: 1.85;
+    margin: 1rem 0;
+  }
+  .case-study-body :global(ul) {
+    list-style: disc;
+    padding-left: 1.4rem;
+    margin: 1rem 0;
+  }
+  .case-study-body :global(li) {
+    color: #b1b1b1;
+    margin: 0.5rem 0;
+  }
+  .case-study-body :global(strong) {
+    color: #eaeaea;
+    font-weight: 400;
+    font-family: "MonoLisaBold", "Monaco", monospace;
+  }
+  .case-study-body :global(a) {
+    color: #d9d9d9;
+    border-bottom: 2px solid #6c6c6c;
+    transition: color 0.2s, border-color 0.2s;
+  }
+  .case-study-body :global(a:hover) {
+    color: #6366f1;
+    border-color: rgba(99, 102, 241, 0.4);
+  }
+  .case-study-body :global(code) {
+    background: #242424;
+    border: 1px solid #363636;
+    border-radius: 4px;
+    padding: 0.1rem 0.4rem;
+    font-size: 0.9em;
+  }
+</style>

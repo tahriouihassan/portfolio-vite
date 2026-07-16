@@ -1,0 +1,18 @@
+---
+interface Props {
+  quote: string;
+  name: string;
+  role: string;
+  company?: string;
+}
+const { quote, name, role, company } = Astro.props;
+---
+
+<figure class="flex h-full flex-col gap-5 rounded-md border border-border_sm bg-item_back p-6">
+  <div class="font-theme_bold text-4xl leading-none text-link_text_hover" aria-hidden="true">&ldquo;</div>
+  <blockquote class="flex-1 text-sm leading-relaxed text-action_text slg:text-base">{quote}</blockquote>
+  <figcaption class="flex flex-col">
+    <span class="font-theme_bold text-head_text">{name}</span>
+    <span class="text-xs text-p_text">{role}{company ? ` · ${company}` : ""}</span>
+  </figcaption>
+</figure>

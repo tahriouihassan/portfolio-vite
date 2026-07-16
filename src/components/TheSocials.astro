@@ -1,0 +1,16 @@
+---
+import SocialIcon from "./SocialIcon.astro";
+import ActionButton from "./ActionButton.astro";
+import Icon from "./Icon.astro";
+import { SOCIALS, SITE } from "../consts";
+---
+
+<div class="flex items-center justify-between">
+  <div class="flex gap-1">
+    {SOCIALS.map((s) => <SocialIcon title={s.name} link={s.url} icon={s.icon} />)}
+  </div>
+  <ActionButton link={`mailto:${SITE.email}`}>
+    <Icon name="mail" size={18} />
+    Email Me
+  </ActionButton>
+</div>

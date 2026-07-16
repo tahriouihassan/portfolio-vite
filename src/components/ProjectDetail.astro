@@ -1,0 +1,63 @@
+---
+import type { CollectionEntry } from "astro:content";
+import ProjectImage from "./ProjectImage.astro";
+import ActionButton from "./ActionButton.astro";
+import Icon from "./Icon.astro";
+
+interface Props {
+  project: CollectionEntry<"projects">;
+}
+const { project } = Astro.props;
+const { data, slug, body } = project;
+
+const hasCaseStudy = body.trim().length > 0;
+const domain = data.link ? new URL(data.link).hostname.replace(/^www\./, "") : null;
+---
+
+<article class="flex flex-col items-center gap-10">
+  {
+    hasCaseStudy ? (
+      <a href={`/projects/${slug}`} class="w-full">
+        <ProjectImage image={data.image} title={data.title} class="aspect-video" />
+      </a>
+    ) : (
+      <ProjectImage image={data.image} title={data.title} class="aspect-video" />
+    )
+  }
+
+  <div class="flex w-full flex-col gap-6 slg:w-5/6">
+    <div class="flex flex-wrap items-baseline justify-between gap-x-4 gap-y-1">
+      <h2 class="font-theme_bold text-2xl text-head_text">{data.title}</h2>
+      {data.year && <span class="text-sm text-p_text">{data.year}</span>}
+    </div>
+    {data.outcome && <p class="text-sm text-link_text_hover slg:text-base">{data.outcome}</p>}
+    <p class="text-sm lg:text-lg">{data.description}</p>
+    {
+      data.tech.length > 0 && (
+        <div class="flex flex-wrap gap-2 text-xs">
+          {data.tech.map((t) => (
+            <span class="bg-btn_back px-2 py-1">{t}</span>
+          ))}
+        </div>
+      )
+    }
+    <div class="flex flex-wrap gap-3">
+      {
+        hasCaseStudy && (
+          <ActionButton link={`/projects/${slug}`} variant="primary">
+            Read case study
+            <Icon name="arrow-right" size={18} />
+          </ActionButton>
+        )
+      }
+      {
+        data.link && (
+          <ActionButton link={data.link}>
+            {domain}
+            <Icon name="arrow-up-right" size={18} />
+          </ActionButton>
+        )
+      }
+    </div>
+  </div>
+</article>

@@ -1,0 +1,46 @@
+---
+import { NAV, SOCIALS, SITE, CONTACT } from "../consts";
+import SocialIcon from "./SocialIcon.astro";
+import Icon from "./Icon.astro";
+const year = new Date().getFullYear();
+---
+
+<footer class="border-t border-border_sm">
+  <div class="mx-auto flex max-w-screen-lg flex-col gap-10 px-8 py-14 sm:px-16 slg:px-24">
+    <div class="flex flex-col gap-8 slg:flex-row slg:items-start slg:justify-between">
+      <div class="flex max-w-md flex-col gap-3">
+        <span class="font-logo text-3xl">{SITE.logo}</span>
+        <p class="text-sm leading-relaxed">
+          {SITE.role} building commercial web platforms end-to-end. Have a project in mind?
+          <a href="/contact" class="text-head_text underline decoration-link_border underline-offset-4 hover:text-link_text_hover">
+            Let's talk.
+          </a>
+        </p>
+      </div>
+
+      <nav class="flex flex-col gap-2 text-sm" aria-label="Footer">
+        <span class="font-theme_bold text-head_text">Navigate</span>
+        {NAV.map((i) => <a href={i.href} class="w-fit hover:text-head_text">{i.label}</a>)}
+        <a href="/contact" class="w-fit hover:text-head_text">Contact</a>
+      </nav>
+
+      <div class="flex flex-col gap-3 text-sm">
+        <span class="font-theme_bold text-head_text">Get in touch</span>
+        <a href={`mailto:${SITE.email}`} class="flex w-fit items-center gap-2 hover:text-head_text">
+          <Icon name="mail" size={16} />{SITE.email}
+        </a>
+        <a href={CONTACT.bookingUrl} target="_blank" rel="noopener noreferrer" class="flex w-fit items-center gap-2 hover:text-head_text">
+          <Icon name="calendar" size={16} />Book a call
+        </a>
+        <div class="mt-1 flex gap-1">
+          {SOCIALS.map((s) => <SocialIcon title={s.name} link={s.url} icon={s.icon} />)}
+        </div>
+      </div>
+    </div>
+
+    <div class="flex flex-col gap-1 border-t border-border_sm pt-6 text-xs text-p_text sm:flex-row sm:justify-between">
+      <span>© {year} {SITE.name}. All rights reserved.</span>
+      <span>{SITE.location}</span>
+    </div>
+  </div>
+</footer>

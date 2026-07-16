@@ -1,0 +1,20 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+import ActionButton from "../components/ActionButton.astro";
+import Icon from "../components/Icon.astro";
+---
+
+<BaseLayout title="Page not found" noindex={true}>
+  <div class="flex flex-col gap-6">
+    <h1 class="font-theme_bold text-7xl text-head_text sm:text-8xl">404</h1>
+    <p class="max-w-lg text-lg leading-loose">
+      The page you're looking for doesn't exist. Let's get you back to the safe and cozy home.
+    </p>
+    <div class="flex flex-wrap gap-3">
+      <ActionButton link="/" variant="primary">
+        <Icon name="arrow-right" size={18} class="rotate-180" />Go home
+      </ActionButton>
+      <ActionButton link="/projects">See my work</ActionButton>
+    </div>
+  </div>
+</BaseLayout>

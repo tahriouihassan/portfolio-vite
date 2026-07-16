@@ -1,0 +1,29 @@
+---
+import ActionButton from "./ActionButton.astro";
+import Icon from "./Icon.astro";
+import { CONTACT } from "../consts";
+interface Props {
+  heading?: string;
+  sub?: string;
+}
+const {
+  heading = "Have a project in mind?",
+  sub = "I'm available for freelance work, from a focused fix to a full platform. Tell me what you're building and I'll tell you how I'd approach it.",
+} = Astro.props;
+---
+
+<section class="relative overflow-hidden rounded-lg border border-border_sm bg-item_back px-8 py-12 text-center slg:px-12 slg:py-16">
+  <div class="absolute inset-x-0 top-0 h-1 bg-topbar"></div>
+  <div class="mx-auto flex max-w-2xl flex-col items-center gap-6">
+    <h2 class="font-theme_bold text-2xl text-head_text slg:text-4xl">{heading}</h2>
+    <p class="text-sm slg:text-lg">{sub}</p>
+    <div class="flex flex-wrap items-center justify-center gap-3">
+      <ActionButton link={CONTACT.bookingUrl} variant="primary">
+        <Icon name="calendar" size={18} />Book a call
+      </ActionButton>
+      <ActionButton link="/contact">
+        <Icon name="mail" size={18} />Send a message
+      </ActionButton>
+    </div>
+  </div>
+</section>

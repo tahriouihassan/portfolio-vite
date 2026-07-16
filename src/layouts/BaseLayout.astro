@@ -1,0 +1,135 @@
+---
+import "../styles/global.css";
+import monoLisaRegular from "../assets/fonts/MonoLisa-Regular.woff2";
+import monoLisaBold from "../assets/fonts/MonoLisa-Bold.woff2";
+import southamLogo from "../assets/fonts/Southam Demo.otf";
+import TheNavbar from "../components/TheNavbar.astro";
+import Footer from "../components/Footer.astro";
+import { SITE, SOCIALS } from "../consts";
+
+interface Props {
+  title?: string;
+  description?: string;
+  image?: string;
+  article?: boolean;
+  noindex?: boolean;
+}
+
+const {
+  title,
+  description = SITE.description,
+  image = "/preview.png",
+  article = false,
+  noindex = false,
+} = Astro.props;
+
+const pageTitle = title ? `${title} | ${SITE.name}` : SITE.title;
+// Keep the trailing slash so canonical matches the sitemap URLs exactly.
+const canonical = new URL(Astro.url.pathname, SITE.url).href;
+const ogImage = new URL(image, SITE.url).href;
+
+const personLd = {
+  "@context": "https://schema.org",
+  "@type": "Person",
+  name: SITE.name,
+  jobTitle: SITE.role,
+  description: SITE.description,
+  url: SITE.url,
+  image: ogImage,
+  email: `mailto:${SITE.email}`,
+  address: { "@type": "PostalAddress", addressCountry: "MA" },
+  sameAs: SOCIALS.map((s) => s.url),
+  knowsAbout: [
+    "Full-Stack Development",
+    "Next.js",
+    "Strapi",
+    "Laravel",
+    "Vue.js",
+    "Node.js",
+    "TypeScript",
+    "SaaS Platforms",
+    "E-commerce",
+    "Payment Integration",
+    "REST APIs",
+    "DevOps",
+    "Technical SEO",
+  ],
+};
+---
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="icon" href="/favicon.ico" sizes="any" />
+    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png" />
+    <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png" />
+    <link rel="manifest" href="/site.webmanifest" />
+    <link rel="mask-icon" href="/safari-pinned-tab.svg" color="#6366F1" />
+    <meta name="theme-color" content="#202026" />
+    <link rel="sitemap" href="/sitemap-index.xml" />
+
+    <!-- Fonts render the LCP text; preload to avoid layout swap. -->
+    <link rel="preload" href={monoLisaRegular} as="font" type="font/woff2" crossorigin />
+    <link rel="preload" href={monoLisaBold} as="font" type="font/woff2" crossorigin />
+    <link rel="preload" href={southamLogo} as="font" type="font/otf" crossorigin />
+
+    <title>{pageTitle}</title>
+    <meta name="description" content={description} />
+    <link rel="canonical" href={canonical} />
+    {noindex && <meta name="robots" content="noindex, nofollow" />}
+    <meta name="author" content={SITE.name} />
+
+    <!-- Open Graph -->
+    <meta property="og:type" content={article ? "article" : "website"} />
+    <meta property="og:site_name" content={SITE.name} />
+    <meta property="og:title" content={pageTitle} />
+    <meta property="og:description" content={description} />
+    <meta property="og:url" content={canonical} />
+    <meta property="og:image" content={ogImage} />
+
+    <!-- Twitter -->
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content={pageTitle} />
+    <meta name="twitter:description" content={description} />
+    <meta name="twitter:image" content={ogImage} />
+
+    <script type="application/ld+json" set:html={JSON.stringify(personLd)} />
+
+    <slot name="head" />
+
+    {
+      SITE.ga && (
+        <>
+          <script async src={`https://www.googletagmanager.com/gtag/js?id=${SITE.ga}`} />
+          <script is:inline define:vars={{ ga: SITE.ga }}>
+            window.dataLayer = window.dataLayer || [];
+            function gtag() {
+              dataLayer.push(arguments);
+            }
+            gtag("js", new Date());
+            gtag("config", ga);
+          </script>
+        </>
+      )
+    }
+  </head>
+  <body>
+    <a
+      href="#main"
+      class="sr-only focus:not-sr-only focus:fixed focus:left-4 focus:top-4 focus:z-50 focus:rounded-md focus:bg-btn_back focus:px-4 focus:py-2 focus:text-btn_text"
+    >
+      Skip to content
+    </a>
+    <TheNavbar />
+    <main
+      id="main"
+      class="mx-auto mb-24 mt-20 max-w-screen-lg px-8 pb-28 sm:mb-20 sm:mt-28 sm:px-16 sm:pb-24 slg:px-24 lg:mt-40"
+    >
+      <slot />
+    </main>
+    <Footer />
+  </body>
+</html>

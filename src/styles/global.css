@@ -1,0 +1,53 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@font-face {
+  font-family: "MonoLisa";
+  src: url("../assets/fonts/MonoLisa-Regular.woff2") format("woff2");
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "MonoLisaBold";
+  src: url("../assets/fonts/MonoLisa-Bold.woff2") format("woff2");
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Southam Demo";
+  src: url("../assets/fonts/Southam Demo.otf") format("opentype");
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Monaco";
+  src: url("../assets/fonts/Monaco.woff") format("woff");
+  font-display: swap;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  @apply bg-background text-p_text font-theme selection:bg-selectionBack;
+}
+
+/* Active nav link (Astro sets aria-current="page"). */
+[aria-current="page"] {
+  @apply bg-btn_back text-btn_text rounded-md;
+}
+
+/* Shared content-text rhythm (ported from the original .text-content). */
+.text-content {
+  @apply flex flex-col gap-6;
+}
+
+/* Form fields. */
+.input {
+  @apply w-full rounded-md border border-action_border bg-action_back px-4 py-3 text-action_text outline-none transition focus:border-link_border_hover;
+}
+.input::placeholder {
+  color: rgba(177, 177, 177, 0.55);
+}
