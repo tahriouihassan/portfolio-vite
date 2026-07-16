@@ -19,7 +19,7 @@ export const SITE = {
   description:
     "I design, build, and run commercial web platforms end-to-end: Next.js, Strapi, Laravel, payments, and the infrastructure behind them. Available for freelance projects.",
   /** Production URL (no trailing slash). Also set in astro.config.mjs. */
-  url: "https://tahrioui.me",
+  url: "https://www.tahrioui.me",
   /** Contact email. */
   email: "tahrioui.hsn@gmail.com",
   /** Where you're based. */
