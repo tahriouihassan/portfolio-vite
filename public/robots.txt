@@ -1,4 +1,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://tahrioui.dev/sitemap-index.xml
+Sitemap: https://tahrioui.me/sitemap-index.xml
