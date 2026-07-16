@@ -9,12 +9,14 @@ interface Props {
 const { title, blurb, points, icon } = Astro.props;
 ---
 
-<div class="flex h-full flex-col gap-4 rounded-md border border-border_sm bg-item_back p-6 transition-colors hover:bg-item_hover_back">
-  <div class="flex h-11 w-11 items-center justify-center rounded-md border border-action_border bg-action_back text-link_text_hover">
-    <Icon name={icon} size={22} />
+<div class="flex h-full flex-col gap-4 rounded-md border border-border_sm bg-item_back p-6 transition-colors hover:bg-item_hover_back slg:p-7">
+  <div class="flex items-center gap-4">
+    <div class="flex h-11 w-11 shrink-0 items-center justify-center rounded-md border border-action_border bg-action_back text-link_text_hover">
+      <Icon name={icon} size={22} />
+    </div>
+    <h3 class="font-theme_bold text-lg text-head_text slg:text-xl">{title}</h3>
   </div>
-  <h3 class="font-theme_bold text-lg text-head_text">{title}</h3>
-  <p class="text-sm">{blurb}</p>
+  <p class="text-sm leading-relaxed slg:text-base">{blurb}</p>
   <ul class="mt-auto flex flex-col gap-2 pt-2 text-sm">
     {
       points.map((p) => (

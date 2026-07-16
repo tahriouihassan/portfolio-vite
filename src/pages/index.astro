@@ -43,7 +43,7 @@ const testimonials = (await getCollection("testimonials")).sort(
           infrastructure and the support after launch.
         </p>
       </div>
-      <div class="grid grid-cols-1 gap-5 sm:grid-cols-2 slg:grid-cols-3">
+      <div class="grid grid-cols-1 gap-5 md:grid-cols-2">
         {services.map((s) => <ServiceCard {...s.data} />)}
       </div>
       <a

@@ -6,25 +6,25 @@ const isActive = (href: string) =>
 ---
 
 <nav
-  class="fixed bottom-0 z-40 flex w-full items-center justify-between border-b border-border_sm bg-navbar_back px-3 py-3 backdrop-blur-sm sm:bottom-auto sm:top-0 sm:px-6 lg:py-4"
+  class="fixed bottom-0 z-40 flex w-full items-center justify-between border-b border-border_sm bg-navbar_back px-2 py-3 backdrop-blur-sm sm:bottom-auto sm:top-0 sm:px-6 lg:py-4"
 >
   <div class="absolute left-0 top-0 h-[1px] w-full bg-topbar lg:h-1"></div>
 
   <a
     href="/"
-    class="select-none font-logo text-3xl font-normal slg:font-semibold lg:text-4xl"
+    class="select-none font-logo text-2xl font-normal sm:text-3xl slg:font-semibold lg:text-4xl"
     aria-label={`${SITE.name} home`}
   >
     {SITE.logo}
   </a>
 
-  <div class="flex items-center gap-0.5 text-sm sm:gap-2 lg:text-base">
+  <div class="flex items-center text-[13px] sm:gap-2 sm:text-sm lg:text-base">
     {
       NAV.map((item) => (
         <a
           href={item.href}
           aria-current={isActive(item.href) ? "page" : undefined}
-          class="rounded-md px-2.5 py-1.5 font-theme_bold transition-all hover:bg-action_back sm:px-4 sm:py-2"
+          class="rounded-md px-2 py-1.5 font-theme_bold transition-all hover:bg-action_back sm:px-4 sm:py-2"
         >
           {item.label}
         </a>
