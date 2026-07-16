@@ -97,6 +97,8 @@ const personLd = {
     <!-- Open Graph -->
     <meta property="og:type" content={article ? "article" : "website"} />
     <meta property="og:site_name" content={SITE.name} />
+    <meta property="og:locale" content={locale === "fr" ? "fr_FR" : "en_US"} />
+    {alt && <meta property="og:locale:alternate" content={locale === "fr" ? "en_US" : "fr_FR"} />}
     <meta property="og:title" content={pageTitle} />
     <meta property="og:description" content={description} />
     <meta property="og:url" content={canonical} />

@@ -19,9 +19,20 @@ const { Content } = await project.render();
 
 const meta = [data.role, data.year, data.client].filter(Boolean).join(" · ");
 const domain = data.link ? new URL(data.link).hostname.replace(/^www\./, "") : null;
+
+const breadcrumbLd = {
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  itemListElement: [
+    { "@type": "ListItem", position: 1, name: "Home", item: "https://www.tahrioui.me/" },
+    { "@type": "ListItem", position: 2, name: "Projects", item: "https://www.tahrioui.me/projects/" },
+    { "@type": "ListItem", position: 3, name: data.title, item: `https://www.tahrioui.me/projects/${project.slug}/` },
+  ],
+};
 ---
 
 <BaseLayout title={data.title} description={data.description} article={true}>
+  <script slot="head" type="application/ld+json" set:html={JSON.stringify(breadcrumbLd)} />
   <article class="flex flex-col gap-10">
     <a
       href="/projects"
