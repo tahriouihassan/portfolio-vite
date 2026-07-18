@@ -1,5 +1,6 @@
 ---
 import "../styles/global.css";
+import { ViewTransitions } from "astro:transitions";
 import monoLisaRegular from "../assets/fonts/MonoLisa-Regular.woff2";
 import monoLisaBold from "../assets/fonts/MonoLisa-Bold.woff2";
 import southamLogo from "../assets/fonts/Southam Demo.otf";
@@ -112,6 +113,8 @@ const personLd = {
 
     <script type="application/ld+json" set:html={JSON.stringify(personLd)} />
 
+    <ViewTransitions />
+
     <slot name="head" />
 
     {
@@ -123,12 +126,67 @@ const personLd = {
             function gtag() {
               dataLayer.push(arguments);
             }
+            window.gtag = gtag;
             gtag("js", new Date());
             gtag("config", ga);
+
+            // Extra page_views on view-transition (soft) navigations.
+            document.addEventListener("astro:page-load", function () {
+              if (window.__gaFirstLoad) {
+                gtag("event", "page_view", {
+                  page_location: location.href,
+                  page_title: document.title,
+                });
+              } else {
+                window.__gaFirstLoad = true;
+              }
+            });
+
+            // Conversion click events: book a call, WhatsApp, email, Upwork.
+            document.addEventListener("click", function (e) {
+              var a = e.target && e.target.closest ? e.target.closest("a[href]") : null;
+              if (!a) return;
+              var h = a.href || "";
+              if (h.indexOf("calendly.com") > -1) gtag("event", "book_call_click");
+              else if (h.indexOf("wa.me") > -1) gtag("event", "whatsapp_click");
+              else if (h.indexOf("mailto:") === 0) gtag("event", "email_click");
+              else if (h.indexOf("upwork.com") > -1) gtag("event", "upwork_click");
+            });
           </script>
         </>
       )
     }
+
+    <!-- Scroll reveal: tags below-the-fold blocks after load so nothing is
+         hidden without JS; re-runs after each view transition. -->
+    <script is:inline>
+      (function () {
+        function initReveal() {
+          if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+          if (!("IntersectionObserver" in window)) return;
+          var blocks = document.querySelectorAll("main > :first-child > *");
+          var io = new IntersectionObserver(
+            function (entries) {
+              entries.forEach(function (en) {
+                if (en.isIntersecting) {
+                  en.target.classList.add("revealed");
+                  io.unobserve(en.target);
+                }
+              });
+            },
+            { threshold: 0.06 }
+          );
+          blocks.forEach(function (el) {
+            if (el.classList.contains("reveal-init")) return;
+            if (el.getBoundingClientRect().top > window.innerHeight * 0.92) {
+              el.classList.add("reveal-init");
+              io.observe(el);
+            }
+          });
+        }
+        document.addEventListener("astro:page-load", initReveal);
+      })();
+    </script>
   </head>
   <body>
     <a

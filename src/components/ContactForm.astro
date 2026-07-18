@@ -50,11 +50,12 @@ const t = ui[locale].form;
   </div>
 </form>
 
-<script is:inline>
+<script is:inline data-astro-rerun>
   (function () {
     var form = document.getElementById("contact-form");
     var status = document.getElementById("form-status");
-    if (!form) return;
+    if (!form || form.dataset.bound) return;
+    form.dataset.bound = "1";
     form.addEventListener("submit", async function (e) {
       e.preventDefault();
       var btn = form.querySelector('button[type="submit"]');
@@ -72,6 +73,7 @@ const t = ui[locale].form;
           form.reset();
           status.textContent = form.dataset.msgOk;
           status.style.color = "#4ade80";
+          if (typeof window.gtag === "function") window.gtag("event", "contact_form_submit");
         } else {
           status.textContent = data.message || form.dataset.msgFail;
           status.style.color = "#f87171";

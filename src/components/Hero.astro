@@ -8,7 +8,33 @@ const locale = getLocale(Astro.url);
 const t = ui[locale].hero;
 ---
 
-<section class="flex flex-col gap-8">
+<section class="relative flex flex-col gap-8">
+  <!-- Subtle brand glows behind the hero -->
+  <div
+    class="pointer-events-none absolute -left-40 -top-44 h-[420px] w-[420px] rounded-full opacity-70 blur-2xl"
+    style="background: radial-gradient(closest-side, rgba(99,102,241,0.16), transparent);"
+    aria-hidden="true"
+  >
+  </div>
+  <div
+    class="pointer-events-none absolute -right-32 top-24 h-[360px] w-[360px] rounded-full opacity-60 blur-2xl"
+    style="background: radial-gradient(closest-side, rgba(217,70,239,0.10), transparent);"
+    aria-hidden="true"
+  >
+  </div>
+
+  <div class="flex flex-wrap items-center gap-4">
+    <span
+      class="inline-flex w-fit items-center gap-2 rounded-full border border-border_sm bg-item_back px-3 py-1.5 text-xs text-action_text"
+    >
+      <span class="relative flex h-2 w-2">
+        <span class="absolute inline-flex h-full w-full animate-ping rounded-full bg-[#4ade80] opacity-60"></span>
+        <span class="relative inline-flex h-2 w-2 rounded-full bg-[#4ade80]"></span>
+      </span>
+      {t.badge}
+    </span>
+  </div>
+
   <p class="font-theme_bold text-sm uppercase tracking-widest text-link_text_hover">
     {t.eyebrow}
   </p>

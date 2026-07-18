@@ -60,6 +60,7 @@ export const ui = {
     navCta: "Let's talk",
     contactHref: "/contact",
     hero: {
+      badge: "Available part-time for new projects",
       eyebrow: "Lead Full-Stack Developer · Freelance",
       h1: "I build commercial web platforms from idea to production, and keep them running.",
       p1: `I'm Hassan, a product-minded full-stack developer. For 9+ years I've taken web products from a rough idea and UI all the way through backend architecture, payments, integrations, deployment and production support. Right now I lead development on <span class="text-head_text">VisitFootball</span>, a live football ticketing and travel platform serving customers in three languages.`,
@@ -169,6 +170,7 @@ export const ui = {
     navCta: "Discutons",
     contactHref: "/fr/contact",
     hero: {
+      badge: "Disponible à temps partiel pour de nouveaux projets",
       eyebrow: "Développeur Full-Stack Lead · Freelance",
       h1: "Je construis des plateformes web commerciales, de l'idée à la production, et je les garde en ligne.",
       p1: `Je suis Hassan, développeur full-stack orienté produit. Depuis plus de 9 ans, je prends en charge des produits web de l'idée et de l'UI jusqu'à l'architecture backend, les paiements, les intégrations, le déploiement et le support en production. Je dirige actuellement le développement de <span class="text-head_text">VisitFootball</span>, une plateforme de billetterie et de voyages football qui sert ses clients en trois langues.`,
