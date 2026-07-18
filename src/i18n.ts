@@ -78,7 +78,7 @@ export const ui = {
     visit: "Visit",
     cta: {
       heading: "Have a project in mind?",
-      sub: "I'm available for freelance work, from a focused fix to a full platform. Tell me what you're building and I'll tell you how I'd approach it.",
+      sub: "I'm available part-time for freelance work, from a focused fix to a full platform. Tell me what you're building and I'll tell you how I'd approach it.",
       book: "Book a call",
       message: "Send a message",
     },
@@ -134,7 +134,7 @@ export const ui = {
       items: [
         {
           q: "What's your availability?",
-          a: "I'm currently taking on new freelance projects. I can usually start within one to two weeks, sooner for small engagements.",
+          a: "I freelance part-time, so I take on a small number of projects at once and give each one focused attention. I can usually start within one to two weeks, sooner for small engagements.",
         },
         {
           q: "Do you work in my timezone?",
@@ -187,7 +187,7 @@ export const ui = {
     visit: "Visiter",
     cta: {
       heading: "Un projet en tête ?",
-      sub: "Je suis disponible en freelance, d'un correctif ciblé à une plateforme complète. Dites-moi ce que vous construisez et je vous dirai comment je l'aborderais.",
+      sub: "Je suis disponible en freelance à temps partiel, d'un correctif ciblé à une plateforme complète. Dites-moi ce que vous construisez et je vous dirai comment je l'aborderais.",
       book: "Réserver un appel",
       message: "Envoyer un message",
     },
@@ -241,7 +241,7 @@ export const ui = {
       items: [
         {
           q: "Quelle est votre disponibilité ?",
-          a: "J'accepte actuellement de nouveaux projets freelance. Je peux généralement démarrer sous une à deux semaines, plus vite pour les petites missions.",
+          a: "Je travaille en freelance à temps partiel : je prends peu de projets à la fois et je donne à chacun une attention soutenue. Je peux généralement démarrer sous une à deux semaines, plus vite pour les petites missions.",
         },
         {
           q: "Travaillez-vous dans mon fuseau horaire ?",
