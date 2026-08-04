@@ -1,0 +1,28 @@
+# Hassan Tahrioui | Lead Full-Stack Developer
+
+> Freelance lead full-stack developer based in Morocco, working remotely on European hours. Builds and operates commercial web platforms end-to-end: frontend, backend, payments, integrations, deployment and production support. Available part-time for a limited number of freelance projects. Site available in English and French (/fr/).
+
+Core stack: Next.js, React, Vue, Nuxt, TypeScript, Laravel, PHP, Strapi, Node.js, PostgreSQL, MySQL, Redis, DigitalOcean, Docker, Nginx, Cloudflare, Stripe, Mollie, OpenAI, DeepSeek.
+
+Currently leads development on VisitFootball, a live multilingual football ticketing and travel platform. Also builds his own SaaS products, including Tracefox (session replay, journey testing, checkout QA and UX monitoring for online stores).
+
+## Services
+
+- [Services overview](https://www.tahrioui.me/services/): full-stack web and SaaS platforms, e-commerce and payments, APIs and automation, AI features, DevOps and production support, performance and technical SEO.
+- Engagement models: fixed-scope projects, monthly retainers, and hourly consulting from $35/hr. Every engagement starts with a free intro call.
+
+## Key pages
+
+- [Home](https://www.tahrioui.me/)
+- [Projects and case studies](https://www.tahrioui.me/projects/)
+- [VisitFootball case study](https://www.tahrioui.me/projects/visitfootball/)
+- [Tracefox case study](https://www.tahrioui.me/projects/tracefox/)
+- [About](https://www.tahrioui.me/about/)
+- [Contact and FAQ](https://www.tahrioui.me/contact/)
+
+## Contact
+
+- Email: tahrioui.hsn@gmail.com
+- Book a call: https://calendly.com/tahrioui-hsn/30min
+- Upwork (100% Job Success): https://www.upwork.com/freelancers/tahriouihsn
+- WhatsApp: https://wa.me/212687904064

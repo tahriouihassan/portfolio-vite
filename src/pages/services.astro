@@ -2,6 +2,7 @@
 import { getCollection } from "astro:content";
 import BaseLayout from "../layouts/BaseLayout.astro";
 import ServiceCard from "../components/ServiceCard.astro";
+import TestimonialCard from "../components/TestimonialCard.astro";
 import Divider from "../components/Divider.astro";
 import CtaSection from "../components/CtaSection.astro";
 import { ui, resolveService } from "../i18n";
@@ -10,6 +11,9 @@ const services = (await getCollection("services")).sort(
   (a, b) => a.data.order - b.data.order
 );
 const engagements = ui.en.engagements;
+const proofQuote = (await getCollection("testimonials")).sort(
+  (a, b) => a.data.order - b.data.order
+)[0];
 
 const process = [
   {
@@ -84,6 +88,13 @@ const differentiators = [
           ))
         }
       </div>
+      {
+        proofQuote && (
+          <div class="mx-auto w-full max-w-2xl">
+            <TestimonialCard {...proofQuote.data} />
+          </div>
+        )
+      }
     </section>
 
     <Divider />

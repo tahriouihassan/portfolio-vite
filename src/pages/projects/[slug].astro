@@ -7,13 +7,20 @@ import CtaSection from "../../components/CtaSection.astro";
 import Icon from "../../components/Icon.astro";
 
 export async function getStaticPaths() {
-  const projects = (await getCollection("projects")).filter(
-    (p) => p.body.trim().length > 0
-  );
-  return projects.map((p) => ({ params: { slug: p.slug }, props: { project: p } }));
+  const projects = (await getCollection("projects"))
+    .filter((p) => p.body.trim().length > 0)
+    .sort((a, b) => a.data.order - b.data.order);
+  return projects.map((p, i) => ({
+    params: { slug: p.slug },
+    props: {
+      project: p,
+      prev: i > 0 ? { slug: projects[i - 1].slug, title: projects[i - 1].data.title } : null,
+      next: i < projects.length - 1 ? { slug: projects[i + 1].slug, title: projects[i + 1].data.title } : null,
+    },
+  }));
 }
 
-const { project } = Astro.props;
+const { project, prev, next } = Astro.props;
 const { data } = project;
 const { Content } = await project.render();
 
@@ -97,6 +104,33 @@ const breadcrumbLd = {
     <div class="case-study-body max-w-3xl">
       <Content />
     </div>
+
+    {
+      (prev || next) && (
+        <nav class="flex flex-col gap-3 border-t border-border_sm pt-8 sm:flex-row sm:justify-between" aria-label="More case studies">
+          {prev ? (
+            <a href={`/projects/${prev.slug}`} class="group flex items-center gap-2 font-theme_bold text-sm text-p_text transition-colors hover:text-head_text">
+              <Icon name="arrow-right" size={16} class="rotate-180 transition-transform group-hover:-translate-x-1" />
+              <span>
+                <span class="block text-xs font-theme text-p_text">Previous project</span>
+                {prev.title}
+              </span>
+            </a>
+          ) : (
+            <span />
+          )}
+          {next && (
+            <a href={`/projects/${next.slug}`} class="group flex items-center gap-2 text-right font-theme_bold text-sm text-p_text transition-colors hover:text-head_text sm:ml-auto">
+              <span>
+                <span class="block text-xs font-theme text-p_text">Next project</span>
+                {next.title}
+              </span>
+              <Icon name="arrow-right" size={16} class="transition-transform group-hover:translate-x-1" />
+            </a>
+          )}
+        </nav>
+      )
+    }
 
     <CtaSection heading="Want something like this?" />
   </article>
