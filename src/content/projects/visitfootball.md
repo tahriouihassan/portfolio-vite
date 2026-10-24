@@ -58,18 +58,29 @@ As lead developer I own the technical side end to end, and I stay hands-on:
 A simplified view of the main VisitFootball and Voetbaltrips setup:
 
 ```text
-  Fans (EN, NL, ...)                         Operations & editors
-        │                                             │
-  Cloudflare: DNS, CDN, edge                          │
-        │                                             │
-  Next.js storefronts (SSR)  ── API ──►  Strapi v4: content, localization, APIs
-  VisitFootball · Voetbaltrips                 │                 │
-        │                                 PostgreSQL           Redis
-        ▼
-  Checkout ──► payment providers ──► webhooks ──► order workflow
-                                                    ├─ order documents
-                                                    ├─ transactional email
-                                                    └─ scheduled jobs
+Fans (EN, NL, ...)
+  │
+  ▼
+Cloudflare: DNS, CDN, edge
+  │
+  ▼
+Next.js storefronts (SSR)
+VisitFootball · Voetbaltrips
+  │ API
+  ▼
+Strapi v4: content, i18n, APIs
+  ├─ PostgreSQL
+  └─ Redis
+
+Editors & ops ─► Strapi admin
+
+Checkout ─► payment providers
+  │
+  ▼
+Webhooks ─► order workflow
+  ├─ order documents
+  ├─ transactional email
+  └─ scheduled jobs
 ```
 
 ## Decisions and trade-offs

@@ -32,9 +32,22 @@
   }
 }
 
+/* No sideways panning on phones: clip on both html and body, because iOS
+   Safari pans the viewport if only body is clipped. Older Safari lacks
+   `clip`, so fall back to `hidden` there. */
+html,
+body {
+  overflow-x: clip;
+}
+@supports not (overflow: clip) {
+  html,
+  body {
+    overflow-x: hidden;
+  }
+}
+
 body {
   @apply bg-background text-p_text font-sans selection:bg-selectionBack;
-  overflow-x: clip;
   -webkit-font-smoothing: antialiased;
 }
 

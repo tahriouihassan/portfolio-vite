@@ -19,9 +19,9 @@ const platforms = [
 ---
 
 <section class="relative flex flex-col gap-7" aria-labelledby="hero-title">
-  <!-- Subtle brand glow behind the hero -->
+  <!-- Subtle brand glow behind the hero (desktop only: on phones it would sit past the screen edge) -->
   <div
-    class="pointer-events-none absolute -left-40 -top-44 h-[420px] w-[420px] rounded-full opacity-70 blur-2xl"
+    class="pointer-events-none absolute -left-40 -top-44 hidden h-[420px] w-[420px] rounded-full opacity-70 blur-2xl md:block"
     style="background: radial-gradient(closest-side, rgba(99,102,241,0.14), transparent);"
     aria-hidden="true"
   >

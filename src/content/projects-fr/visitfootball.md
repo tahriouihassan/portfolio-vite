@@ -39,18 +39,29 @@ En tant que lead developer, je porte la partie technique de bout en bout, tout e
 Une vue simplifiée de l'ensemble VisitFootball et Voetbaltrips :
 
 ```text
-  Supporters (EN, NL, ...)                   Opérations & éditeurs
-        │                                             │
-  Cloudflare : DNS, CDN, edge                         │
-        │                                             │
-  Storefronts Next.js (SSR)  ── API ──►  Strapi v4 : contenu, localisation, API
-  VisitFootball · Voetbaltrips                 │                 │
-        │                                 PostgreSQL           Redis
-        ▼
-  Checkout ──► prestataires de paiement ──► webhooks ──► workflow de commande
-                                                          ├─ documents de commande
-                                                          ├─ emails transactionnels
-                                                          └─ tâches planifiées
+Supporters (EN, NL, ...)
+  │
+  ▼
+Cloudflare : DNS, CDN, edge
+  │
+  ▼
+Storefronts Next.js (SSR)
+VisitFootball · Voetbaltrips
+  │ API
+  ▼
+Strapi v4 : contenu, i18n, API
+  ├─ PostgreSQL
+  └─ Redis
+
+Éditeurs & ops ─► admin Strapi
+
+Checkout ─► paiement (PSP)
+  │
+  ▼
+Webhooks ─► workflow commande
+  ├─ documents de commande
+  ├─ emails transactionnels
+  └─ tâches planifiées
 ```
 
 ## Décisions et compromis
