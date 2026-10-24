@@ -1,0 +1,20 @@
+---
+import { getLocale, ui } from "../i18n";
+
+interface Props {
+  stage: "live" | "in-development" | "prototype" | "offline";
+}
+const { stage } = Astro.props;
+const label = ui[getLocale(Astro.url)].stage[stage];
+const dot = {
+  live: "bg-[#4ade80]",
+  "in-development": "bg-[#fbbf24]",
+  prototype: "bg-[#93c5fd]",
+  offline: "bg-p_text/60",
+}[stage];
+---
+
+<span class="inline-flex w-fit items-center gap-1.5 rounded-full border border-border_sm px-2.5 py-0.5 font-theme text-[11px] text-action_text">
+  <span class:list={["h-1.5 w-1.5 rounded-full", dot]} aria-hidden="true"></span>
+  {label}
+</span>

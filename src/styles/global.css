@@ -26,13 +26,33 @@
   font-display: swap;
 }
 
-html {
-  scroll-behavior: smooth;
+@media (prefers-reduced-motion: no-preference) {
+  html {
+    scroll-behavior: smooth;
+  }
 }
 
 body {
-  @apply bg-background text-p_text font-theme selection:bg-selectionBack;
+  @apply bg-background text-p_text font-sans selection:bg-selectionBack;
   overflow-x: clip;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* Visible keyboard focus everywhere (mouse clicks don't trigger it). */
+:focus-visible {
+  outline: 2px solid #818cf8;
+  outline-offset: 3px;
+  border-radius: 4px;
+}
+
+/* Technology / label chips keep the mono identity. */
+.chip {
+  @apply inline-block rounded-sm bg-btn_back px-2 py-1 font-theme text-xs text-action_text;
+}
+
+/* Small uppercase section label above headings. */
+.kicker {
+  @apply font-theme_bold text-xs uppercase tracking-widest text-link_text_hover;
 }
 
 /* Active nav link (Astro sets aria-current="page"). */
@@ -51,6 +71,15 @@ body {
 }
 .input::placeholder {
   color: rgba(177, 177, 177, 0.55);
+}
+
+/* Never print half-revealed blocks. */
+@media print {
+  .reveal-init {
+    opacity: 1 !important;
+    transform: none !important;
+    transition: none !important;
+  }
 }
 
 @media (prefers-reduced-motion: no-preference) {
@@ -74,4 +103,41 @@ body {
     transform: translateY(-3px);
     box-shadow: 0 10px 28px rgba(0, 0, 0, 0.35);
   }
+}
+
+/* Case-study body (EN and FR) rendered from markdown. */
+.case-study-body h2 {
+  @apply mb-3 mt-12 font-theme_bold text-xl text-head_text slg:text-2xl;
+}
+.case-study-body h3 {
+  @apply mb-2 mt-8 font-theme_bold text-lg text-head_text;
+}
+.case-study-body p,
+.case-study-body li {
+  @apply text-base leading-relaxed text-p_text slg:text-[1.0625rem];
+}
+.case-study-body p {
+  @apply my-4;
+}
+.case-study-body ul {
+  @apply my-4 list-disc pl-5;
+}
+.case-study-body li {
+  @apply my-2;
+}
+.case-study-body strong {
+  @apply font-semibold text-head_text;
+}
+.case-study-body a {
+  @apply border-b-2 border-link_border text-link transition-colors hover:border-link_border_hover hover:text-link_text_hover;
+}
+.case-study-body pre {
+  @apply my-6 overflow-x-auto rounded-md border border-border_sm p-4 text-xs leading-relaxed sm:text-sm;
+  background: #161616 !important;
+}
+.case-study-body pre code {
+  @apply font-theme;
+}
+.case-study-body :not(pre) > code {
+  @apply rounded border border-action_border bg-action_back px-1.5 py-0.5 font-theme text-[0.9em];
 }

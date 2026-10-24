@@ -1,0 +1,16 @@
+title: "Fractional technical lead"
+blurb: "Ongoing technical leadership for a team without a senior engineer in charge: decisions, reviews and releases, with hands-on work where it matters."
+icon: "users"
+order: 6
+caseStudy: "visitfootball"
+points:
+  - "Architecture decisions and technical roadmap"
+  - "Code review and coordinating developers"
+  - "Release process and production ownership"
+fr:
+  title: "Lead technique à temps partagé"
+  blurb: "Un leadership technique dans la durée pour une équipe sans ingénieur senior aux commandes : décisions, revues et releases, avec du développement là où ça compte."
+  points:
+    - "Décisions d'architecture et feuille de route technique"
+    - "Revue de code et coordination des développeurs"
+    - "Processus de release et responsabilité de la production"

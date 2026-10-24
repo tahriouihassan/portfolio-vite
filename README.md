@@ -1,6 +1,6 @@
 # Portfolio — Hassan Tahrioui
 
-Personal freelance portfolio. Built with **Astro** + **Tailwind CSS**, content-driven by Markdown/YAML so adding work is a one-file change.
+Personal portfolio: technical lead and senior full-stack engineer, English + French. Built with **Astro** + **Tailwind CSS**, content-driven by Markdown/YAML so adding work is a one-file change.
 
 ## Develop
 
@@ -9,6 +9,7 @@ npm install      # first time
 npm run dev      # http://localhost:4321
 npm run build    # production build to ./dist
 npm run preview  # preview the production build
+npx tsc --noEmit # type-check (catches missing French copy)
 ```
 
 ## Editing content
@@ -17,7 +18,9 @@ npm run preview  # preview the production build
 
 - **Add a project** → copy `src/content/projects/_template.md`, fill the frontmatter, drop a screenshot in `src/assets/featured/`. A markdown body turns it into a full case study automatically.
 - **Edit services** → the YAML files in `src/content/services/`.
-- **Edit testimonials** → the YAML files in `src/content/testimonials/` (replace the placeholders!).
+- **Edit page copy** → `src/copy/en.ts` and `src/copy/fr.ts` (French is type-checked against English).
+- **Edit experience / resume** → `src/data/experience.ts`.
+- **Edit testimonials** → the YAML files in `src/content/testimonials/` (real quotes only).
 - **Your name, links, email, booking URL, form key, analytics** → `src/consts.ts` (one file).
 
 ## Tech

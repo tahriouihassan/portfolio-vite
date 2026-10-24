@@ -1,62 +1,102 @@
 ---
 import "../styles/global.css";
 import { ViewTransitions } from "astro:transitions";
-import monoLisaRegular from "../assets/fonts/MonoLisa-Regular.woff2";
 import monoLisaBold from "../assets/fonts/MonoLisa-Bold.woff2";
-import southamLogo from "../assets/fonts/Southam Demo.otf";
-import { getLocale, alternates } from "../i18n";
+import monoLisaRegular from "../assets/fonts/MonoLisa-Regular.woff2";
+import { getLocale, alternates, ui } from "../i18n";
 import TheNavbar from "../components/TheNavbar.astro";
 import Footer from "../components/Footer.astro";
-import { SITE, SOCIALS } from "../consts";
+import { SITE, SOCIALS, LINKS } from "../consts";
 
 interface Props {
   title?: string;
   description?: string;
   image?: string;
+  imageAlt?: string;
   article?: boolean;
   noindex?: boolean;
+  /**
+   * hreflang pair for pages outside the static TRANSLATED list (e.g. case
+   * studies with a French version). `null` forces no alternates.
+   */
+  alternate?: { en: string; fr: string } | null;
 }
 
 const {
   title,
   description = SITE.description,
-  image = "/preview.png",
+  image = "/og.png",
+  imageAlt = `${SITE.name}, ${SITE.role}`,
   article = false,
   noindex = false,
+  alternate,
 } = Astro.props;
 
+const locale = getLocale(Astro.url);
+const t = ui[locale];
 const pageTitle = title ? `${title} | ${SITE.name}` : SITE.title;
 // Keep the trailing slash so canonical matches the sitemap URLs exactly.
 const canonical = new URL(Astro.url.pathname, SITE.url).href;
 const ogImage = new URL(image, SITE.url).href;
-const locale = getLocale(Astro.url);
-const alt = alternates(Astro.url.pathname);
+const alt = alternate === undefined ? alternates(Astro.url.pathname) : alternate;
 
-const personLd = {
+// One stable entity graph on every page; @ids let other pages (About,
+// case studies) refer to the same Person instead of redefining it.
+const personId = `${SITE.url}/#person`;
+const siteLd = {
   "@context": "https://schema.org",
-  "@type": "Person",
-  name: SITE.name,
-  jobTitle: SITE.role,
-  description: SITE.description,
-  url: SITE.url,
-  image: ogImage,
-  email: `mailto:${SITE.email}`,
-  address: { "@type": "PostalAddress", addressCountry: "MA" },
-  sameAs: SOCIALS.map((s) => s.url),
-  knowsAbout: [
-    "Full-Stack Development",
-    "Next.js",
-    "Strapi",
-    "Laravel",
-    "Vue.js",
-    "Node.js",
-    "TypeScript",
-    "SaaS Platforms",
-    "E-commerce",
-    "Payment Integration",
-    "REST APIs",
-    "DevOps",
-    "Technical SEO",
+  "@graph": [
+    {
+      "@type": "WebSite",
+      "@id": `${SITE.url}/#website`,
+      url: `${SITE.url}/`,
+      name: SITE.name,
+      inLanguage: ["en", "fr"],
+      publisher: { "@id": personId },
+    },
+    {
+      "@type": "Person",
+      "@id": personId,
+      name: SITE.name,
+      givenName: "Hassan",
+      familyName: "Tahrioui",
+      jobTitle: SITE.role,
+      description: ui.en.meta.home.description,
+      url: `${SITE.url}/`,
+      email: `mailto:${SITE.email}`,
+      address: { "@type": "PostalAddress", addressCountry: "MA" },
+      knowsLanguage: ["ar", "en", "fr"],
+      sameAs: SOCIALS.map((s) => s.url),
+      knowsAbout: [
+        "Technical leadership",
+        "Software architecture",
+        "Full-stack development",
+        "Laravel",
+        "PHP",
+        "Next.js",
+        "React",
+        "Vue.js",
+        "Nuxt",
+        "TypeScript",
+        "Node.js",
+        "Strapi",
+        "PostgreSQL",
+        "Redis",
+        "Payment integration",
+        "Multi-brand platforms",
+        "Internationalization",
+        "Technical SEO",
+        "DevOps",
+      ],
+    },
+    {
+      "@type": "Organization",
+      "@id": `${SITE.url}/#tracefox`,
+      name: "Tracefox",
+      url: LINKS.tracefox,
+      description: "Automated checkout testing for ecommerce stores and agencies.",
+      founder: { "@id": personId },
+    },
   ],
 };
 ---
@@ -71,22 +111,21 @@ const personLd = {
     <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png" />
     <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png" />
     <link rel="manifest" href="/site.webmanifest" />
-    <link rel="mask-icon" href="/safari-pinned-tab.svg" color="#6366F1" />
+    <link rel="mask-icon" href="/safari-pinned-tab.svg" color="#4F46E5" />
     <meta name="theme-color" content="#202026" />
     <link rel="sitemap" href="/sitemap-index.xml" />
 
-    <!-- Fonts render the LCP text; preload to avoid layout swap. -->
-    <link rel="preload" href={monoLisaRegular} as="font" type="font/woff2" crossorigin />
+    <!-- Mono faces set headings and above-the-fold labels; preloading both
+         avoids a swap shift (body text is system sans and needs no download). -->
     <link rel="preload" href={monoLisaBold} as="font" type="font/woff2" crossorigin />
-    <link rel="preload" href={southamLogo} as="font" type="font/otf" crossorigin />
+    <link rel="preload" href={monoLisaRegular} as="font" type="font/woff2" crossorigin />
 
     <title>{pageTitle}</title>
     <meta name="description" content={description} />
-    <link rel="canonical" href={canonical} />
-    {noindex && <meta name="robots" content="noindex, nofollow" />}
+    {noindex ? <meta name="robots" content="noindex" /> : <link rel="canonical" href={canonical} />}
     <meta name="author" content={SITE.name} />
     {
-      alt && (
+      alt && !noindex && (
         <>
           <link rel="alternate" hreflang="en" href={new URL(alt.en, SITE.url).href} />
           <link rel="alternate" hreflang="fr" href={new URL(alt.fr, SITE.url).href} />
@@ -104,6 +143,13 @@ const personLd = {
     <meta property="og:description" content={description} />
     <meta property="og:url" content={canonical} />
     <meta property="og:image" content={ogImage} />
+    <meta property="og:image:alt" content={imageAlt} />
+    {image === "/og.png" && (
+      <>
+        <meta property="og:image:width" content="1200" />
+        <meta property="og:image:height" content="630" />
+      </>
+    )}
 
     <!-- Twitter -->
     <meta name="twitter:card" content="summary_large_image" />
@@ -111,7 +157,7 @@ const personLd = {
     <meta name="twitter:description" content={description} />
     <meta name="twitter:image" content={ogImage} />
 
-    <script type="application/ld+json" set:html={JSON.stringify(personLd)} />
+    <script type="application/ld+json" set:html={JSON.stringify(siteLd)} />
 
     <ViewTransitions />
 
@@ -142,15 +188,24 @@ const personLd = {
               }
             });
 
-            // Conversion click events: book a call, WhatsApp, email, Upwork.
+            // Conversion click events. Elements can name their own event with
+            // data-event="..."; outbound contact links are tracked by URL.
             document.addEventListener("click", function (e) {
-              var a = e.target && e.target.closest ? e.target.closest("a[href]") : null;
-              if (!a) return;
-              var h = a.href || "";
-              if (h.indexOf("calendly.com") > -1) gtag("event", "book_call_click");
-              else if (h.indexOf("wa.me") > -1) gtag("event", "whatsapp_click");
-              else if (h.indexOf("mailto:") === 0) gtag("event", "email_click");
-              else if (h.indexOf("upwork.com") > -1) gtag("event", "upwork_click");
+              var el = e.target && e.target.closest ? e.target.closest("[data-event], a[href]") : null;
+              if (!el) return;
+              var params = { page_path: location.pathname };
+              if (el.dataset && el.dataset.event) {
+                if (el.dataset.eventLabel) params.label = el.dataset.eventLabel;
+                gtag("event", el.dataset.event, params);
+                return;
+              }
+              var h = el.href || "";
+              if (h.indexOf("calendly.com") > -1) gtag("event", "book_call_click", params);
+              else if (h.indexOf("wa.me") > -1) gtag("event", "whatsapp_click", params);
+              else if (h.indexOf("mailto:") === 0) gtag("event", "email_click", params);
+              else if (h.indexOf("upwork.com") > -1) gtag("event", "upwork_click", params);
+              else if (h.indexOf("linkedin.com") > -1) gtag("event", "linkedin_click", params);
+              else if (h.indexOf("github.com") > -1) gtag("event", "github_click", params);
             });
           </script>
         </>
@@ -193,12 +248,12 @@ const personLd = {
       href="#main"
       class="sr-only focus:not-sr-only focus:fixed focus:left-4 focus:top-4 focus:z-50 focus:rounded-md focus:bg-btn_back focus:px-4 focus:py-2 focus:text-btn_text"
     >
-      Skip to content
+      {t.skip}
     </a>
-    <TheNavbar />
+    <TheNavbar alternate={alt} />
     <main
       id="main"
-      class="mx-auto mb-24 mt-20 max-w-screen-lg px-8 pb-28 sm:mb-20 sm:mt-28 sm:px-16 sm:pb-24 slg:px-24 lg:mt-40"
+      class="mx-auto mb-24 mt-20 max-w-screen-lg px-6 pb-28 sm:mb-20 sm:mt-28 sm:px-12 sm:pb-24 slg:px-20 lg:mt-36"
     >
       <slot />
     </main>

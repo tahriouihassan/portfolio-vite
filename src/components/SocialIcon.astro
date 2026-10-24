@@ -4,8 +4,9 @@ interface Props {
   title: string;
   link: string;
   icon: string;
+  size?: number;
 }
-const { title, link, icon } = Astro.props;
+const { title, link, icon, size = 22 } = Astro.props;
 ---
 
 <a
@@ -13,8 +14,8 @@ const { title, link, icon } = Astro.props;
   title={title}
   aria-label={title}
   target="_blank"
-  rel="noopener noreferrer"
-  class="inline-flex rounded-md p-2 text-p_text transition-all hover:bg-border_sm hover:text-head_text"
+  rel="me noopener noreferrer"
+  class="inline-flex rounded-md p-2.5 text-p_text transition-all hover:bg-border_sm hover:text-head_text"
 >
-  <Icon name={icon} size={26} />
+  <Icon name={icon} size={size} />
 </a>

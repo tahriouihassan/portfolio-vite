@@ -1,0 +1,16 @@
+title: "SaaS & product builds"
+blurb: "A new product or a major feature, from data model and billing to launch, built by someone who has shipped and runs his own SaaS."
+icon: "sparkles"
+order: 5
+caseStudy: "tracefox"
+points:
+  - "Laravel, Next.js, Nuxt and Strapi"
+  - "Auth, teams, plans and subscription billing"
+  - "Background jobs, browser automation and practical AI"
+fr:
+  title: "Construction de SaaS & de produits"
+  blurb: "Un nouveau produit ou une fonctionnalité majeure, du modèle de données et de la facturation jusqu'au lancement, par quelqu'un qui a lancé et exploite son propre SaaS."
+  points:
+    - "Laravel, Next.js, Nuxt et Strapi"
+    - "Authentification, équipes, formules et abonnements"
+    - "Jobs en arrière-plan, automatisation de navigateur et IA utile"

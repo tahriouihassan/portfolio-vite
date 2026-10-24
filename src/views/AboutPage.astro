@@ -1,0 +1,120 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+import SectionHeading from "../components/SectionHeading.astro";
+import CtaSection from "../components/CtaSection.astro";
+import ActionButton from "../components/ActionButton.astro";
+import Icon from "../components/Icon.astro";
+import { SITE, SOCIALS } from "../consts";
+import { getLocale, ui, localizePath } from "../i18n";
+import { EXPERIENCE, SKILLS } from "../data/experience";
+
+const locale = getLocale(Astro.url);
+const t = ui[locale];
+const a = t.aboutPage;
+const profiles = SOCIALS.filter((s) => s.primary);
+
+const profileLd = {
+  "@context": "https://schema.org",
+  "@type": "ProfilePage",
+  url: new URL(Astro.url.pathname, SITE.url).href,
+  inLanguage: locale,
+  mainEntity: { "@id": `${SITE.url}/#person` },
+};
+---
+
+<BaseLayout title={t.meta.about.title} description={t.meta.about.description}>
+  <script slot="head" type="application/ld+json" set:html={JSON.stringify(profileLd)} />
+  <article class="flex flex-col gap-16 slg:gap-20">
+    <section class="flex flex-col gap-6">
+      <SectionHeading as="h1" title={a.h1} />
+      <div class="text-content max-w-3xl">
+        {a.introHtml.map((p) => <p class="text-base leading-relaxed slg:text-lg slg:leading-relaxed" set:html={p} />)}
+      </div>
+      <div class="flex flex-wrap items-center gap-3">
+        <ActionButton link={t.resumeHref} variant="primary" event="resume_click" eventLabel="about">
+          <Icon name="download" size={18} />{a.resumeCta}
+        </ActionButton>
+        {
+          profiles.map((s) => (
+            <ActionButton link={s.url}>
+              <Icon name={s.icon} size={18} />{s.name}
+            </ActionButton>
+          ))
+        }
+      </div>
+    </section>
+
+    <section class="flex flex-col gap-6" aria-labelledby="principles">
+      <SectionHeading id="principles" title={a.principlesHeading} />
+      <ul class="grid grid-cols-1 gap-4 sm:grid-cols-2">
+        {
+          a.principles.map((p) => (
+            <li class="flex items-start gap-3 rounded-lg border border-border_sm bg-item_back p-5 text-base leading-relaxed">
+              <Icon name="check" size={18} class="mt-1 shrink-0 text-link_text_hover" />
+              <span>{p}</span>
+            </li>
+          ))
+        }
+      </ul>
+    </section>
+
+    <section class="flex scroll-mt-28 flex-col gap-8" id="experience" aria-labelledby="experience-heading">
+      <SectionHeading id="experience-heading" title={a.experienceHeading} />
+      <ol class="flex flex-col">
+        {
+          EXPERIENCE.map((r) => (
+            <li class="grid grid-cols-1 gap-2 border-t border-border_sm py-6 sm:grid-cols-[10rem_1fr] sm:gap-8">
+              <span class="font-theme text-sm text-p_text">{r.period[locale]}</span>
+              <div class="flex flex-col gap-2">
+                <h3 class="font-theme_bold text-lg text-head_text">
+                  {r.href ? (
+                    <a href={localizePath(r.href, locale)} class="hover:text-link_text_hover">
+                      {r.company}
+                    </a>
+                  ) : (
+                    r.company
+                  )}
+                  <span class="font-theme text-base text-p_text"> · {r.role[locale]}</span>
+                </h3>
+                {r.detail && <p class="font-theme text-xs text-p_text">{r.detail}</p>}
+                {r.bullets && (
+                  <ul class="mt-1 flex list-disc flex-col gap-1.5 pl-5 text-sm leading-relaxed slg:text-base">
+                    {r.bullets[locale].map((b) => (
+                      <li>{b}</li>
+                    ))}
+                  </ul>
+                )}
+              </div>
+            </li>
+          ))
+        }
+      </ol>
+    </section>
+
+    <section class="flex flex-col gap-6" aria-labelledby="skills">
+      <SectionHeading id="skills" title={a.skillsHeading} />
+      <dl class="flex flex-col gap-5">
+        {
+          SKILLS.map((s) => (
+            <div class="flex flex-col gap-2 sm:flex-row sm:gap-6">
+              <dt class="w-48 shrink-0 font-theme_bold text-head_text">{s.group[locale]}</dt>
+              <dd>
+                <ul class="flex flex-wrap gap-1.5">
+                  {((locale === "fr" && s.itemsFr) || s.items).map((i) => (
+                    <li class="chip">{i}</li>
+                  ))}
+                </ul>
+              </dd>
+            </div>
+          ))
+        }
+        <div class="flex flex-col gap-2 sm:flex-row sm:gap-6">
+          <dt class="w-48 shrink-0 font-theme_bold text-head_text">{a.languagesHeading}</dt>
+          <dd class="text-base">{a.languages}</dd>
+        </div>
+      </dl>
+    </section>
+
+    <CtaSection />
+  </article>
+</BaseLayout>

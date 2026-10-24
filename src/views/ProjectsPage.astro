@@ -1,0 +1,71 @@
+---
+import { getCollection } from "astro:content";
+import BaseLayout from "../layouts/BaseLayout.astro";
+import SectionHeading from "../components/SectionHeading.astro";
+import ProjectCard from "../components/ProjectCard.astro";
+import StageBadge from "../components/StageBadge.astro";
+import CtaSection from "../components/CtaSection.astro";
+import Icon from "../components/Icon.astro";
+import { getLocale, ui, resolveProject } from "../i18n";
+
+const locale = getLocale(Astro.url);
+const t = ui[locale];
+const pp = t.projectsPage;
+
+const all = await getCollection("projects");
+const byOrder = (a: (typeof all)[number], b: (typeof all)[number]) => a.data.order - b.data.order;
+const active = all.filter((p) => p.data.status === "active").sort(byOrder);
+const [flagship, ...rest] = active;
+const archived = all.filter((p) => p.data.status === "archived").sort(byOrder);
+---
+
+<BaseLayout title={t.meta.projects.title} description={t.meta.projects.description}>
+  <div class="flex flex-col gap-16 slg:gap-20">
+    <section class="flex flex-col gap-5">
+      <SectionHeading as="h1" title={pp.h1} />
+      <p class="max-w-3xl text-base leading-relaxed slg:text-lg">{pp.intro}</p>
+    </section>
+
+    <section class="flex flex-col gap-6" aria-labelledby="case-studies">
+      <h2 id="case-studies" class="sr-only">{t.work.heading}</h2>
+      {flagship && <ProjectCard project={flagship} wide />}
+      <div class="grid grid-cols-1 gap-6 md:grid-cols-2">
+        {rest.map((p) => <ProjectCard project={p} />)}
+      </div>
+    </section>
+
+    {
+      archived.length > 0 && (
+        <section class="flex flex-col gap-6" aria-labelledby="earlier">
+          <SectionHeading id="earlier" title={pp.earlierHeading} sub={pp.earlierSub} />
+          <ul class="flex flex-col">
+            {archived.map((p) => (
+              <li class="flex flex-col gap-1.5 border-t border-border_sm py-5">
+                <div class="flex flex-wrap items-center gap-3">
+                  {p.data.link ? (
+                    <a
+                      href={p.data.link}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      class="flex w-fit items-center gap-1 font-theme_bold text-lg text-head_text hover:text-link_text_hover"
+                    >
+                      {p.data.title}
+                      <Icon name="arrow-up-right" size={18} />
+                    </a>
+                  ) : (
+                    <h3 class="font-theme_bold text-lg text-head_text">{p.data.title}</h3>
+                  )}
+                  <StageBadge stage={p.data.stage} />
+                </div>
+                <p class="text-sm leading-relaxed slg:text-base">{resolveProject(p.data, locale).description}</p>
+                {p.data.tech.length > 0 && <p class="font-theme text-xs text-p_text">{p.data.tech.join(" · ")}</p>}
+              </li>
+            ))}
+          </ul>
+        </section>
+      )
+    }
+
+    <CtaSection />
+  </div>
+</BaseLayout>

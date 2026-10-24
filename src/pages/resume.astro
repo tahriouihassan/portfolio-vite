@@ -1,0 +1,207 @@
+---
+/**
+ * One-page resume for recruiters and hiring managers. Plain, single-column
+ * HTML so it parses well in ATS tools; "Save as PDF" uses the print styles
+ * below. Built from the same data as the About page.
+ */
+import BaseLayout from "../layouts/BaseLayout.astro";
+import Icon from "../components/Icon.astro";
+import { SITE, SOCIALS } from "../consts";
+import { EXPERIENCE, SKILLS } from "../data/experience";
+
+const linkedin = SOCIALS.find((s) => s.icon === "linkedin")!;
+const github = SOCIALS.find((s) => s.icon === "github")!;
+const upwork = SOCIALS.find((s) => s.icon === "upwork")!;
+
+const projects = [
+  {
+    name: "Tracefox",
+    href: "/projects/tracefox/",
+    text: "Live SaaS for automated checkout testing, built solo: scheduled real-browser runs, step-level failure reports, agency workspaces and paid plans.",
+  },
+  {
+    name: "VisitFootball group",
+    href: "/projects/visitfootball/",
+    text: "Multi-brand ticketing and travel platforms: shared Next.js codebase, Strapi backends, checkout and payments, multilingual SEO and order automation.",
+  },
+  {
+    name: "OpenMatch (2022)",
+    href: "/projects/openmatch/",
+    text: "Two-sided job platform with AI-assisted resume building, job matching, recruiter tools and Stripe subscriptions (Nuxt, Vue).",
+  },
+  {
+    name: "L'Moniteur",
+    text: "Booking platform connecting learner drivers with driving instructors across Morocco (Laravel, Flutter).",
+  },
+  {
+    name: "7eco24",
+    text: "High-volume classifieds site with 400k+ ads (Laravel).",
+  },
+  {
+    name: "Momentoo",
+    text: "Focus app that reached 2nd Product of the Day on Product Hunt (Vue).",
+  },
+];
+---
+
+<BaseLayout
+  title="Resume: Technical Lead & Senior Full-Stack Engineer"
+  description="Resume of Hassan Tahrioui: technical lead and senior full-stack engineer, 9+ years in Laravel, Next.js and Node, based in Morocco and working remotely with European teams."
+  alternate={null}
+>
+  <article class="resume mx-auto flex max-w-3xl flex-col gap-10" lang="en">
+    <header class="flex flex-col gap-4">
+      <div class="no-print flex flex-wrap gap-3">
+        <button
+          type="button"
+          id="print-resume"
+          data-event="resume_print"
+          class="inline-flex items-center gap-2 rounded-md border border-accent bg-accent px-4 py-2.5 font-theme_bold text-sm text-white transition hover:brightness-110"
+        >
+          <Icon name="printer" size={18} /> Save as PDF
+        </button>
+        <a
+          href="/contact/?topic=role"
+          class="inline-flex items-center gap-2 rounded-md border border-link_border bg-btn_back px-4 py-2.5 font-theme_bold text-sm text-btn_text transition-colors hover:bg-item_hover_back"
+        >
+          <Icon name="mail" size={18} /> Get in touch
+        </a>
+      </div>
+      <h1 class="font-theme_bold text-3xl text-head_text sm:text-4xl">{SITE.name}</h1>
+      <p class="font-theme_bold text-lg text-link_text_hover">Technical Lead · Senior Full-Stack Engineer</p>
+      <ul class="flex flex-wrap gap-x-5 gap-y-1 text-sm">
+        <li>Morocco · Remote (CET-aligned)</li>
+        <li><a href={`mailto:${SITE.email}`} class="hover:text-head_text">{SITE.email}</a></li>
+        <li><a href={`${SITE.url}/`} class="hover:text-head_text">tahrioui.me</a></li>
+        <li><a href={linkedin.url} class="hover:text-head_text">LinkedIn</a></li>
+        <li><a href={github.url} class="hover:text-head_text">GitHub</a></li>
+      </ul>
+    </header>
+
+    <section class="flex flex-col gap-3" aria-labelledby="r-summary">
+      <h2 id="r-summary" class="resume-h2">Summary</h2>
+      <p class="text-base leading-relaxed">
+        Technical lead and senior full-stack engineer with 9+ years building commercial web software in Laravel, Next.js
+        and Node. Since 2023, lead developer for a group of four football ticketing and travel brands, responsible for
+        technical direction, releases and production across shared Next.js and Strapi platforms with live payments and
+        multilingual SEO. Founder of Tracefox, a live checkout-testing SaaS I built solo. Open to the right long-term
+        role with a remote-first product team.
+      </p>
+    </section>
+
+    <section class="flex flex-col gap-2" aria-labelledby="r-experience">
+      <h2 id="r-experience" class="resume-h2">Experience</h2>
+      {
+        EXPERIENCE.map((r) => (
+          <div class="resume-item flex flex-col gap-1.5 py-3">
+            <div class="flex flex-col justify-between gap-x-4 sm:flex-row sm:items-baseline">
+              <h3 class="font-theme_bold text-base text-head_text">
+                {r.role.en}, {r.company}
+              </h3>
+              <span class="shrink-0 font-theme text-sm text-p_text">{r.period.en}</span>
+            </div>
+            {r.detail && <p class="text-sm text-p_text">{r.detail}</p>}
+            {r.bullets && (
+              <ul class="flex list-disc flex-col gap-1 pl-5 text-sm leading-relaxed">
+                {r.bullets.en.map((b) => (
+                  <li>{b}</li>
+                ))}
+              </ul>
+            )}
+          </div>
+        ))
+      }
+    </section>
+
+    <section class="flex flex-col gap-3" aria-labelledby="r-projects">
+      <h2 id="r-projects" class="resume-h2">Selected projects</h2>
+      <ul class="flex flex-col gap-2 text-sm leading-relaxed">
+        {
+          projects.map((p) => (
+            <li>
+              {/* prettier-ignore */}
+              <strong class="font-theme_bold text-head_text">{p.href ? <a href={p.href} class="hover:text-link_text_hover">{p.name}</a> : p.name}</strong>{`: ${p.text}`}
+            </li>
+          ))
+        }
+      </ul>
+      <p class="text-sm">
+        Freelance: 100% Job Success Score on <a href={upwork.url} class="underline underline-offset-2 hover:text-head_text">Upwork</a>.
+      </p>
+    </section>
+
+    <section class="flex flex-col gap-3" aria-labelledby="r-skills">
+      <h2 id="r-skills" class="resume-h2">Skills</h2>
+      <dl class="flex flex-col gap-2 text-sm">
+        {
+          SKILLS.map((s) => (
+            <div class="flex flex-col gap-0.5 sm:flex-row sm:gap-3">
+              <dt class="w-48 shrink-0 font-theme_bold text-head_text">{s.group.en}</dt>
+              <dd>{s.items.join(", ")}</dd>
+            </div>
+          ))
+        }
+        <div class="flex flex-col gap-0.5 sm:flex-row sm:gap-3">
+          <dt class="w-48 shrink-0 font-theme_bold text-head_text">Languages</dt>
+          <dd>Arabic (native), English (fluent), French (fluent)</dd>
+        </div>
+      </dl>
+    </section>
+  </article>
+</BaseLayout>
+
+<script is:inline data-astro-rerun>
+  (function () {
+    var btn = document.getElementById("print-resume");
+    if (btn) btn.addEventListener("click", function () { window.print(); });
+  })();
+</script>
+
+<style is:global>
+  .resume-h2 {
+    @apply border-b border-border_sm pb-2 font-theme_bold text-sm uppercase tracking-widest text-link_text_hover;
+  }
+
+  @media print {
+    @page {
+      margin: 14mm 14mm;
+    }
+    body {
+      background: #fff !important;
+      color: #111 !important;
+      font-size: 10.5pt;
+    }
+    body > nav,
+    body > footer,
+    body > a[href="#main"],
+    .no-print {
+      display: none !important;
+    }
+    main {
+      margin: 0 !important;
+      padding: 0 !important;
+      max-width: none !important;
+    }
+    .resume {
+      gap: 14px !important;
+      max-width: none !important;
+    }
+    .resume *,
+    .resume a {
+      color: #111 !important;
+    }
+    .resume-h2 {
+      color: #3730a3 !important;
+      border-color: #ccc !important;
+    }
+    .resume-item {
+      break-inside: avoid;
+      padding: 4px 0 !important;
+    }
+    .reveal-init {
+      opacity: 1 !important;
+      transform: none !important;
+      transition: none !important;
+    }
+  }
+</style>

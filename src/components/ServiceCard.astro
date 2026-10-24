@@ -1,23 +1,30 @@
 ---
 import Icon from "./Icon.astro";
+import { getLocale, ui, localizePath } from "../i18n";
+
 interface Props {
   title: string;
   blurb: string;
   points: string[];
   icon: string;
+  /** Slug of a case study that backs this service up. */
+  caseStudy?: string;
+  caseStudyTitle?: string;
 }
-const { title, blurb, points, icon } = Astro.props;
+const { title, blurb, points, icon, caseStudy, caseStudyTitle } = Astro.props;
+const locale = getLocale(Astro.url);
+const t = ui[locale];
 ---
 
-<div class="flex h-full flex-col gap-4 rounded-md border border-border_sm bg-item_back p-6 transition-colors hover:bg-item_hover_back slg:p-7">
+<div class="flex h-full flex-col gap-4 rounded-lg border border-border_sm bg-item_back p-6 slg:p-7">
   <div class="flex items-center gap-4">
     <div class="flex h-11 w-11 shrink-0 items-center justify-center rounded-md border border-action_border bg-action_back text-link_text_hover">
       <Icon name={icon} size={22} />
     </div>
-    <h3 class="font-theme_bold text-lg text-head_text slg:text-xl">{title}</h3>
+    <h3 class="font-theme_bold text-lg leading-snug text-head_text">{title}</h3>
   </div>
   <p class="text-sm leading-relaxed slg:text-base">{blurb}</p>
-  <ul class="mt-auto flex flex-col gap-2 pt-2 text-sm">
+  <ul class="flex flex-col gap-2 text-sm">
     {
       points.map((p) => (
         <li class="flex items-start gap-2">
@@ -27,4 +34,16 @@ const { title, blurb, points, icon } = Astro.props;
       ))
     }
   </ul>
+  {
+    caseStudy && caseStudyTitle && (
+      <a
+        href={localizePath(`/projects/${caseStudy}`, locale)}
+        data-event="case_study_click"
+        data-event-label={`service:${caseStudy}`}
+        class="mt-auto inline-flex w-fit items-center gap-1 pt-2 font-theme_bold text-sm text-link_text_hover underline-offset-4 hover:underline"
+      >
+        {t.servicesPage.proof}: {caseStudyTitle} <Icon name="arrow-right" size={14} />
+      </a>
+    )
+  }
 </div>

@@ -1,0 +1,119 @@
+---
+import { getCollection } from "astro:content";
+import BaseLayout from "../layouts/BaseLayout.astro";
+import Hero from "../components/Hero.astro";
+import SectionHeading from "../components/SectionHeading.astro";
+import ProjectCard from "../components/ProjectCard.astro";
+import TestimonialCard from "../components/TestimonialCard.astro";
+import CtaSection from "../components/CtaSection.astro";
+import ActionButton from "../components/ActionButton.astro";
+import LinkBtn from "../components/LinkBtn.astro";
+import Icon from "../components/Icon.astro";
+import { CONTACT, SOCIALS } from "../consts";
+import { getLocale, ui, localizePath } from "../i18n";
+
+const locale = getLocale(Astro.url);
+const t = ui[locale];
+const upworkUrl = SOCIALS.find((s) => s.icon === "upwork")?.url;
+
+const [flagship, ...featured] = (await getCollection("projects"))
+  .filter((p) => p.data.featured && p.data.status === "active")
+  .sort((a, b) => a.data.order - b.data.order);
+const testimonials = (await getCollection("testimonials")).sort((a, b) => a.data.order - b.data.order);
+---
+
+<BaseLayout title={t.meta.home.title || undefined} description={t.meta.home.description}>
+  <div class="flex flex-col gap-20 slg:gap-28">
+    <Hero />
+
+    <!-- OWNERSHIP: what I'm accountable for, not a tech list -->
+    <section class="flex flex-col gap-8" aria-labelledby="ownership">
+      <SectionHeading id="ownership" title={t.ownership.heading} sub={t.ownership.sub} />
+      <div class="grid grid-cols-1 gap-px overflow-hidden rounded-lg border border-border_sm bg-border_sm md:grid-cols-2">
+        {
+          t.ownership.items.map((item) => (
+            <div class="flex flex-col gap-3 bg-item_back p-6 slg:p-7">
+              <div class="flex items-center gap-3">
+                <span class="text-link_text_hover">
+                  <Icon name={item.icon} size={20} />
+                </span>
+                <h3 class="font-theme_bold text-base text-head_text slg:text-lg">{item.title}</h3>
+              </div>
+              <p class="text-sm leading-relaxed slg:text-base">{item.body}</p>
+            </div>
+          ))
+        }
+      </div>
+    </section>
+
+    <!-- SELECTED WORK -->
+    <section class="flex flex-col gap-8" aria-labelledby="work">
+      <SectionHeading id="work" title={t.work.heading} sub={t.work.sub} />
+      {flagship && <ProjectCard project={flagship} wide />}
+      <div class="grid grid-cols-1 gap-6 md:grid-cols-2">
+        {featured.map((p) => <ProjectCard project={p} />)}
+      </div>
+      <a
+        href={localizePath("/projects", locale)}
+        class="inline-flex w-fit items-center gap-1 font-theme_bold text-sm text-link_text_hover underline-offset-4 hover:underline"
+      >
+        {t.work.all} <Icon name="arrow-right" size={16} />
+      </a>
+    </section>
+
+    <!-- TWO PATHS: employers and clients -->
+    <section class="flex flex-col gap-8" aria-labelledby="paths">
+      <SectionHeading id="paths" title={t.paths.heading} />
+      <div class="grid grid-cols-1 gap-6 md:grid-cols-2">
+        <div class="flex flex-col gap-4 rounded-lg border border-border_sm bg-item_back p-6 slg:p-8">
+          <span class="kicker flex items-center gap-2"><Icon name="briefcase" size={16} />{t.paths.employer.kicker}</span>
+          <h3 class="font-theme_bold text-xl text-head_text">{t.paths.employer.title}</h3>
+          <p class="text-sm leading-relaxed slg:text-base">{t.paths.employer.body}</p>
+          <div class="mt-auto flex flex-wrap items-center gap-x-5 gap-y-3 pt-2">
+            <ActionButton link={t.resumeHref} variant="primary" event="resume_click" eventLabel="home_path">
+              <Icon name="download" size={18} />{t.paths.employer.cta}
+            </ActionButton>
+            <ActionButton link={t.paths.employer.secondaryHref} variant="ghost">
+              {t.paths.employer.secondary} <Icon name="arrow-right" size={16} />
+            </ActionButton>
+          </div>
+        </div>
+        <div class="flex flex-col gap-4 rounded-lg border border-border_sm bg-item_back p-6 slg:p-8">
+          <span class="kicker flex items-center gap-2"><Icon name="layers" size={16} />{t.paths.client.kicker}</span>
+          <h3 class="font-theme_bold text-xl text-head_text">{t.paths.client.title}</h3>
+          <p class="text-sm leading-relaxed slg:text-base">{t.paths.client.body}</p>
+          <div class="mt-auto flex flex-wrap items-center gap-x-5 gap-y-3 pt-2">
+            <ActionButton link={localizePath("/services", locale)} variant="primary" event="services_click" eventLabel="home_path">
+              {t.paths.client.cta} <Icon name="arrow-right" size={18} />
+            </ActionButton>
+            <ActionButton link={CONTACT.bookingUrl} variant="ghost" event="book_call_click" eventLabel="home_path">
+              <Icon name="calendar" size={16} />{t.paths.client.secondary}
+            </ActionButton>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    {
+      testimonials.length > 0 && (
+        <section class="flex flex-col gap-8" aria-labelledby="reviews">
+          <div class="flex flex-col gap-3">
+            <SectionHeading id="reviews" title={t.reviews.heading} />
+            {upworkUrl && (
+              <p class="max-w-2xl text-base leading-relaxed">
+                {t.reviews.subBefore} <LinkBtn link={upworkUrl}>{t.reviews.subLink}</LinkBtn>{t.reviews.subAfter}
+              </p>
+            )}
+          </div>
+          <div class="grid grid-cols-1 gap-5 slg:grid-cols-3">
+            {testimonials.map((r) => (
+              <TestimonialCard {...r.data} />
+            ))}
+          </div>
+        </section>
+      )
+    }
+
+    <CtaSection />
+  </div>
+</BaseLayout>

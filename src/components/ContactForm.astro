@@ -18,7 +18,7 @@ const t = ui[locale].form;
   data-msg-network={t.network}
 >
   <input type="hidden" name="access_key" value={CONTACT.web3formsKey} />
-  <input type="hidden" name="subject" value={`New project enquiry from your portfolio (${SITE.name})`} />
+  <input type="hidden" name="subject" value={`New enquiry from tahrioui.me (${SITE.name})`} />
   <input type="hidden" name="from_name" value={`${SITE.name} portfolio`} />
   <!-- Honeypot: bots fill this, humans don't. -->
   <input type="checkbox" name="botcheck" class="hidden" style="display:none" tabindex="-1" autocomplete="off" />
@@ -33,6 +33,13 @@ const t = ui[locale].form;
       <input type="email" name="email" required autocomplete="email" class="input" placeholder={t.emailPh} />
     </label>
   </div>
+
+  <label class="flex flex-col gap-2 text-sm">
+    <span class="font-theme_bold text-head_text">{t.topic}</span>
+    <select name="topic" required class="input">
+      {t.topics.map((o) => <option value={o}>{o}</option>)}
+    </select>
+  </label>
 
   <label class="flex flex-col gap-2 text-sm">
     <span class="font-theme_bold text-head_text">{t.details}</span>
@@ -56,6 +63,10 @@ const t = ui[locale].form;
     var status = document.getElementById("form-status");
     if (!form || form.dataset.bound) return;
     form.dataset.bound = "1";
+    // ?topic=role or ?topic=project preselects the enquiry type.
+    var preset = { project: 0, role: 1 }[new URLSearchParams(location.search).get("topic")];
+    var topicSelect = form.querySelector('select[name="topic"]');
+    if (topicSelect && preset !== undefined) topicSelect.selectedIndex = preset;
     form.addEventListener("submit", async function (e) {
       e.preventDefault();
       var btn = form.querySelector('button[type="submit"]');
@@ -70,10 +81,16 @@ const t = ui[locale].form;
         });
         var data = await res.json();
         if (res.ok) {
-          form.reset();
           status.textContent = form.dataset.msgOk;
           status.style.color = "#4ade80";
-          if (typeof window.gtag === "function") window.gtag("event", "contact_form_submit");
+          if (typeof window.gtag === "function") {
+            var topic = form.querySelector('select[name="topic"]');
+            window.gtag("event", "contact_form_submit", {
+              topic_index: topic ? topic.selectedIndex : -1,
+              page_path: location.pathname,
+            });
+          }
+          form.reset();
         } else {
           status.textContent = data.message || form.dataset.msgFail;
           status.style.color = "#f87171";

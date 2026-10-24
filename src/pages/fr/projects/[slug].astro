@@ -1,0 +1,8 @@
+---
+import CaseStudyPage from "../../../views/CaseStudyPage.astro";
+import { caseStudyPaths } from "../../../lib/caseStudies";
+
+export const getStaticPaths = () => caseStudyPaths(true);
+---
+
+<CaseStudyPage {...Astro.props} />

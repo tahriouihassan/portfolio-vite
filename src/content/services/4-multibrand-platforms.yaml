@@ -1,0 +1,16 @@
+title: "Multi-brand & multilingual platforms"
+blurb: "One platform serving several brands, markets and languages, without forking the code or losing search visibility."
+icon: "globe"
+order: 4
+caseStudy: "visitfootball"
+points:
+  - "Shared codebases with per-brand configuration"
+  - "Next.js and Strapi with localized content"
+  - "Technical SEO: SSR, hreflang, sitemaps, Core Web Vitals"
+fr:
+  title: "Plateformes multi-marques & multilingues"
+  blurb: "Une seule plateforme pour plusieurs marques, marchés et langues, sans dupliquer le code ni perdre en visibilité dans les moteurs de recherche."
+  points:
+    - "Code partagé avec une configuration par marque"
+    - "Next.js et Strapi avec contenu localisé"
+    - "SEO technique : SSR, hreflang, sitemaps, Core Web Vitals"

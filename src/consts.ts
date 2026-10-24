@@ -2,8 +2,6 @@
  * ─────────────────────────────────────────────────────────────
  *  SITE CONFIG: edit this one file to update your details.
  * ─────────────────────────────────────────────────────────────
- *  Anything marked TODO should be replaced with your real value
- *  before going live.
  */
 
 export const SITE = {
@@ -11,19 +9,19 @@ export const SITE = {
   name: "Hassan Tahrioui",
   /** Brand shown in the navbar logo (family name works well as a mark). */
   logo: "Tahrioui",
-  /** Short tagline / role. */
-  role: "Lead Full-Stack Developer",
+  /** Short role, used in schema and as a fallback. */
+  role: "Technical Lead & Senior Full-Stack Engineer",
   /** Default meta title (per-page titles override this). */
-  title: "Hassan Tahrioui | Lead Full-Stack Developer",
+  title: "Hassan Tahrioui | Technical Lead & Senior Full-Stack Engineer",
   /** Default meta description. */
   description:
-    "I design, build, and run commercial web platforms end-to-end: Next.js, Strapi, Laravel, payments, and the infrastructure behind them. Available for freelance projects.",
+    "Technical lead and senior full-stack engineer, 9+ years in Laravel, Next.js and Node. Leading a multi-brand ticketing platform; founder of Tracefox. Remote, Morocco.",
   /** Production URL (no trailing slash). Also set in astro.config.mjs. */
   url: "https://www.tahrioui.me",
   /** Contact email. */
   email: "tahrioui.hsn@gmail.com",
   /** Where you're based. */
-  location: "Morocco · Remote (aligned with EU hours)",
+  location: "Morocco · Remote, working with European teams",
   /** Google Analytics measurement ID. Set to "" to disable. */
   ga: "G-XZ86LZ27VZ",
 } as const;
@@ -37,39 +35,49 @@ export const CONTACT = {
   whatsapp: "212687904064",
 } as const;
 
-/** Social / profile links. `icon` maps to a name in src/components/Icon.astro. */
+/**
+ * Social / profile links. `icon` maps to a name in src/components/Icon.astro.
+ * `primary` profiles are shown next to the hero and on the resume; all of
+ * them appear in the footer and in the Person schema's sameAs.
+ */
 export const SOCIALS = [
+  {
+    name: "LinkedIn",
+    url: "https://www.linkedin.com/in/tahrioui-hsn/",
+    icon: "linkedin",
+    primary: true,
+  },
   {
     name: "GitHub",
     url: "https://github.com/tahriouihsn",
     icon: "github",
+    primary: true,
   },
   {
     name: "Upwork",
     url: "https://www.upwork.com/freelancers/tahriouihsn",
     icon: "upwork",
+    primary: true,
   },
   {
-    name: "LinkedIn",
-    url: "https://www.linkedin.com/in/tahrioui-hsn/",
-    icon: "linkedin",
-  },
-  {
-    name: "Twitter",
-    url: "https://twitter.com/tahrioui_hassan",
+    name: "X (Twitter)",
+    url: "https://x.com/tahrioui_hassan",
     icon: "twitter",
+    primary: false,
   },
   {
     name: "Instagram",
     url: "https://www.instagram.com/tahrioui.hassan/",
     icon: "instagram",
+    primary: false,
   },
 ] as const;
 
-/** Primary nav links. */
-export const NAV = [
-  { label: "Home", href: "/" },
-  { label: "Services", href: "/services" },
-  { label: "Projects", href: "/projects" },
-  { label: "About", href: "/about" },
-] as const;
+/** Public sites of products and platforms referenced across the site. */
+export const LINKS = {
+  tracefox: "https://tracefox.co",
+  visitfootball: "https://www.visitfootball.com",
+  voetbaltrips: "https://www.voetbaltrips.com",
+  voetbaltickets: "https://www.voetbaltickets.nl",
+  trustedseats: "https://www.trustedseats.com",
+} as const;

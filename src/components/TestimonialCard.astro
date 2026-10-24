@@ -8,7 +8,8 @@ interface Props {
 const { quote, name, role, company } = Astro.props;
 ---
 
-<figure class="flex h-full flex-col gap-5 rounded-md border border-border_sm bg-item_back p-6">
+<!-- Reviews are quoted verbatim in English, including on /fr pages. -->
+<figure lang="en" class="flex h-full flex-col gap-5 rounded-md border border-border_sm bg-item_back p-6">
   <div class="font-theme_bold text-4xl leading-none text-link_text_hover" aria-hidden="true">&ldquo;</div>
   <blockquote class="flex-1 text-sm leading-relaxed text-action_text slg:text-base">{quote}</blockquote>
   <figcaption class="flex flex-col">

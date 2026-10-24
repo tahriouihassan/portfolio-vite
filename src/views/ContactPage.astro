@@ -1,0 +1,98 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+import SectionHeading from "../components/SectionHeading.astro";
+import ContactForm from "../components/ContactForm.astro";
+import Icon from "../components/Icon.astro";
+import SocialIcon from "../components/SocialIcon.astro";
+import { SITE, CONTACT, SOCIALS } from "../consts";
+import { getLocale, ui } from "../i18n";
+
+const locale = getLocale(Astro.url);
+const t = ui[locale];
+const c = t.contactPage;
+const faq = t.faq;
+
+const faqLd = {
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  mainEntity: faq.items.map((f) => ({
+    "@type": "Question",
+    name: f.q,
+    acceptedAnswer: { "@type": "Answer", text: f.a },
+  })),
+};
+---
+
+<BaseLayout title={t.meta.contact.title} description={t.meta.contact.description}>
+  <script slot="head" type="application/ld+json" set:html={JSON.stringify(faqLd)} />
+  <div class="flex flex-col gap-16">
+    <section class="flex flex-col gap-5">
+      <SectionHeading as="h1" title={c.h1} />
+      <p class="max-w-2xl text-base leading-relaxed slg:text-lg">{c.intro}</p>
+    </section>
+
+    <div class="grid grid-cols-1 gap-10 slg:grid-cols-[1.4fr_1fr]">
+      <div class="rounded-lg border border-border_sm bg-item_back p-6 slg:p-8">
+        <ContactForm />
+      </div>
+
+      <aside class="flex flex-col gap-4">
+        <a
+          href={CONTACT.bookingUrl}
+          target="_blank"
+          rel="noopener noreferrer"
+          data-event="book_call_click"
+          data-event-label="contact"
+          class="flex items-center gap-3 rounded-md border border-accent bg-accent px-5 py-4 font-theme_bold text-white transition hover:brightness-110"
+        >
+          <Icon name="calendar" size={20} />
+          {c.book}
+        </a>
+
+        <a
+          href={`mailto:${SITE.email}`}
+          class="flex items-center gap-3 break-all rounded-md border border-border_sm bg-action_back px-5 py-4 text-action_text transition-colors hover:bg-item_hover_back"
+        >
+          <Icon name="mail" size={20} class="shrink-0" />
+          {SITE.email}
+        </a>
+
+        <a
+          href={`https://wa.me/${CONTACT.whatsapp}`}
+          target="_blank"
+          rel="noopener noreferrer"
+          class="flex items-center gap-3 rounded-md border border-border_sm bg-action_back px-5 py-4 text-action_text transition-colors hover:bg-item_hover_back"
+        >
+          <Icon name="whatsapp" size={20} />
+          {c.whatsapp}
+        </a>
+
+        <div class="flex flex-col gap-2 rounded-md border border-border_sm p-5 text-sm leading-relaxed">
+          <span class="font-theme_bold text-head_text">{c.availability}</span>
+          {c.availabilityBody.map((p) => <p>{p}</p>)}
+        </div>
+
+        <div class="flex flex-col gap-1">
+          <span class="text-sm font-theme_bold text-head_text">{c.elsewhere}</span>
+          <div class="-ml-2.5 flex gap-1">
+            {SOCIALS.map((s) => <SocialIcon title={s.name} link={s.url} icon={s.icon} />)}
+          </div>
+        </div>
+      </aside>
+    </div>
+
+    <section class="flex flex-col gap-8" aria-labelledby="faq">
+      <SectionHeading id="faq" title={faq.heading} />
+      <div class="grid grid-cols-1 gap-5 slg:grid-cols-2">
+        {
+          faq.items.map((f) => (
+            <div class="flex flex-col gap-2 rounded-lg border border-border_sm bg-item_back p-6">
+              <h3 class="font-theme_bold text-head_text">{f.q}</h3>
+              <p class="text-sm leading-relaxed slg:text-base">{f.a}</p>
+            </div>
+          ))
+        }
+      </div>
+    </section>
+  </div>
+</BaseLayout>

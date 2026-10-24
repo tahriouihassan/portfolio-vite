@@ -1,45 +1,50 @@
 ---
+import Icon from "./Icon.astro";
 import { SITE } from "../consts";
 import { getLocale, alternates, ui } from "../i18n";
+
+interface Props {
+  /** Language-switch target when the page has a translation outside TRANSLATED. */
+  alternate?: { en: string; fr: string } | null;
+}
 
 const locale = getLocale(Astro.url);
 const t = ui[locale];
 const path = Astro.url.pathname.replace(/\/+$/, "") || "/";
 const isActive = (href: string) => {
   const h = href.replace(/\/+$/, "") || "/";
-  return h === "/" || h === "/fr" ? path === h : path === h || path.startsWith(h + "/");
+  return path === h || path.startsWith(h + "/");
 };
 
 // Language switcher: link to this page's translation, or the other locale's home.
-const alt = alternates(Astro.url.pathname);
-const switchTo = locale === "en" ? { label: "FR", href: alt?.fr ?? "/fr/" } : { label: "EN", href: alt?.en ?? "/" };
+const alt = Astro.props.alternate ?? alternates(Astro.url.pathname);
+const switchHref = locale === "en" ? alt?.fr ?? "/fr/" : alt?.en ?? "/";
 const homeHref = locale === "fr" ? "/fr/" : "/";
 ---
 
 <nav
-  class="fixed bottom-0 z-40 flex w-full items-center justify-between border-b border-border_sm bg-navbar_back px-2 py-3 backdrop-blur-sm sm:bottom-auto sm:top-0 sm:px-6 lg:py-4"
+  aria-label={locale === "fr" ? "Navigation principale" : "Main"}
+  class="fixed bottom-0 z-40 flex w-full items-center justify-between border-t border-border_sm bg-navbar_back px-3 py-2.5 backdrop-blur-sm sm:bottom-auto sm:top-0 sm:border-b sm:border-t-0 sm:px-6 lg:py-4"
 >
   <div class="absolute left-0 top-0 h-[1px] w-full bg-topbar lg:h-1"></div>
 
   <a
     href={homeHref}
     class="select-none font-logo text-2xl font-normal sm:text-3xl slg:font-semibold lg:text-4xl"
-    aria-label={`${SITE.name} home`}
+    aria-label={`${SITE.name}, ${locale === "fr" ? "accueil" : "home"}`}
   >
-    {SITE.logo}
+    <!-- Narrow phones get the monogram so the bottom bar never overflows. -->
+    <span class="min-[440px]:hidden" aria-hidden="true">{SITE.logo.charAt(0)}</span>
+    <span class="hidden min-[440px]:inline" aria-hidden="true">{SITE.logo}</span>
   </a>
 
-  <div class="flex items-center text-[13px] sm:gap-2 sm:text-sm lg:text-base">
+  <div class="flex items-center gap-0.5 text-[12px] min-[440px]:text-[13px] sm:gap-2 sm:text-sm lg:text-base">
     {
-      t.nav.map((item, i) => (
+      t.nav.map((item) => (
         <a
           href={item.href}
           aria-current={isActive(item.href) ? "page" : undefined}
-          class:list={[
-            "rounded-md px-2 py-1.5 font-theme_bold transition-all hover:bg-action_back sm:px-4 sm:py-2",
-            // The logo already links home; hide the first item on the tight mobile bar.
-            i === 0 && "hidden sm:inline-block",
-          ]}
+          class="whitespace-nowrap rounded-md px-1.5 py-2 font-theme_bold transition-all hover:bg-action_back min-[440px]:px-2 sm:px-4"
         >
           {item.label}
         </a>
@@ -48,16 +53,21 @@ const homeHref = locale === "fr" ? "/fr/" : "/";
     <a
       href={t.contactHref}
       aria-current={isActive(t.contactHref) ? "page" : undefined}
-      class="ml-1 hidden rounded-md border border-accent bg-accent px-4 py-2 font-theme_bold text-white transition-colors hover:brightness-110 sm:inline-block"
+      data-event="nav_contact_click"
+      class="ml-1 inline-flex items-center rounded-md border border-accent bg-accent px-2 py-2 font-theme_bold text-white transition-colors hover:brightness-110 min-[440px]:px-2.5 sm:px-4"
     >
-      {t.navCta}
+      <!-- Icon-only on narrow phones; the label stays available to screen readers. -->
+      <Icon name="mail" size={16} class="min-[440px]:hidden" />
+      <span class="sr-only min-[440px]:not-sr-only">{t.navCta}</span>
     </a>
     <a
-      href={switchTo.href}
-      class="ml-1 rounded-md border border-border_sm px-2 py-1.5 font-theme_bold text-p_text transition-colors hover:bg-action_back hover:text-head_text sm:px-3 sm:py-2"
-      aria-label={locale === "en" ? "Version française" : "English version"}
+      href={switchHref}
+      hreflang={locale === "en" ? "fr" : "en"}
+      lang={locale === "en" ? "fr" : "en"}
+      class="ml-1 rounded-md border border-border_sm px-2 py-2 font-theme_bold text-p_text transition-colors hover:bg-action_back hover:text-head_text sm:px-3"
+      aria-label={t.langSwitch.aria}
     >
-      {switchTo.label}
+      {t.langSwitch.label}
     </a>
   </div>
 </nav>

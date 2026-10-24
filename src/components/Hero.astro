@@ -1,72 +1,111 @@
 ---
 import ActionButton from "./ActionButton.astro";
 import Icon from "./Icon.astro";
-import { CONTACT } from "../consts";
+import { CONTACT, SOCIALS } from "../consts";
 import { getLocale, ui, localizePath } from "../i18n";
 
 const locale = getLocale(Astro.url);
-const t = ui[locale].hero;
+const t = ui[locale];
+const h = t.hero;
+const profiles = SOCIALS.filter((s) => s.primary);
+// Real, checkable names; each links to the case study that explains the role.
+const platforms = [
+  { name: "VisitFootball", href: "/projects/visitfootball" },
+  { name: "Voetbaltrips", href: "/projects/visitfootball" },
+  { name: "Voetbaltickets.nl", href: "/projects/visitfootball" },
+  { name: "TrustedSeats", href: "/projects/visitfootball" },
+  { name: "Tracefox", href: "/projects/tracefox" },
+];
 ---
 
-<section class="relative flex flex-col gap-8">
-  <!-- Subtle brand glows behind the hero -->
+<section class="relative flex flex-col gap-7" aria-labelledby="hero-title">
+  <!-- Subtle brand glow behind the hero -->
   <div
     class="pointer-events-none absolute -left-40 -top-44 h-[420px] w-[420px] rounded-full opacity-70 blur-2xl"
-    style="background: radial-gradient(closest-side, rgba(99,102,241,0.16), transparent);"
-    aria-hidden="true"
-  >
-  </div>
-  <div
-    class="pointer-events-none absolute -right-32 top-24 h-[360px] w-[360px] rounded-full opacity-60 blur-2xl"
-    style="background: radial-gradient(closest-side, rgba(217,70,239,0.10), transparent);"
+    style="background: radial-gradient(closest-side, rgba(99,102,241,0.14), transparent);"
     aria-hidden="true"
   >
   </div>
 
-  <div class="flex flex-wrap items-center gap-4">
-    <span
-      class="inline-flex w-fit items-center gap-2 rounded-full border border-border_sm bg-item_back px-3 py-1.5 text-xs text-action_text"
-    >
-      <span class="relative flex h-2 w-2">
-        <span class="absolute inline-flex h-full w-full animate-ping rounded-full bg-[#4ade80] opacity-60"></span>
-        <span class="relative inline-flex h-2 w-2 rounded-full bg-[#4ade80]"></span>
-      </span>
-      {t.badge}
-    </span>
-  </div>
-
-  <p class="font-theme_bold text-sm uppercase tracking-widest text-link_text_hover">
-    {t.eyebrow}
-  </p>
+  <p class="kicker">{h.eyebrow}</p>
 
   <h1
-    class="text-3xl font-theme_bold leading-tight text-head_text sm:text-4xl slg:text-5xl slg:leading-tight"
+    id="hero-title"
+    class="max-w-4xl text-balance font-theme_bold text-[1.75rem] leading-tight text-head_text sm:text-4xl slg:text-[2.75rem] slg:leading-[1.15]"
   >
-    {t.h1}
+    {h.h1}
   </h1>
 
-  <div class="text-content max-w-3xl">
-    <p class="text-sm leading-relaxed slg:text-lg lg:leading-loose" set:html={t.p1} />
-    <p class="text-sm leading-relaxed slg:text-lg lg:leading-loose" set:html={t.p2} />
+  <p class="max-w-3xl text-base leading-relaxed slg:text-lg slg:leading-relaxed" set:html={h.leadHtml} />
+
+  <div class="flex flex-col gap-4">
+    <div class="flex flex-wrap items-center gap-3">
+      <ActionButton link={CONTACT.bookingUrl} variant="primary" event="book_call_click" eventLabel="hero">
+        <Icon name="calendar" size={18} />{h.ctaPrimary}
+      </ActionButton>
+      <ActionButton link={localizePath("/projects", locale)} event="case_studies_click" eventLabel="hero">
+        {h.ctaSecondary} <Icon name="arrow-right" size={18} />
+      </ActionButton>
+    </div>
+    <p class="text-sm">
+      {h.hiring}
+      <a
+        href={t.resumeHref}
+        data-event="resume_click"
+        data-event-label="hero"
+        class="ml-1 inline-flex items-center gap-1 font-theme_bold text-link_text_hover underline-offset-4 hover:underline"
+      >
+        {h.hiringLink} <Icon name="arrow-right" size={14} />
+      </a>
+    </p>
   </div>
 
-  <div class="flex flex-wrap items-center gap-3">
-    <ActionButton link={CONTACT.bookingUrl} variant="primary">
-      <Icon name="calendar" size={18} />{t.ctaPrimary}
-    </ActionButton>
-    <ActionButton link={localizePath("/projects", locale)}>
-      {t.ctaSecondary} <Icon name="arrow-right" size={18} />
-    </ActionButton>
-  </div>
-
-  <dl class="mt-2 grid grid-cols-1 gap-4 border-t border-border_sm pt-6 sm:grid-cols-3">
+  <dl class="mt-2 grid grid-cols-1 gap-x-6 gap-y-4 border-t border-border_sm pt-6 sm:grid-cols-2 slg:grid-cols-4">
     {
-      t.stats.map((s) => (
-        <div class="flex items-baseline gap-3 sm:flex-col sm:items-start sm:gap-1">
-          <dt class="font-theme_bold text-lg text-head_text sm:text-xl slg:text-2xl">{s.value}</dt>
-          <dd class="text-xs text-p_text slg:text-sm">{s.label}</dd>
+      h.facts.map((s) => (
+        <div class="flex flex-col gap-1">
+          <dt class="font-theme_bold text-base text-head_text slg:text-lg">{s.value}</dt>
+          <dd class="text-sm leading-snug text-p_text">{s.label}</dd>
         </div>
       ))
     }
   </dl>
+
+  <div class="flex flex-col gap-2">
+    <p class="font-theme text-xs uppercase tracking-widest text-p_text">{h.platforms}</p>
+    <ul class="flex flex-wrap items-center gap-x-5 gap-y-1">
+      {
+        platforms.map((pl) => (
+          <li>
+            <a
+              href={localizePath(pl.href, locale)}
+              data-event="case_study_click"
+              data-event-label={`hero_platform:${pl.name}`}
+              class="font-theme_bold text-sm text-action_text transition-colors hover:text-link_text_hover slg:text-base"
+            >
+              {pl.name}
+            </a>
+          </li>
+        ))
+      }
+    </ul>
+  </div>
+
+  <ul class="-ml-2.5 flex items-center gap-1" aria-label={locale === "fr" ? "Profils" : "Profiles"}>
+    {
+      profiles.map((s) => (
+        <li>
+          <a
+            href={s.url}
+            target="_blank"
+            rel="me noopener noreferrer"
+            class="inline-flex items-center gap-2 rounded-md px-2.5 py-2 text-sm text-p_text transition-colors hover:bg-border_sm hover:text-head_text"
+          >
+            <Icon name={s.icon} size={18} />
+            {s.name}
+          </a>
+        </li>
+      ))
+    }
+  </ul>
 </section>

@@ -1,0 +1,121 @@
+---
+import { getCollection } from "astro:content";
+import BaseLayout from "../layouts/BaseLayout.astro";
+import SectionHeading from "../components/SectionHeading.astro";
+import ServiceCard from "../components/ServiceCard.astro";
+import TestimonialCard from "../components/TestimonialCard.astro";
+import CtaSection from "../components/CtaSection.astro";
+import ActionButton from "../components/ActionButton.astro";
+import Icon from "../components/Icon.astro";
+import { CONTACT, SITE } from "../consts";
+import { getLocale, ui, resolveService } from "../i18n";
+
+const locale = getLocale(Astro.url);
+const t = ui[locale];
+const s = t.servicesPage;
+
+const services = (await getCollection("services")).sort((a, b) => a.data.order - b.data.order);
+const projectTitles = Object.fromEntries((await getCollection("projects")).map((p) => [p.slug, p.data.title]));
+const proofQuote = (await getCollection("testimonials")).sort((a, b) => a.data.order - b.data.order)[0];
+
+const resolved = services.map((x) => resolveService(x.data, locale));
+const servicesLd = {
+  "@context": "https://schema.org",
+  "@type": "ItemList",
+  itemListElement: resolved.map((x, i) => ({
+    "@type": "ListItem",
+    position: i + 1,
+    item: {
+      "@type": "Service",
+      name: x.title,
+      description: x.blurb,
+      provider: { "@id": `${SITE.url}/#person` },
+      areaServed: "Worldwide",
+    },
+  })),
+};
+---
+
+<BaseLayout title={t.meta.services.title} description={t.meta.services.description}>
+  <script slot="head" type="application/ld+json" set:html={JSON.stringify(servicesLd)} />
+  <div class="flex flex-col gap-20 slg:gap-24">
+    <section class="flex flex-col gap-6">
+      <SectionHeading as="h1" title={s.h1} />
+      <p class="max-w-3xl text-base leading-relaxed slg:text-lg">{s.intro}</p>
+      <div class="flex flex-wrap gap-3">
+        <ActionButton link={CONTACT.bookingUrl} variant="primary" event="book_call_click" eventLabel="services_hero">
+          <Icon name="calendar" size={18} />{t.cta.book}
+        </ActionButton>
+        <ActionButton link={`${t.contactHref}?topic=project`}>
+          <Icon name="mail" size={18} />{t.cta.message}
+        </ActionButton>
+      </div>
+    </section>
+
+    <section class="flex flex-col gap-8" aria-labelledby="services-list">
+      <SectionHeading id="services-list" title={s.servicesHeading} />
+      <div class="grid grid-cols-1 gap-5 md:grid-cols-2">
+        {
+          resolved.map((x) => (
+            <ServiceCard {...x} caseStudyTitle={x.caseStudy ? projectTitles[x.caseStudy] : undefined} />
+          ))
+        }
+      </div>
+    </section>
+
+    <section class="flex flex-col gap-8" aria-labelledby="engagements">
+      <SectionHeading id="engagements" title={s.engagements.heading} sub={s.engagements.sub} />
+      <div class="grid grid-cols-1 gap-5 slg:grid-cols-3">
+        {
+          s.engagements.items.map((m) => (
+            <div class="relative flex flex-col gap-3 overflow-hidden rounded-lg border border-border_sm bg-item_back p-6">
+              <div class="absolute inset-x-0 top-0 h-[2px] bg-topbar opacity-60" />
+              <h3 class="font-theme_bold text-lg text-head_text">{m.title}</h3>
+              <p class="text-sm leading-relaxed slg:text-base">{m.body}</p>
+            </div>
+          ))
+        }
+      </div>
+    </section>
+
+    <section class="flex flex-col gap-8" aria-labelledby="process">
+      <SectionHeading id="process" title={s.process.heading} />
+      <ol class="grid grid-cols-1 gap-5 sm:grid-cols-2 slg:grid-cols-4">
+        {
+          s.process.steps.map((p, i) => (
+            <li class="flex flex-col gap-3 rounded-lg border border-border_sm bg-item_back p-6">
+              <span class="font-theme_bold text-xl text-link_text_hover" aria-hidden="true">
+                {String(i + 1).padStart(2, "0")}
+              </span>
+              <h3 class="font-theme_bold text-head_text">{p.title}</h3>
+              <p class="text-sm leading-relaxed">{p.body}</p>
+            </li>
+          ))
+        }
+      </ol>
+    </section>
+
+    <section class="flex flex-col gap-8" aria-labelledby="why">
+      <SectionHeading id="why" title={s.why.heading} />
+      <ul class="grid grid-cols-1 gap-x-10 gap-y-4 slg:grid-cols-2">
+        {
+          s.why.items.map((d) => (
+            <li class="flex items-start gap-3 text-base leading-relaxed">
+              <Icon name="check" size={18} class="mt-1 shrink-0 text-link_text_hover" />
+              <span>{d}</span>
+            </li>
+          ))
+        }
+      </ul>
+      {
+        proofQuote && (
+          <div class="w-full max-w-2xl">
+            <TestimonialCard {...proofQuote.data} />
+          </div>
+        )
+      }
+    </section>
+
+    <CtaSection heading={s.ctaHeading} sub={s.ctaSub} />
+  </div>
+</BaseLayout>

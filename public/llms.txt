@@ -1,28 +1,36 @@
-# Hassan Tahrioui | Lead Full-Stack Developer
+# Hassan Tahrioui | Technical Lead & Senior Full-Stack Engineer
 
-> Freelance lead full-stack developer based in Morocco, working remotely on European hours. Builds and operates commercial web platforms end-to-end: frontend, backend, payments, integrations, deployment and production support. Available part-time for a limited number of freelance projects. Site available in English and French (/fr/).
+> Hassan Tahrioui is a technical lead and senior full-stack engineer based in Morocco, working remotely with European teams (CET-aligned, with overlap for US East Coast mornings). He has 9+ years of experience building and running commercial web software in Laravel/PHP, Next.js/React, Vue/Nuxt and Node.js, with PostgreSQL, Redis and production infrastructure. The site is available in English and French (/fr/).
 
-Core stack: Next.js, React, Vue, Nuxt, TypeScript, Laravel, PHP, Strapi, Node.js, PostgreSQL, MySQL, Redis, DigitalOcean, Docker, Nginx, Cloudflare, Stripe, Mollie, OpenAI, DeepSeek.
+## Current work
 
-Currently leads development on VisitFootball, a live multilingual football ticketing and travel platform. Also builds his own SaaS products, including Tracefox (session replay, journey testing, checkout QA and UX monitoring for online stores).
+- Since 2023: Lead Full-Stack Developer for a group of football ticketing and travel brands (VisitFootball, Voetbaltrips, Voetbaltickets.nl and TrustedSeats). Responsible for technical direction, the release workflow, coordinating developers and production, while staying hands-on. Stack: Next.js, TypeScript, Strapi v4, Nuxt, PostgreSQL, Redis, Cloudflare, Nginx, Vercel, DigitalOcean. He is not the sole author of these platforms; they are built by a team.
+- Since 2025: founder and solo developer of Tracefox (https://tracefox.co), a live SaaS for automated checkout testing aimed at ecommerce stores and the agencies that manage them.
+- In development: Store Recast, a service for moving WooCommerce stores to a hosted ecommerce platform. Not yet launched.
 
-## Services
+## Availability
 
-- [Services overview](https://www.tahrioui.me/services/): full-stack web and SaaS platforms, e-commerce and payments, APIs and automation, AI features, DevOps and production support, performance and technical SEO.
-- Engagement models: fixed-scope projects, monthly retainers, and hourly consulting from $35/hr. Every engagement starts with a free intro call.
+- Open to the right long-term role with a remote-first product team: Senior Full-Stack Engineer, Technical Lead or founding engineer. Based in Morocco.
+- Takes on a small number of consulting engagements: architecture reviews, production stabilization and takeovers, checkout/payments/integrations, multi-brand and multilingual platforms, SaaS builds, and fractional technical leadership for Laravel and Next.js products. Pricing is quoted per engagement after a scoping call; there are no published rates.
 
 ## Key pages
 
 - [Home](https://www.tahrioui.me/)
-- [Projects and case studies](https://www.tahrioui.me/projects/)
+- [About and experience](https://www.tahrioui.me/about/)
+- [Resume](https://www.tahrioui.me/resume/)
+- [Services](https://www.tahrioui.me/services/)
+- [Work and case studies](https://www.tahrioui.me/projects/)
 - [VisitFootball case study](https://www.tahrioui.me/projects/visitfootball/)
 - [Tracefox case study](https://www.tahrioui.me/projects/tracefox/)
-- [About](https://www.tahrioui.me/about/)
 - [Contact and FAQ](https://www.tahrioui.me/contact/)
+
+## Profiles
+
+- LinkedIn: https://www.linkedin.com/in/tahrioui-hsn/
+- GitHub: https://github.com/tahriouihsn
+- Upwork (100% Job Success Score): https://www.upwork.com/freelancers/tahriouihsn
 
 ## Contact
 
 - Email: tahrioui.hsn@gmail.com
 - Book a call: https://calendly.com/tahrioui-hsn/30min
-- Upwork (100% Job Success): https://www.upwork.com/freelancers/tahriouihsn
-- WhatsApp: https://wa.me/212687904064

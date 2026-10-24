@@ -1,11 +1,14 @@
 ---
 title: "AiStackHunter"
-description: "A handpicked directory of the world's top AI tools, tech stacks and experts: find, compare and explore AI solutions for your workflow and budget."
-tech: []
-# TODO: add the tech list, e.g. tech: ["Next.js", "TypeScript", "Tailwind"]
+description: "A curated directory of AI tools, tech stacks and experts, for comparing AI solutions by workflow and budget."
 image: "../../assets/featured/aistackhunter.png"
+imageAlt: "The AiStackHunter directory homepage"
 link: "https://aistackhunter.com"
-featured: true
+featured: false
 status: "active"
-order: 3
+stage: "live"
+order: 6
+fr:
+  description: "Un annuaire sélectionné d'outils d'IA, de stacks techniques et d'experts, pour comparer les solutions d'IA selon le besoin et le budget."
+  imageAlt: "La page d'accueil de l'annuaire AiStackHunter"
 ---

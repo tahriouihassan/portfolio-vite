@@ -1,19 +1,26 @@
 ---
-import type { CollectionEntry } from "astro:content";
+import { getCollection, type CollectionEntry } from "astro:content";
 import ProjectImage from "./ProjectImage.astro";
+import StageBadge from "./StageBadge.astro";
 import Icon from "./Icon.astro";
-import { getLocale, ui } from "../i18n";
+import { getLocale, ui, localizePath, resolveProject } from "../i18n";
 
 interface Props {
   project: CollectionEntry<"projects">;
+  /** Wide layout: image beside the text (used for the flagship project). */
+  wide?: boolean;
 }
 const locale = getLocale(Astro.url);
 const t = ui[locale];
-const { project } = Astro.props;
+const { project, wide = false } = Astro.props;
 const { data, slug, body } = project;
+const p = resolveProject(data, locale);
+const alt = (locale === "fr" ? data.fr?.imageAlt : undefined) ?? data.imageAlt;
 
 const hasCaseStudy = body.trim().length > 0;
-const href = hasCaseStudy ? `/projects/${slug}` : data.link ?? null;
+// French cards link to the French case study only when a translation exists.
+const translated = locale === "fr" && (await getCollection("projects-fr")).some((e) => e.slug === slug);
+const href = hasCaseStudy ? localizePath(`/projects/${slug}`, translated ? "fr" : "en") : data.link ?? null;
 const external = !hasCaseStudy && !!data.link;
 const domain = data.link ? new URL(data.link).hostname.replace(/^www\./, "") : null;
 const Tag = href ? "a" : "div";
@@ -23,22 +30,37 @@ const Tag = href ? "a" : "div";
   href={href}
   target={external ? "_blank" : undefined}
   rel={external ? "noopener noreferrer" : undefined}
-  class="group flex h-full flex-col gap-6 rounded-md border border-border_sm bg-item_back p-6 transition-colors hover:bg-item_hover_back lg:py-8"
+  data-event={hasCaseStudy ? "case_study_click" : undefined}
+  data-event-label={hasCaseStudy ? slug : undefined}
+  class:list={[
+    "group grid h-full gap-6 rounded-lg border border-border_sm bg-item_back p-5 transition-colors hover:bg-item_hover_back slg:p-6",
+    wide ? "slg:grid-cols-[1.15fr_1fr] slg:items-center slg:gap-8" : "grid-rows-[auto_1fr]",
+  ]}
 >
-  <ProjectImage image={data.image} title={data.title} class="h-44 slg:h-48" />
-  <div class="flex flex-1 flex-col gap-4">
-    <h3 class="font-theme_bold text-lg text-head_text slg:text-xl">{data.title}</h3>
+  <ProjectImage
+    image={data.image}
+    title={data.title}
+    alt={alt}
+    class={wide ? "aspect-[4/3]" : "aspect-video"}
+    sizes={wide ? "(max-width: 978px) 100vw, 520px" : "(max-width: 978px) 100vw, 440px"}
+  />
+  <div class="flex flex-col gap-3">
+    <div class="flex flex-wrap items-center gap-x-3 gap-y-2">
+      <h3 class="font-theme_bold text-lg text-head_text slg:text-xl">{data.title}</h3>
+      <StageBadge stage={data.stage} />
+    </div>
+    {(p.role || p.year) && <p class="font-theme text-xs text-p_text">{[p.role, p.year].filter(Boolean).join(" · ")}</p>}
+    <p class="text-sm leading-relaxed slg:text-base">{p.description}</p>
     {
       data.tech.length > 0 && (
-        <div class="flex flex-wrap gap-2 text-xs">
-          {data.tech.slice(0, 6).map((t) => (
-            <span class="bg-btn_back px-2 py-1">{t}</span>
+        <ul class="flex flex-wrap gap-1.5" aria-label="Stack">
+          {data.tech.slice(0, wide ? 8 : 5).map((x) => (
+            <li class="chip">{x}</li>
           ))}
-        </div>
+        </ul>
       )
     }
-    <p class="text-sm md:text-base">{data.description}</p>
-    <div class="mt-auto pt-1">
+    <div class="mt-auto pt-2">
       {
         hasCaseStudy ? (
           <span class="inline-flex items-center gap-1 font-theme_bold text-sm text-link_text_hover">

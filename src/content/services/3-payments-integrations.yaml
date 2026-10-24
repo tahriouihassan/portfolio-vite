@@ -1,0 +1,16 @@
+title: "Checkout, payments & integrations"
+blurb: "Revenue-critical code that has to work every time: checkout flows, payment providers, webhooks, partner APIs and the order automation behind them."
+icon: "cart"
+order: 3
+caseStudy: "visitfootball"
+points:
+  - "Mollie and Stripe, subscriptions and webhooks"
+  - "Partner APIs and third-party integrations"
+  - "Order workflows, documents and transactional email"
+fr:
+  title: "Checkout, paiements & intégrations"
+  blurb: "Du code critique pour le chiffre d'affaires, qui doit fonctionner à chaque fois : parcours de checkout, prestataires de paiement, webhooks, API partenaires et l'automatisation des commandes."
+  points:
+    - "Mollie et Stripe, abonnements et webhooks"
+    - "API partenaires et intégrations tierces"
+    - "Workflows de commande, documents et emails transactionnels"

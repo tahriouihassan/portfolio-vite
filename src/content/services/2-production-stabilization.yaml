@@ -1,0 +1,16 @@
+title: "Production stabilization & takeovers"
+blurb: "For live applications that have become fragile: slow pages, failing jobs, risky deployments, or a codebase whose original developers have left."
+icon: "server"
+order: 2
+caseStudy: "visitfootball"
+points:
+  - "Incident troubleshooting and root-cause fixes"
+  - "Deployments, staging and release workflow"
+  - "PostgreSQL, Redis, queues, Nginx and Cloudflare"
+fr:
+  title: "Stabilisation de production & reprise de projet"
+  blurb: "Pour les applications en production devenues fragiles : pages lentes, jobs qui échouent, déploiements risqués, ou un code dont les développeurs d'origine sont partis."
+  points:
+    - "Résolution d'incidents et correction des causes profondes"
+    - "Déploiements, staging et workflow de release"
+    - "PostgreSQL, Redis, files d'attente, Nginx et Cloudflare"

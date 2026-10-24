@@ -1,0 +1,16 @@
+title: "Architecture review & technical direction"
+blurb: "A senior, outside view of a Laravel or Next.js product: where the architecture will hurt you next, what to fix first, and what can safely wait."
+icon: "layers"
+order: 1
+caseStudy: "visitfootball"
+points:
+  - "Codebase, data model and infrastructure review"
+  - "A written, prioritized plan you can act on"
+  - "Technical due diligence before a rebuild or a hire"
+fr:
+  title: "Audit d'architecture & direction technique"
+  blurb: "Un regard senior et extérieur sur un produit Laravel ou Next.js : où l'architecture va coincer, quoi corriger en premier, et ce qui peut attendre sans risque."
+  points:
+    - "Revue du code, du modèle de données et de l'infrastructure"
+    - "Un plan écrit et priorisé, directement exploitable"
+    - "Due diligence technique avant une refonte ou un recrutement"

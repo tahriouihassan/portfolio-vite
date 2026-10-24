@@ -34,16 +34,20 @@ export default {
       action_text: "#d9d9d9",
       btn_back: "#2e2e2e",
       btn_text: "#f6f6f6",
-      link_text_hover: "#6366F1",
+      // Text-safe accent: 5.4:1 on the page background (WCAG AA).
+      link_text_hover: "#818CF8",
       link_border_hover: "rgb(99,102,241, 0.4)",
       link_border: "#6c6c6c",
       link: "#d9d9d9",
       background: "#202026",
-      accent: "#6366F1",
+      // Button fill: white text on it is 6.3:1.
+      accent: "#4F46E5",
       selectionBack: "rgba(40,41,96)",
     },
     fontFamily: {
       logo: "Southam Demo",
+      // Long-form reading text; the mono faces stay on headings, labels and UI.
+      sans: ["ui-sans-serif", "system-ui", "-apple-system", "Segoe UI", "Roboto", "Helvetica Neue", "Arial", "sans-serif"],
       theme: ["MonoLisa", "Monaco", "Source Code Pro", "monospace"],
       theme_bold: ["MonoLisaBold", "Monaco", "Source Code Pro", "monospace"],
     },
