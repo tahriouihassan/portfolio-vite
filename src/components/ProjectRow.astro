@@ -1,0 +1,43 @@
+---
+import type { CollectionEntry } from "astro:content";
+import StageBadge from "./StageBadge.astro";
+import Icon from "./Icon.astro";
+import { getLocale, resolveProject } from "../i18n";
+
+/** Compact, image-free listing for smaller or older projects. */
+interface Props {
+  project: CollectionEntry<"projects">;
+}
+const { project } = Astro.props;
+const { data } = project;
+const locale = getLocale(Astro.url);
+const p = resolveProject(data, locale);
+const domain = data.link ? new URL(data.link).hostname.replace(/^www\./, "") : null;
+---
+
+<li class="grid grid-cols-1 gap-2 border-t border-border_sm py-5 sm:grid-cols-[minmax(0,15rem)_1fr] sm:gap-8">
+  <div class="flex flex-col items-start gap-2">
+    <h3 class="font-theme_bold text-base text-head_text slg:text-lg">{data.title}</h3>
+    <StageBadge stage={data.stage} />
+  </div>
+  <div class="flex flex-col gap-2">
+    <p class="text-sm leading-relaxed slg:text-base">{p.description}</p>
+    <div class="flex flex-wrap items-center gap-x-4 gap-y-1">
+      {p.role && <span class="font-theme text-xs text-p_text">{p.role}</span>}
+      {data.tech.length > 0 && <span class="font-theme text-xs text-p_text">{data.tech.join(" · ")}</span>}
+      {
+        data.link && domain && (
+          <a
+            href={data.link}
+            target="_blank"
+            rel="noopener noreferrer"
+            class="inline-flex items-center gap-1 text-sm text-action_text underline-offset-4 hover:text-link_text_hover hover:underline"
+          >
+            {domain}
+            <Icon name="arrow-up-right" size={14} />
+          </a>
+        )
+      }
+    </div>
+  </div>
+</li>

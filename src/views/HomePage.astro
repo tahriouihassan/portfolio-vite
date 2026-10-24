@@ -11,6 +11,7 @@ import LinkBtn from "../components/LinkBtn.astro";
 import Icon from "../components/Icon.astro";
 import { CONTACT, SOCIALS } from "../consts";
 import { getLocale, ui, localizePath } from "../i18n";
+import { EXPERIENCE } from "../data/experience";
 
 const locale = getLocale(Astro.url);
 const t = ui[locale];
@@ -19,7 +20,16 @@ const upworkUrl = SOCIALS.find((s) => s.icon === "upwork")?.url;
 const [flagship, ...featured] = (await getCollection("projects"))
   .filter((p) => p.data.featured && p.data.status === "active")
   .sort((a, b) => a.data.order - b.data.order);
-const testimonials = (await getCollection("testimonials")).sort((a, b) => a.data.order - b.data.order);
+const testimonials = (await getCollection("testimonials"))
+  .filter((r) => r.data.featured)
+  .sort((a, b) => a.data.order - b.data.order);
+
+// The two current roles get full rows; earlier roles collapse into one line.
+const current = EXPERIENCE.slice(0, 2);
+const earlier = EXPERIENCE.slice(2);
+const earlierYears = earlier.flatMap((r) => r.period.en.match(/\d{4}/g) ?? []).map(Number);
+const earlierSpan = earlierYears.length ? `${Math.min(...earlierYears)} – ${Math.max(...earlierYears)}` : "";
+const earlierCompanies = new Intl.ListFormat(locale, { type: "conjunction" }).format(earlier.map((r) => r.company));
 ---
 
 <BaseLayout title={t.meta.home.title || undefined} description={t.meta.home.description}>
@@ -59,6 +69,53 @@ const testimonials = (await getCollection("testimonials")).sort((a, b) => a.data
       >
         {t.work.all} <Icon name="arrow-right" size={16} />
       </a>
+    </section>
+
+    <!-- EXPERIENCE: the 30-second recruiter scan -->
+    <section class="flex flex-col gap-8" aria-labelledby="experience">
+      <SectionHeading id="experience" title={t.experience.heading} sub={t.experience.sub} />
+      <ol class="flex flex-col">
+        {
+          current.map((r) => (
+            <li class="grid grid-cols-1 gap-1 border-t border-border_sm py-5 sm:grid-cols-[11rem_1fr] sm:gap-8">
+              <span class="font-theme text-sm text-p_text">{r.period[locale]}</span>
+              <div class="flex flex-col gap-1">
+                <h3 class="font-theme_bold text-base text-head_text slg:text-lg">
+                  {r.href ? (
+                    <a href={localizePath(r.href, locale)} class="hover:text-link_text_hover">
+                      {r.company}
+                    </a>
+                  ) : (
+                    r.company
+                  )}
+                  <span class="font-theme text-p_text"> · {r.role[locale]}</span>
+                </h3>
+                {r.detail && <p class="font-theme text-xs text-p_text">{r.detail}</p>}
+                {r.bullets && <p class="mt-1 max-w-3xl text-sm leading-relaxed slg:text-base">{r.bullets[locale][0]}</p>}
+              </div>
+            </li>
+          ))
+        }
+        {
+          earlier.length > 0 && (
+            <li class="grid grid-cols-1 gap-1 border-y border-border_sm py-5 sm:grid-cols-[11rem_1fr] sm:gap-8">
+              <span class="font-theme text-sm text-p_text">{earlierSpan}</span>
+              <p class="text-sm leading-relaxed slg:text-base">
+                <span class="font-theme_bold text-head_text">{t.experience.earlier}: </span>
+                {t.experience.earlierRole} {earlierCompanies}.
+              </p>
+            </li>
+          )
+        }
+      </ol>
+      <div class="flex flex-wrap items-center gap-x-5 gap-y-3">
+        <ActionButton link={t.resumeHref} variant="primary" event="resume_click" eventLabel="home_experience">
+          <Icon name="download" size={18} />{t.experience.cta}
+        </ActionButton>
+        <ActionButton link={`${localizePath("/about", locale)}#experience`} variant="ghost">
+          {t.experience.secondary} <Icon name="arrow-right" size={16} />
+        </ActionButton>
+      </div>
     </section>
 
     <!-- TWO PATHS: employers and clients -->
@@ -105,7 +162,7 @@ const testimonials = (await getCollection("testimonials")).sort((a, b) => a.data
               </p>
             )}
           </div>
-          <div class="grid grid-cols-1 gap-5 slg:grid-cols-3">
+          <div class="grid grid-cols-1 gap-5 md:grid-cols-2">
             {testimonials.map((r) => (
               <TestimonialCard {...r.data} />
             ))}

@@ -82,6 +82,10 @@ body {
 .input {
   @apply w-full rounded-md border border-action_border bg-action_back px-4 py-3 text-action_text outline-none transition focus:border-link_border_hover;
 }
+/* Flag invalid fields only after the visitor has interacted with them. */
+.input:user-invalid {
+  border-color: #f87171;
+}
 .input::placeholder {
   color: rgba(177, 177, 177, 0.55);
 }
@@ -120,7 +124,9 @@ body {
 
 /* Case-study body (EN and FR) rendered from markdown. */
 .case-study-body h2 {
-  @apply mb-3 mt-12 font-theme_bold text-xl text-head_text slg:text-2xl;
+  @apply mb-3 mt-12 font-theme_bold text-xl tracking-tight text-head_text first:mt-0 slg:text-2xl;
+  /* Clear the fixed top nav when jumping from "On this page". */
+  scroll-margin-top: 7rem;
 }
 .case-study-body h3 {
   @apply mb-2 mt-8 font-theme_bold text-lg text-head_text;
@@ -145,7 +151,7 @@ body {
   @apply border-b-2 border-link_border text-link transition-colors hover:border-link_border_hover hover:text-link_text_hover;
 }
 .case-study-body pre {
-  @apply my-6 overflow-x-auto rounded-md border border-border_sm p-4 text-xs leading-relaxed sm:text-sm;
+  @apply my-6 w-fit max-w-full overflow-x-auto rounded-md border border-border_sm p-4 pr-8 text-xs leading-relaxed sm:p-5 sm:pr-10 sm:text-sm;
   background: #161616 !important;
 }
 .case-study-body pre code {

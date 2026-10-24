@@ -13,11 +13,21 @@ role: "Full-Stack Developer"
 year: "2022"
 client: "Talent-graph company"
 outcome: "A full job platform with AI resume tools, matching and subscription billing."
+scope: "Client build · two-sided platform"
+glance:
+  problem: "A two-sided job platform has to be useful to candidates and recruiters from day one, or neither side shows up."
+  role: "Full-stack developer for a talent-graph company: candidate and recruiter features, AI resume tools, subscription billing and dashboards."
+  outcome: "A complete two-sided product with AI resume tools, matching and Stripe subscriptions, built to the client's specification. No longer online."
 fr:
   description: "Une plateforme d'emploi à deux faces pour une entreprise de talent graph : création de CV assistée par IA, matching d'offres, outils recruteurs et abonnements."
   outcome: "Une plateforme d'emploi complète avec outils de CV par IA, matching et facturation par abonnement."
   role: "Développeur full-stack"
   imageAlt: "L'interface de la plateforme d'emploi OpenMatch"
+  scope: "Projet client · plateforme à deux faces"
+  glance:
+    problem: "Une plateforme d'emploi à deux faces doit être utile aux candidats et aux recruteurs dès le premier jour, sinon aucun des deux côtés ne vient."
+    role: "Développeur full-stack pour une entreprise de talent graph : fonctionnalités candidats et recruteurs, outils de CV par IA, abonnements et tableaux de bord."
+    outcome: "Un produit à deux faces complet, avec outils de CV par IA, matching et abonnements Stripe, construit selon le cahier des charges du client. Plus en ligne."
 ---
 
 OpenMatch was a job platform I built for a talent-graph company: a two-sided product connecting candidates and recruiters, with AI built into the resume and matching experience.

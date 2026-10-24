@@ -14,12 +14,22 @@ role: "Lead Full-Stack Developer"
 year: "2023 – present"
 client: "Football ticketing & travel group"
 outcome: "Leading development across four ticketing and travel brands, with shared platforms, live payments and production I'm responsible for."
+scope: "4 brands · shared platforms · team-built"
+glance:
+  problem: "Sell high-value, time-bound tickets and trips across four brands and several languages, where search drives revenue and every order has to be right."
+  role: "Lead developer since 2023: technical direction, releases, code review and production, while staying hands-on. The platforms are team-built."
+  outcome: "The brands sell on live platforms I'm responsible for in production, through a defined development, staging and production release workflow."
 fr:
   description: "Lead developer d'un groupe de marques de billetterie et de voyages football : plateformes Next.js et Strapi partagées, checkout et paiements, SEO multilingue, automatisation et infrastructure de production."
   outcome: "Je dirige le développement de quatre marques de billetterie et de voyages : plateformes partagées, paiements réels et une production dont je suis responsable."
   role: "Lead développeur full-stack"
   year: "2023 – aujourd'hui"
   imageAlt: "VisitFootball sur mobile : la page d'accueil avec la recherche de matchs, et le récapitulatif de commande d'un voyage avec vols et hôtel"
+  scope: "4 marques · plateformes partagées · travail d'équipe"
+  glance:
+    problem: "Vendre des billets et des voyages de forte valeur, à échéance fixe, sur quatre marques et plusieurs langues, où la recherche génère le chiffre d'affaires et où chaque commande doit être juste."
+    role: "Lead developer depuis 2023 : direction technique, releases, revue de code et production, en restant dans le code. Les plateformes sont construites en équipe."
+    outcome: "Les marques vendent sur des plateformes en production dont je suis responsable, avec un workflow de release défini entre développement, staging et production."
 ---
 
 ## Context

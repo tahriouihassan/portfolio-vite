@@ -57,6 +57,25 @@ const t = ui[locale].form;
   </div>
 </form>
 
+<!-- Replaces the form after a successful send. -->
+<!-- Toggled with classes, not the hidden attribute: Tailwind's display utilities override [hidden]. -->
+<div id="form-success" class="hidden flex-col gap-4" role="status" tabindex="-1">
+  <p class="flex items-center gap-2 font-theme_bold text-lg text-head_text">
+    <Icon name="check" size={22} class="text-[#4ade80]" />{t.okTitle}
+  </p>
+  <p class="text-base leading-relaxed">{t.okBody}</p>
+  <a
+    href={CONTACT.bookingUrl}
+    target="_blank"
+    rel="noopener noreferrer"
+    data-event="book_call_click"
+    data-event-label="form_success"
+    class="inline-flex w-fit items-center gap-2 rounded-md border border-accent bg-accent px-5 py-3 font-theme_bold text-white transition hover:brightness-110"
+  >
+    <Icon name="calendar" size={18} />{ui[locale].cta.book}
+  </a>
+</div>
+
 <script is:inline data-astro-rerun>
   (function () {
     var form = document.getElementById("contact-form");
@@ -81,8 +100,6 @@ const t = ui[locale].form;
         });
         var data = await res.json();
         if (res.ok) {
-          status.textContent = form.dataset.msgOk;
-          status.style.color = "#4ade80";
           if (typeof window.gtag === "function") {
             var topic = form.querySelector('select[name="topic"]');
             window.gtag("event", "contact_form_submit", {
@@ -91,6 +108,17 @@ const t = ui[locale].form;
             });
           }
           form.reset();
+          var done = document.getElementById("form-success");
+          if (done) {
+            status.textContent = "";
+            form.classList.add("hidden");
+            done.classList.remove("hidden");
+            done.classList.add("flex");
+            done.focus();
+          } else {
+            status.textContent = form.dataset.msgOk;
+            status.style.color = "#4ade80";
+          }
         } else {
           status.textContent = data.message || form.dataset.msgFail;
           status.style.color = "#f87171";

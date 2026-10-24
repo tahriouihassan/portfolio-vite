@@ -13,12 +13,22 @@ order: 2
 role: "Founder & solo developer"
 year: "2025 – present"
 outcome: "A live SaaS with a free plan and three paid tiers. Positioning, product, automation engine and infrastructure, all built by me."
+scope: "Solo · from product to infrastructure"
+glance:
+  problem: "Agencies learn about broken checkouts from clients or lost sales. Uptime monitors and analytics don't show which step failed."
+  role: "Founder and solo developer: positioning, pricing, design, frontend, backend, the browser-automation engine and infrastructure."
+  outcome: "A live SaaS with a free plan and three paid tiers that replays checkouts in a real browser and names the step that failed."
 fr:
   description: "Mon propre SaaS, construit seul : des tests automatisés de checkout pour les boutiques en ligne et les agences qui les gèrent. Parcours rejoués dans un vrai navigateur, rapports d'échec étape par étape, formules payantes."
   outcome: "Un SaaS en ligne avec une formule gratuite et trois formules payantes. Positionnement, produit, moteur d'automatisation et infrastructure, tout construit par moi."
   role: "Fondateur et développeur unique"
   year: "2025 – aujourd'hui"
   imageAlt: "La page d'accueil de Tracefox : « Catch broken checkouts before customers do », à côté d'un exemple de test de checkout en échec qui indique l'étape fautive"
+  scope: "Seul · du produit à l'infrastructure"
+  glance:
+    problem: "Les agences découvrent un checkout cassé par un client ou une baisse des ventes. Le monitoring de disponibilité et les analytics ne montrent pas l'étape fautive."
+    role: "Fondateur et développeur unique : positionnement, tarification, design, frontend, backend, moteur d'automatisation de navigateur et infrastructure."
+    outcome: "Un SaaS en ligne, avec une formule gratuite et trois formules payantes, qui rejoue les checkouts dans un vrai navigateur et indique l'étape en échec."
 ---
 
 Tracefox is my own product. I built it alone, from the positioning and pricing to the frontend, backend, browser-automation engine and infrastructure. It's live at [tracefox.co](https://tracefox.co) with a free plan and paid plans.

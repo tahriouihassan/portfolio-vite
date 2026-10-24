@@ -15,6 +15,7 @@ export const en = {
     { label: "About", href: "/about/" },
   ],
   navCta: "Contact",
+  navResume: "Resume",
   contactHref: "/contact/",
   resumeHref: "/resume/",
 
@@ -52,15 +53,17 @@ export const en = {
     leadHtml: `I'm Hassan Tahrioui. For 9+ years I've built and run commercial software on <span class="text-head_text">Laravel, Next.js and Node</span>. Today I lead development for a group of football ticketing and travel brands: shared platforms, checkout and payments, multilingual SEO, integrations and the infrastructure they run on. I make the technical calls, coordinate the developers and stay hands-on in the code.`,
     ctaPrimary: "Book an intro call",
     ctaSecondary: "Read the case studies",
-    hiring: "Hiring for a senior or lead role?",
-    hiringLink: "View my resume",
     platforms: "Platforms I lead or built",
-    facts: [
-      { value: "9+ years", label: "building production web software" },
-      { value: "Lead developer", label: "multi-brand ticketing & travel group, since 2023" },
-      { value: "Founder", label: "Tracefox, a live checkout-testing SaaS" },
-      { value: "Remote, Morocco", label: "working with European teams" },
-    ],
+    glance: {
+      heading: "At a glance",
+      rows: [
+        { label: "Now", value: "Lead Full-Stack Developer", sub: "VisitFootball group · since 2023" },
+        { label: "Also", value: "Founder & solo developer", sub: "Tracefox · since 2025" },
+        { label: "Experience", value: "9+ years", sub: "Laravel, Next.js, Node, PostgreSQL" },
+        { label: "Based in", value: "Morocco, remote", sub: "Works with European teams (CET)" },
+      ],
+      resume: "View resume",
+    },
   },
 
   ownership: {
@@ -88,6 +91,15 @@ export const en = {
         body: "The release workflow from development to staging to production, code review, coordinating developers, and turning requirements from product, operations and SEO into shipped software.",
       },
     ],
+  },
+
+  experience: {
+    heading: "Experience",
+    sub: "9+ years building commercial software; since 2023, leading development on live production platforms.",
+    earlier: "Earlier",
+    earlierRole: "Full-Stack Developer at",
+    cta: "Full resume",
+    secondary: "More about me",
   },
 
   work: {
@@ -165,6 +177,8 @@ export const en = {
     send: "Send message",
     sending: "Sending…",
     ok: "Thanks, I'll get back to you shortly.",
+    okTitle: "Message sent",
+    okBody: "Thanks. I read every message myself and will reply by email. If it's time-sensitive, you can also book a call now.",
     fail: "Something went wrong. Please email me directly.",
     network: "Network error. Please email me directly.",
   },
@@ -306,7 +320,11 @@ export const en = {
   projectsPage: {
     h1: "Work",
     intro:
-      "Platforms and products I've led or built. Case studies cover the context, my role, the technical decisions and the trade-offs. Status labels show what's live, in development or no longer online.",
+      "Platforms and products I've led or built, from a multi-brand ticketing group to my own SaaS. Status labels show what's live, in development or no longer online.",
+    caseStudiesHeading: "Case studies",
+    caseStudiesSub: "Long-form write-ups with the context, my exact role, the architecture and the trade-offs.",
+    moreHeading: "More work",
+    moreSub: "Smaller products, client builds and experiments.",
     earlierHeading: "Earlier projects",
     earlierSub: "Projects I worked on that are no longer online or maintained.",
   },
@@ -320,7 +338,11 @@ export const en = {
     client: "Client",
     status: "Status",
     stack: "Stack",
+    scope: "Scope",
     source: "Source",
+    glance: { problem: "The problem", role: "My role", outcome: "Outcome" },
+    onThisPage: "On this page",
+    facts: "Project facts",
     ctaHeading: "Facing a similar problem?",
     ctaSub: "If your platform has similar moving parts, or your team needs someone who has run one, let's talk.",
     imageAlt: "Screenshot of",

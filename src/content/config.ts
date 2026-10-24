@@ -8,6 +8,12 @@ import { defineCollection, z } from "astro:content";
  * If a file has a markdown BODY (below the frontmatter), it automatically
  * becomes a full case-study page at /projects/<filename>. No body = card only.
  */
+const glanceSchema = z.object({
+  problem: z.string(),
+  role: z.string(),
+  outcome: z.string(),
+});
+
 const projects = defineCollection({
   type: "content",
   schema: ({ image }) =>
@@ -45,6 +51,10 @@ const projects = defineCollection({
       client: z.string().optional(),
       // Headline result, e.g. "Processes live ticket payments in EN/NL/DE".
       outcome: z.string().optional(),
+      // Short context line for the facts panel, e.g. "4 brands · team-built".
+      scope: z.string().optional(),
+      // Case-study summary panel. Only restate facts from the case study body.
+      glance: glanceSchema.optional(),
       // French card fields (shown on /fr pages; falls back to English).
       fr: z
         .object({
@@ -53,6 +63,8 @@ const projects = defineCollection({
           role: z.string().optional(),
           year: z.string().optional(),
           imageAlt: z.string().optional(),
+          scope: z.string().optional(),
+          glance: glanceSchema.optional(),
         })
         .optional(),
     }),
@@ -103,6 +115,8 @@ const testimonials = defineCollection({
     role: z.string(),
     company: z.string().optional(),
     order: z.number().default(0),
+    // Shown on the homepage; the rest still appear where all quotes are listed.
+    featured: z.boolean().default(true),
   }),
 });
 

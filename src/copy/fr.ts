@@ -10,6 +10,7 @@ export const fr: Copy = {
     { label: "À propos", href: "/fr/about/" },
   ],
   navCta: "Contact",
+  navResume: "CV",
   contactHref: "/fr/contact/",
   resumeHref: "/resume/",
 
@@ -47,15 +48,17 @@ export const fr: Copy = {
     leadHtml: `Je suis Hassan Tahrioui. Depuis plus de 9 ans, je construis et j'exploite des logiciels commerciaux avec <span class="text-head_text">Laravel, Next.js et Node</span>. Aujourd'hui, je dirige le développement d'un groupe de marques de billetterie et de voyages football : plateformes partagées, checkout et paiements, SEO multilingue, intégrations et l'infrastructure qui fait tourner l'ensemble. Je prends les décisions techniques, je coordonne les développeurs et je reste dans le code.`,
     ctaPrimary: "Réserver un appel",
     ctaSecondary: "Lire les études de cas",
-    hiring: "Vous recrutez pour un poste senior ou lead ?",
-    hiringLink: "Voir mon CV (en anglais)",
     platforms: "Plateformes que je dirige ou que j'ai construites",
-    facts: [
-      { value: "9+ ans", label: "à construire des logiciels web en production" },
-      { value: "Lead developer", label: "groupe billetterie & voyages multi-marques, depuis 2023" },
-      { value: "Fondateur", label: "Tracefox, un SaaS de test de checkout en ligne" },
-      { value: "À distance, Maroc", label: "avec des équipes européennes" },
-    ],
+    glance: {
+      heading: "En bref",
+      rows: [
+        { label: "Actuellement", value: "Lead développeur full-stack", sub: "Groupe VisitFootball · depuis 2023" },
+        { label: "Aussi", value: "Fondateur et développeur unique", sub: "Tracefox · depuis 2025" },
+        { label: "Expérience", value: "9+ ans", sub: "Laravel, Next.js, Node, PostgreSQL" },
+        { label: "Basé au", value: "Maroc, à distance", sub: "Avec des équipes européennes (CET)" },
+      ],
+      resume: "Voir le CV (EN)",
+    },
   },
 
   ownership: {
@@ -83,6 +86,15 @@ export const fr: Copy = {
         body: "Le workflow de release du développement au staging puis à la production, la revue de code, la coordination des développeurs, et la traduction des besoins produit, opérations et SEO en logiciel livré.",
       },
     ],
+  },
+
+  experience: {
+    heading: "Parcours",
+    sub: "Plus de 9 ans à construire des logiciels commerciaux ; depuis 2023, je dirige le développement de plateformes en production.",
+    earlier: "Avant",
+    earlierRole: "Développeur full-stack chez",
+    cta: "CV complet (EN)",
+    secondary: "En savoir plus",
   },
 
   work: {
@@ -160,6 +172,8 @@ export const fr: Copy = {
     send: "Envoyer le message",
     sending: "Envoi en cours…",
     ok: "Merci, je vous réponds très vite.",
+    okTitle: "Message envoyé",
+    okBody: "Merci. Je lis chaque message moi-même et je vous répondrai par email. Si c'est urgent, vous pouvez aussi réserver un appel dès maintenant.",
     fail: "Une erreur est survenue. Écrivez-moi directement par email.",
     network: "Erreur réseau. Écrivez-moi directement par email.",
   },
@@ -301,7 +315,11 @@ export const fr: Copy = {
   projectsPage: {
     h1: "Projets",
     intro:
-      "Des plateformes et des produits que j'ai dirigés ou construits. Les études de cas présentent le contexte, mon rôle, les décisions techniques et les compromis. Les étiquettes indiquent ce qui est en production, en développement ou plus en ligne.",
+      "Des plateformes et des produits que j'ai dirigés ou construits, d'un groupe de billetterie multi-marques à mon propre SaaS. Les étiquettes indiquent ce qui est en production, en développement ou plus en ligne.",
+    caseStudiesHeading: "Études de cas",
+    caseStudiesSub: "Des analyses détaillées : le contexte, mon rôle exact, l'architecture et les compromis.",
+    moreHeading: "Autres projets",
+    moreSub: "Des produits plus modestes, des développements pour des clients et des expérimentations.",
     earlierHeading: "Projets antérieurs",
     earlierSub: "Des projets sur lesquels j'ai travaillé et qui ne sont plus en ligne ou plus maintenus.",
   },
@@ -315,7 +333,11 @@ export const fr: Copy = {
     client: "Client",
     status: "Statut",
     stack: "Stack",
+    scope: "Périmètre",
     source: "Code source",
+    glance: { problem: "Le problème", role: "Mon rôle", outcome: "Résultat" },
+    onThisPage: "Sur cette page",
+    facts: "Fiche projet",
     ctaHeading: "Un problème similaire ?",
     ctaSub: "Si votre plateforme a des rouages comparables, ou si votre équipe a besoin de quelqu'un qui en a déjà fait tourner une, parlons-en.",
     imageAlt: "Capture d'écran de",

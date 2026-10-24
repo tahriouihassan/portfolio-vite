@@ -44,17 +44,27 @@ const homeHref = locale === "fr" ? "/fr/" : "/";
         <a
           href={item.href}
           aria-current={isActive(item.href) ? "page" : undefined}
-          class="whitespace-nowrap rounded-md px-1.5 py-2 font-theme_bold transition-all hover:bg-action_back min-[440px]:px-2 sm:px-4"
+          class="whitespace-nowrap rounded-md px-1.5 py-2.5 font-theme_bold transition-all hover:bg-action_back min-[440px]:px-2 sm:px-4"
         >
           {item.label}
         </a>
       ))
     }
+    <!-- Resume is a primary destination for recruiters; on phones it lives in the hero card instead. -->
+    <a
+      href={t.resumeHref}
+      aria-current={isActive(t.resumeHref) ? "page" : undefined}
+      data-event="resume_click"
+      data-event-label="nav"
+      class="hidden whitespace-nowrap rounded-md px-4 py-2 font-theme_bold transition-all hover:bg-action_back sm:inline-block"
+    >
+      {t.navResume}
+    </a>
     <a
       href={t.contactHref}
       aria-current={isActive(t.contactHref) ? "page" : undefined}
       data-event="nav_contact_click"
-      class="ml-1 inline-flex items-center rounded-md border border-accent bg-accent px-2 py-2 font-theme_bold text-white transition-colors hover:brightness-110 min-[440px]:px-2.5 sm:px-4"
+      class="ml-1 inline-flex items-center rounded-md border border-accent bg-accent px-2 py-2.5 font-theme_bold text-white transition-colors hover:brightness-110 min-[440px]:px-2.5 sm:px-4"
     >
       <!-- Icon-only on narrow phones; the label stays available to screen readers. -->
       <Icon name="mail" size={16} class="min-[440px]:hidden" />
@@ -64,7 +74,7 @@ const homeHref = locale === "fr" ? "/fr/" : "/";
       href={switchHref}
       hreflang={locale === "en" ? "fr" : "en"}
       lang={locale === "en" ? "fr" : "en"}
-      class="ml-1 rounded-md border border-border_sm px-2 py-2 font-theme_bold text-p_text transition-colors hover:bg-action_back hover:text-head_text sm:px-3"
+      class="ml-1 rounded-md border border-border_sm px-2 py-2.5 font-theme_bold text-p_text transition-colors hover:bg-action_back hover:text-head_text sm:px-3"
       aria-label={t.langSwitch.aria}
     >
       {t.langSwitch.label}

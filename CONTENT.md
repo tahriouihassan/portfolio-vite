@@ -32,11 +32,13 @@ Projects are one Markdown file each in **`src/content/projects/`**.
    | `featured` | — | `true` puts it on the homepage (the first one is shown large) |
    | `status` | — | `active` (default) or `archived` (→ "Earlier projects" list) |
    | `order` | — | Lower = earlier |
-   | `role`, `year`, `client`, `outcome` | — | Shown on the case-study header |
-   | `fr` | — | French `description`, `outcome`, `role`, `year`, `imageAlt` |
+   | `role`, `year`, `client`, `outcome` | — | Shown on the case-study header and facts panel |
+   | `scope` | — | One line for the facts panel, e.g. `4 brands · team-built` |
+   | `glance` | — | `problem`, `role`, `outcome`: the summary panel at the top of a case study. Restate facts from the body only. |
+   | `fr` | — | French `description`, `outcome`, `role`, `year`, `imageAlt`, `scope`, `glance` |
 
 3. **Screenshot:** drop the image in `src/assets/featured/` and set `image: "../../assets/featured/your-file.webp"`. Astro optimizes it automatically.
-4. **Case study:** anything you write *below* the frontmatter becomes a full case study at `/projects/<filename>/`, with a "Read case study" link on the card.
+4. **Case study:** anything you write *below* the frontmatter becomes a full case study at `/projects/<filename>/`, shown as a large card on the Work page. Projects without a body are listed compactly under "More work" (no screenshot needed). The case study's `##` headings become its "On this page" navigation.
 5. **French case study:** add **`src/content/projects-fr/<same-filename>.md`** with `seoTitle`, `description` and the translated body. It's published at `/fr/projects/<filename>/` with hreflang links. Without it, French cards link to the English case study.
 
 Never put numbers in a case study that you can't back up (revenue, traffic, uptime, team size).
@@ -58,7 +60,7 @@ Icon names: `layers`, `cart`, `plug`, `sparkles`, `server`, `gauge`, `users`, `g
 
 ## 5. Testimonials
 
-One YAML file per quote in **`src/content/testimonials/`** (`quote`, `name`, `role`, `company`, `order`). Use real quotes only, verbatim.
+One YAML file per quote in **`src/content/testimonials/`** (`quote`, `name`, `role`, `company`, `order`, `featured`). Use real quotes only, verbatim. `featured: false` keeps a quote off the homepage.
 
 ---
 

@@ -2,7 +2,6 @@
 import type { CollectionEntry } from "astro:content";
 import BaseLayout from "../layouts/BaseLayout.astro";
 import ProjectImage from "../components/ProjectImage.astro";
-import ActionButton from "../components/ActionButton.astro";
 import StageBadge from "../components/StageBadge.astro";
 import CtaSection from "../components/CtaSection.astro";
 import Icon from "../components/Icon.astro";
@@ -29,7 +28,9 @@ const c = t.caseStudy;
 const { data, slug } = project;
 const p = resolveProject(data, locale);
 const entry = locale === "fr" && fr ? fr : project;
-const { Content } = await entry.render();
+const { Content, headings } = await entry.render();
+// "On this page" navigation is built from the article's own h2s.
+const toc = headings.filter((h) => h.depth === 2);
 
 const seoTitle = locale === "fr" && fr ? fr.data.seoTitle : data.seoTitle ?? data.title;
 const description = locale === "fr" && fr ? fr.data.description : data.description;
@@ -42,7 +43,15 @@ const meta = [
   { label: c.role, value: p.role },
   { label: c.period, value: p.year },
   { label: c.client, value: data.client },
+  { label: c.scope, value: p.scope },
 ].filter((m) => m.value);
+const glance = p.glance
+  ? [
+      { label: c.glance.problem, body: p.glance.problem },
+      { label: c.glance.role, body: p.glance.role },
+      { label: c.glance.outcome, body: p.glance.outcome },
+    ]
+  : [];
 
 const home = locale === "fr" ? "Accueil" : "Home";
 const pageUrl = new URL(pathFor(slug), SITE.url).href;
@@ -79,7 +88,7 @@ const ld = {
   alternate={alternate}
 >
   <script slot="head" type="application/ld+json" set:html={JSON.stringify(ld)} />
-  <article class="flex flex-col gap-10">
+  <article class="flex flex-col gap-10 slg:gap-12">
     <nav aria-label="Breadcrumb" class="text-sm">
       <a href={localizePath("/projects", locale)} class="inline-flex w-fit items-center gap-1 text-p_text transition-colors hover:text-head_text">
         <Icon name="arrow-right" size={16} class="rotate-180" />
@@ -87,53 +96,29 @@ const ld = {
       </a>
     </nav>
 
-    <header class="flex flex-col gap-5">
+    <header class="flex max-w-4xl flex-col gap-5">
       <div class="flex flex-wrap items-center gap-3">
-        <h1 class="font-theme_bold text-3xl text-head_text sm:text-4xl slg:text-5xl">{data.title}</h1>
+        <h1 class="font-theme_bold text-3xl tracking-tight text-head_text sm:text-4xl slg:text-5xl">{data.title}</h1>
         <StageBadge stage={data.stage} />
       </div>
-      {p.outcome && <p class="max-w-3xl text-lg leading-relaxed text-action_text slg:text-xl">{p.outcome}</p>}
-
-      {
-        meta.length > 0 && (
-          <dl class="grid grid-cols-1 gap-4 border-y border-border_sm py-5 sm:grid-cols-3">
-            {meta.map((m) => (
-              <div class="flex flex-col gap-1">
-                <dt class="kicker">{m.label}</dt>
-                <dd class="text-sm text-head_text">{m.value}</dd>
-              </div>
-            ))}
-          </dl>
-        )
-      }
-
-      {
-        data.tech.length > 0 && (
-          <ul class="flex flex-wrap gap-1.5" aria-label={c.stack}>
-            {data.tech.map((x) => (
-              <li class="chip">{x}</li>
-            ))}
-          </ul>
-        )
-      }
-      <div class="flex flex-wrap gap-3 pt-1">
-        {
-          data.link && (
-            <ActionButton link={data.link} event="project_site_click" eventLabel={slug}>
-              {`${t.visit} ${domain}`}
-              <Icon name="arrow-up-right" size={18} />
-            </ActionButton>
-          )
-        }
-        {
-          data.repo && (
-            <ActionButton link={data.repo}>
-              <Icon name="github" size={18} />{c.source}
-            </ActionButton>
-          )
-        }
-      </div>
+      {p.outcome && <p class="text-lg leading-relaxed text-action_text slg:text-xl">{p.outcome}</p>}
     </header>
+
+    {
+      glance.length > 0 && (
+        <section
+          class="grid grid-cols-1 gap-px overflow-hidden rounded-lg border border-border_sm bg-border_sm md:grid-cols-3"
+          aria-label={c.facts}
+        >
+          {glance.map((g) => (
+            <div class="flex flex-col gap-2 bg-item_back p-5 slg:p-6">
+              <h2 class="kicker">{g.label}</h2>
+              <p class="text-sm leading-relaxed text-action_text slg:text-base">{g.body}</p>
+            </div>
+          ))}
+        </section>
+      )
+    }
 
     {
       data.image && (
@@ -143,39 +128,109 @@ const ld = {
           alt={imageAlt}
           class="aspect-video"
           eager
-          sizes="(max-width: 1024px) 100vw, 860px"
+          sizes="(max-width: 1152px) 100vw, 1056px"
         />
       )
     }
 
-    <div class="case-study-body max-w-3xl">
-      <Content />
+    <div class="grid grid-cols-1 gap-10 lg:grid-cols-[15rem_minmax(0,1fr)] lg:gap-16">
+      <!-- Facts + on-page navigation; sticky beside the text on desktop. -->
+      <aside class="flex flex-col gap-8 lg:sticky lg:top-28 lg:self-start" aria-label={c.facts}>
+        <div class="flex flex-col gap-4 rounded-lg border border-border_sm bg-item_back p-5">
+          <dl class="flex flex-col gap-3">
+            {meta.map((m) => (
+              <div class="flex flex-col gap-0.5">
+                <dt class="font-theme text-[11px] uppercase tracking-wider text-p_text">{m.label}</dt>
+                <dd class="text-sm text-head_text">{m.value}</dd>
+              </div>
+            ))}
+            <div class="flex flex-col gap-0.5">
+              <dt class="font-theme text-[11px] uppercase tracking-wider text-p_text">{c.status}</dt>
+              <dd><StageBadge stage={data.stage} /></dd>
+            </div>
+          </dl>
+          {
+            data.tech.length > 0 && (
+              <div class="flex flex-col gap-2 border-t border-border_sm pt-4">
+                <span class="font-theme text-[11px] uppercase tracking-wider text-p_text">{c.stack}</span>
+                <ul class="flex flex-wrap gap-1.5" aria-label={c.stack}>
+                  {data.tech.map((x) => (
+                    <li class="chip">{x}</li>
+                  ))}
+                </ul>
+              </div>
+            )
+          }
+          {
+            (data.link || data.repo) && (
+              <div class="flex flex-col gap-2 border-t border-border_sm pt-4">
+                {data.link && (
+                  <a
+                    href={data.link}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    data-event="project_site_click"
+                    data-event-label={slug}
+                    class="inline-flex items-center gap-1.5 font-theme_bold text-sm text-link_text_hover underline-offset-4 hover:underline"
+                  >
+                    {`${t.visit} ${domain}`}
+                    <Icon name="arrow-up-right" size={16} />
+                  </a>
+                )}
+                {data.repo && (
+                  <a href={data.repo} target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-1.5 text-sm hover:text-head_text">
+                    <Icon name="github" size={16} />{c.source}
+                  </a>
+                )}
+              </div>
+            )
+          }
+        </div>
+
+        {
+          toc.length > 2 && (
+            <nav class="hidden flex-col gap-2 lg:flex" aria-label={c.onThisPage}>
+              <span class="font-theme text-[11px] uppercase tracking-wider text-p_text">{c.onThisPage}</span>
+              <ul class="flex flex-col gap-1 border-l border-border_sm">
+                {toc.map((h) => (
+                  <li>
+                    <a href={`#${h.slug}`} class="-ml-px block border-l border-transparent py-1 pl-3 text-sm text-p_text transition-colors hover:border-link_text_hover hover:text-head_text">
+                      {h.text}
+                    </a>
+                  </li>
+                ))}
+              </ul>
+            </nav>
+          )
+        }
+      </aside>
+
+      <div class="case-study-body min-w-0 max-w-[44rem]">
+        <Content />
+      </div>
     </div>
 
     {
       (prev || next) && (
-        <nav
-          class="flex flex-col gap-4 border-t border-border_sm pt-8 sm:flex-row sm:justify-between"
-          aria-label={locale === "fr" ? "Autres études de cas" : "More case studies"}
-        >
+        <nav class="grid grid-cols-1 gap-4 sm:grid-cols-2" aria-label={locale === "fr" ? "Autres études de cas" : "More case studies"}>
           {prev ? (
-            <a href={pathFor(prev.slug)} class="group flex items-center gap-2 font-theme_bold text-sm text-p_text transition-colors hover:text-head_text">
-              <Icon name="arrow-right" size={16} class="rotate-180 transition-transform group-hover:-translate-x-1" />
-              <span>
-                <span class="block font-theme text-xs text-p_text">{c.prev}</span>
-                {prev.title}
+            <a href={pathFor(prev.slug)} class="group flex flex-col gap-1 rounded-lg border border-border_sm bg-item_back p-5 transition-colors hover:bg-item_hover_back">
+              <span class="inline-flex items-center gap-1 font-theme text-xs text-p_text">
+                <Icon name="arrow-right" size={14} class="rotate-180 transition-transform group-hover:-translate-x-1" />
+                {c.prev}
               </span>
+              <span class="font-theme_bold text-lg text-head_text">{prev.title}</span>
             </a>
           ) : (
-            <span />
+            <span class="hidden sm:block" />
           )}
           {next && (
-            <a href={pathFor(next.slug)} class="group flex items-center gap-2 text-right font-theme_bold text-sm text-p_text transition-colors hover:text-head_text sm:ml-auto">
-              <span>
-                <span class="block font-theme text-xs text-p_text">{c.next}</span>
-                {next.title}
+            <a href={pathFor(next.slug)} class="group flex flex-col items-end gap-1 rounded-lg border border-border_sm bg-item_back p-5 text-right transition-colors hover:bg-item_hover_back">
+              <span class="inline-flex items-center gap-1 font-theme text-xs text-p_text">
+                {c.next}
+                <Icon name="arrow-right" size={14} class="transition-transform group-hover:translate-x-1" />
               </span>
-              <Icon name="arrow-right" size={16} class="transition-transform group-hover:translate-x-1" />
+              <span class="font-theme_bold text-lg text-head_text">{next.title}</span>
             </a>
           )}
         </nav>

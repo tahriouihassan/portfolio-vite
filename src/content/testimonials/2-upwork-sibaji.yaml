@@ -4,3 +4,5 @@ name: "Sibaji R."
 role: "Frontend development project"
 company: "5.0 ★ on Upwork"
 order: 2
+# Frontend/CSS-specific praise: kept, but not featured on the homepage.
+featured: false

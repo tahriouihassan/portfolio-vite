@@ -18,7 +18,7 @@ const platforms = [
 ];
 ---
 
-<section class="relative flex flex-col gap-7" aria-labelledby="hero-title">
+<section class="relative flex flex-col gap-10" aria-labelledby="hero-title">
   <!-- Subtle brand glow behind the hero (desktop only: on phones it would sit past the screen edge) -->
   <div
     class="pointer-events-none absolute -left-40 -top-44 hidden h-[420px] w-[420px] rounded-full opacity-70 blur-2xl md:block"
@@ -27,53 +27,76 @@ const platforms = [
   >
   </div>
 
-  <p class="kicker">{h.eyebrow}</p>
+  <div class="grid grid-cols-1 items-start gap-10 lg:grid-cols-[minmax(0,1fr)_320px] lg:gap-14">
+    <div class="flex flex-col gap-7">
+      <p class="kicker">{h.eyebrow}</p>
 
-  <h1
-    id="hero-title"
-    class="max-w-4xl text-balance font-theme_bold text-[1.75rem] leading-tight text-head_text sm:text-4xl slg:text-[2.75rem] slg:leading-[1.15]"
-  >
-    {h.h1}
-  </h1>
+      <h1
+        id="hero-title"
+        class="text-balance font-theme_bold text-[1.75rem] leading-tight tracking-tight text-head_text sm:text-4xl slg:text-[2.75rem] slg:leading-[1.12]"
+      >
+        {h.h1}
+      </h1>
 
-  <p class="max-w-3xl text-base leading-relaxed slg:text-lg slg:leading-relaxed" set:html={h.leadHtml} />
+      <p class="max-w-2xl text-base leading-relaxed slg:text-lg slg:leading-relaxed" set:html={h.leadHtml} />
 
-  <div class="flex flex-col gap-4">
-    <div class="flex flex-wrap items-center gap-3">
-      <ActionButton link={CONTACT.bookingUrl} variant="primary" event="book_call_click" eventLabel="hero">
-        <Icon name="calendar" size={18} />{h.ctaPrimary}
-      </ActionButton>
-      <ActionButton link={localizePath("/projects", locale)} event="case_studies_click" eventLabel="hero">
-        {h.ctaSecondary} <Icon name="arrow-right" size={18} />
-      </ActionButton>
+      <div class="flex flex-wrap items-center gap-3">
+        <ActionButton link={CONTACT.bookingUrl} variant="primary" event="book_call_click" eventLabel="hero">
+          <Icon name="calendar" size={18} />{h.ctaPrimary}
+        </ActionButton>
+        <ActionButton link={localizePath("/projects", locale)} event="case_studies_click" eventLabel="hero">
+          {h.ctaSecondary} <Icon name="arrow-right" size={18} />
+        </ActionButton>
+      </div>
     </div>
-    <p class="text-sm">
-      {h.hiring}
+
+    <!-- Recruiter snapshot: who, where, since when, and the resume one click away. -->
+    <div class="flex flex-col gap-5 rounded-lg border border-border_sm bg-item_back p-6 lg:mt-12">
+      <h2 id="glance-title" class="kicker">{h.glance.heading}</h2>
+      <dl class="flex flex-col gap-4">
+        {
+          h.glance.rows.map((r) => (
+            <div class="grid grid-cols-[6.5rem_1fr] gap-3 border-t border-border_sm pt-4 first:border-0 first:pt-0">
+              <dt class="font-theme text-xs uppercase leading-6 tracking-wider text-p_text">{r.label}</dt>
+              <dd class="flex flex-col">
+                <span class="font-theme_bold text-sm text-head_text">{r.value}</span>
+                <span class="text-sm text-p_text">{r.sub}</span>
+              </dd>
+            </div>
+          ))
+        }
+      </dl>
       <a
         href={t.resumeHref}
         data-event="resume_click"
-        data-event-label="hero"
-        class="ml-1 inline-flex items-center gap-1 font-theme_bold text-link_text_hover underline-offset-4 hover:underline"
+        data-event-label="hero_card"
+        class="inline-flex w-full items-center justify-center gap-2 rounded-md border border-link_border bg-btn_back px-4 py-3 font-theme_bold text-sm text-btn_text transition-colors hover:bg-item_hover_back"
       >
-        {h.hiringLink} <Icon name="arrow-right" size={14} />
+        <Icon name="download" size={18} />{h.glance.resume}
       </a>
-    </p>
+      <ul class="-mx-2 -my-1 flex items-center justify-center gap-1" aria-label={locale === "fr" ? "Profils" : "Profiles"}>
+        {
+          profiles.map((s) => (
+            <li>
+              <a
+                href={s.url}
+                target="_blank"
+                rel="me noopener noreferrer"
+                class="inline-flex items-center gap-1.5 rounded-md px-2.5 py-2 text-sm text-p_text transition-colors hover:bg-border_sm hover:text-head_text"
+              >
+                <Icon name={s.icon} size={16} />
+                {s.name}
+              </a>
+            </li>
+          ))
+        }
+      </ul>
+    </div>
   </div>
 
-  <dl class="mt-2 grid grid-cols-1 gap-x-6 gap-y-4 border-t border-border_sm pt-6 sm:grid-cols-2 slg:grid-cols-4">
-    {
-      h.facts.map((s) => (
-        <div class="flex flex-col gap-1">
-          <dt class="font-theme_bold text-base text-head_text slg:text-lg">{s.value}</dt>
-          <dd class="text-sm leading-snug text-p_text">{s.label}</dd>
-        </div>
-      ))
-    }
-  </dl>
-
-  <div class="flex flex-col gap-2">
+  <div class="flex flex-col gap-3 border-t border-border_sm pt-6">
     <p class="font-theme text-xs uppercase tracking-widest text-p_text">{h.platforms}</p>
-    <ul class="flex flex-wrap items-center gap-x-5 gap-y-1">
+    <ul class="flex flex-wrap items-center gap-x-6 gap-y-2">
       {
         platforms.map((pl) => (
           <li>
@@ -81,7 +104,7 @@ const platforms = [
               href={localizePath(pl.href, locale)}
               data-event="case_study_click"
               data-event-label={`hero_platform:${pl.name}`}
-              class="font-theme_bold text-sm text-action_text transition-colors hover:text-link_text_hover slg:text-base"
+              class="font-theme_bold text-base text-action_text transition-colors hover:text-link_text_hover slg:text-lg"
             >
               {pl.name}
             </a>
@@ -90,22 +113,4 @@ const platforms = [
       }
     </ul>
   </div>
-
-  <ul class="-ml-2.5 flex items-center gap-1" aria-label={locale === "fr" ? "Profils" : "Profiles"}>
-    {
-      profiles.map((s) => (
-        <li>
-          <a
-            href={s.url}
-            target="_blank"
-            rel="me noopener noreferrer"
-            class="inline-flex items-center gap-2 rounded-md px-2.5 py-2 text-sm text-p_text transition-colors hover:bg-border_sm hover:text-head_text"
-          >
-            <Icon name={s.icon} size={18} />
-            {s.name}
-          </a>
-        </li>
-      ))
-    }
-  </ul>
 </section>

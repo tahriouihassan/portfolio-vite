@@ -70,6 +70,8 @@ export function resolveService(
   };
 }
 
+type Glance = { problem: string; role: string; outcome: string };
+
 /** Resolve the card-level fields of a project for a locale. */
 export function resolveProject(
   data: {
@@ -77,7 +79,9 @@ export function resolveProject(
     outcome?: string;
     role?: string;
     year?: string;
-    fr?: { description: string; outcome?: string; role?: string; year?: string };
+    scope?: string;
+    glance?: Glance;
+    fr?: { description: string; outcome?: string; role?: string; year?: string; scope?: string; glance?: Glance };
   },
   locale: Locale
 ) {
@@ -87,5 +91,7 @@ export function resolveProject(
     outcome: fr?.outcome ?? data.outcome,
     role: fr?.role ?? data.role,
     year: fr?.year ?? data.year,
+    scope: fr?.scope ?? data.scope,
+    glance: fr?.glance ?? data.glance,
   };
 }
