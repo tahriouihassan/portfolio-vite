@@ -21,7 +21,7 @@ export const EXPERIENCE: Role[] = [
     company: "VisitFootball group",
     detail: "VisitFootball · Voetbaltrips · Voetbaltickets.nl · TrustedSeats",
     role: { en: "Lead Full-Stack Developer", fr: "Lead développeur full-stack" },
-    period: { en: "2023 – Present", fr: "2023 – aujourd'hui" },
+    period: { en: "2021 – Present", fr: "2021 – aujourd'hui" },
     href: "/projects/visitfootball/",
     bullets: {
       en: [

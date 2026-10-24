@@ -52,7 +52,7 @@ export const fr: Copy = {
     glance: {
       heading: "En bref",
       rows: [
-        { label: "Actuellement", value: "Lead développeur full-stack", sub: "Groupe VisitFootball · depuis 2023" },
+        { label: "Actuellement", value: "Lead développeur full-stack", sub: "Groupe VisitFootball · depuis 2021" },
         { label: "Aussi", value: "Fondateur et développeur unique", sub: "Tracefox · depuis 2025" },
         { label: "Expérience", value: "9+ ans", sub: "Laravel, Next.js, Node, PostgreSQL" },
         { label: "Basé au", value: "Maroc, à distance", sub: "Avec des équipes européennes (CET)" },
@@ -90,7 +90,7 @@ export const fr: Copy = {
 
   experience: {
     heading: "Parcours",
-    sub: "Plus de 9 ans à construire des logiciels commerciaux ; depuis 2023, je dirige le développement de plateformes en production.",
+    sub: "Plus de 9 ans à construire des logiciels commerciaux ; depuis 2021, je dirige le développement de plateformes en production.",
     earlier: "Avant",
     earlierRole: "Développeur full-stack chez",
     cta: "CV complet (EN)",
@@ -294,7 +294,7 @@ export const fr: Copy = {
     h1: "À propos",
     introHtml: [
       `Je suis Hassan Tahrioui, <span class="text-head_text">lead technique et développeur full-stack senior</span> basé au Maroc. Depuis plus de 9 ans, je construis des logiciels web commerciaux, et le travail que je préfère se situe là où les décisions techniques ont des conséquences business : checkouts, intégrations, plateformes multilingues et l'infrastructure en dessous.`,
-      `Depuis 2023, je dirige le développement d'un groupe de marques de billetterie et de voyages football, dont VisitFootball, Voetbaltrips, Voetbaltickets.nl et TrustedSeats. Je gère le workflow de release, je relis et coordonne le travail des autres développeurs, et je travaille chaque jour avec les équipes produit, opérations, design et SEO pour transformer des besoins commerciaux en logiciel. Je reste dans le code et dans le débogage en production.`,
+      `Depuis 2021, je dirige le développement d'un groupe de marques de billetterie et de voyages football, dont VisitFootball, Voetbaltrips, Voetbaltickets.nl et TrustedSeats. Je gère le workflow de release, je relis et coordonne le travail des autres développeurs, et je travaille chaque jour avec les équipes produit, opérations, design et SEO pour transformer des besoins commerciaux en logiciel. Je reste dans le code et dans le débogage en production.`,
       `En 2025, j'ai lancé <a href="/fr/projects/tracefox/" class="text-link border-b-2 border-link_border hover:text-link_text_hover">Tracefox</a>, mon propre SaaS de test automatisé des checkouts. Je l'ai construit seul, du positionnement et de la tarification jusqu'au moteur d'automatisation de navigateur, et il est en ligne avec des formules gratuite et payantes. Gérer mon propre produit m'oblige à rester lucide sur les compromis : chaque heure d'ingénierie doit se justifier.`,
       `Auparavant, j'ai travaillé comme développeur full-stack pour des entreprises et des clients freelance, sur des plateformes d'emploi, des systèmes de réservation, des sites de petites annonces et d'e-commerce, avec Laravel, Vue et Nuxt.`,
     ],

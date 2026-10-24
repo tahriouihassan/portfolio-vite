@@ -12,7 +12,7 @@ VisitFootball vend des billets officiels et des voyages football complets (bille
 - **[Voetbaltickets.nl](https://www.voetbaltickets.nl)**, une billetterie néerlandaise avec son propre frontend Next.js.
 - **[TrustedSeats](https://www.trustedseats.com)**, une place de marché de billets multisports construite avec Nuxt et Strapi, localisée pour sept marchés européens.
 
-J'ai rejoint l'équipe en 2023 et je dirige le développement sur ces plateformes. Elles sont construites par une équipe, et certaines parties existaient avant mon arrivée. Cette étude de cas décrit mon rôle, pas un système que j'aurais construit seul.
+J'ai rejoint l'équipe en 2021 et je dirige le développement sur ces plateformes. Elles sont construites par une équipe, et certaines parties existaient avant mon arrivée. Cette étude de cas décrit mon rôle, pas un système que j'aurais construit seul.
 
 ## Le problème
 

@@ -57,7 +57,7 @@ export const en = {
     glance: {
       heading: "At a glance",
       rows: [
-        { label: "Now", value: "Lead Full-Stack Developer", sub: "VisitFootball group · since 2023" },
+        { label: "Now", value: "Lead Full-Stack Developer", sub: "VisitFootball group · since 2021" },
         { label: "Also", value: "Founder & solo developer", sub: "Tracefox · since 2025" },
         { label: "Experience", value: "9+ years", sub: "Laravel, Next.js, Node, PostgreSQL" },
         { label: "Based in", value: "Morocco, remote", sub: "Works with European teams (CET)" },
@@ -95,7 +95,7 @@ export const en = {
 
   experience: {
     heading: "Experience",
-    sub: "9+ years building commercial software; since 2023, leading development on live production platforms.",
+    sub: "9+ years building commercial software; since 2021, leading development on live production platforms.",
     earlier: "Earlier",
     earlierRole: "Full-Stack Developer at",
     cta: "Full resume",
@@ -299,7 +299,7 @@ export const en = {
     h1: "About",
     introHtml: [
       `I'm Hassan Tahrioui, a <span class="text-head_text">technical lead and senior full-stack engineer</span> based in Morocco. I've spent 9+ years building commercial web software, and the work I enjoy most sits where engineering decisions meet business consequences: checkouts, integrations, multilingual platforms and the infrastructure under them.`,
-      `Since 2023 I've led development for a group of football ticketing and travel brands, including VisitFootball, Voetbaltrips, Voetbaltickets.nl and TrustedSeats. I manage the release workflow, review and coordinate other developers' work, and work daily with product, operations, design and SEO specialists to turn commercial requirements into software. I stay hands-on in the code and in production troubleshooting.`,
+      `Since 2021 I've led development for a group of football ticketing and travel brands, including VisitFootball, Voetbaltrips, Voetbaltickets.nl and TrustedSeats. I manage the release workflow, review and coordinate other developers' work, and work daily with product, operations, design and SEO specialists to turn commercial requirements into software. I stay hands-on in the code and in production troubleshooting.`,
       `In 2025 I started <a href="/projects/tracefox/" class="text-link border-b-2 border-link_border hover:text-link_text_hover">Tracefox</a>, my own SaaS for automated checkout testing. I built it alone, from positioning and pricing to the browser-automation engine, and it's live with free and paid plans. Running my own product keeps me honest about trade-offs: every hour of engineering has to earn its place.`,
       `Before that I worked as a full-stack developer for companies and freelance clients, building job platforms, booking systems, classifieds and e-commerce sites with Laravel, Vue and Nuxt.`,
     ],

@@ -4,7 +4,7 @@
 
 ## Current work
 
-- Since 2023: Lead Full-Stack Developer for a group of football ticketing and travel brands (VisitFootball, Voetbaltrips, Voetbaltickets.nl and TrustedSeats). Responsible for technical direction, the release workflow, coordinating developers and production, while staying hands-on. Stack: Next.js, TypeScript, Strapi v4, Nuxt, PostgreSQL, Redis, Cloudflare, Nginx, Vercel, DigitalOcean. He is not the sole author of these platforms; they are built by a team.
+- Since 2021: Lead Full-Stack Developer for a group of football ticketing and travel brands (VisitFootball, Voetbaltrips, Voetbaltickets.nl and TrustedSeats). Responsible for technical direction, the release workflow, coordinating developers and production, while staying hands-on. Stack: Next.js, TypeScript, Strapi v4, Nuxt, PostgreSQL, Redis, Cloudflare, Nginx, Vercel, DigitalOcean. He is not the sole author of these platforms; they are built by a team.
 - Since 2025: founder and solo developer of Tracefox (https://tracefox.co), a live SaaS for automated checkout testing aimed at ecommerce stores and the agencies that manage them.
 - In development: Store Recast, a service for moving WooCommerce stores to a hosted ecommerce platform. Not yet launched.
 
