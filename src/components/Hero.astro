@@ -1,7 +1,7 @@
 ---
 import ActionButton from "./ActionButton.astro";
 import Icon from "./Icon.astro";
-import { CONTACT, SOCIALS } from "../consts";
+import { CONTACT, SITE, SOCIALS } from "../consts";
 import { getLocale, ui, localizePath } from "../i18n";
 
 const locale = getLocale(Astro.url);
@@ -72,7 +72,16 @@ const platforms = [
         data-event-label="hero_card"
         class="inline-flex w-full items-center justify-center gap-2 rounded-md border border-link_border bg-btn_back px-4 py-3 font-theme_bold text-sm text-btn_text transition-colors hover:bg-item_hover_back"
       >
-        <Icon name="download" size={18} />{h.glance.resume}
+        {h.glance.resume}
+      </a>
+      <a
+        href={SITE.resumePdf}
+        download
+        data-event="resume_pdf_download"
+        data-event-label="hero_card"
+        class="-mt-2 inline-flex items-center justify-center gap-1.5 text-sm text-link_text_hover underline-offset-4 hover:underline"
+      >
+        <Icon name="download" size={16} />{h.glance.pdf}
       </a>
       <ul class="-mx-2 -my-1 flex items-center justify-center gap-1" aria-label={locale === "fr" ? "Profils" : "Profiles"}>
         {

@@ -56,6 +56,8 @@ Icon names: `layers`, `cart`, `plug`, `sparkles`, `server`, `gauge`, `users`, `g
 
 **`src/data/experience.ts`** feeds both the About pages and `/resume/`. Edit roles there once.
 
+The downloadable PDF (`public/Hassan-Tahrioui-Resume.pdf`) is rendered from `/resume/`. After changing experience, skills or the resume page, run **`npm run resume:pdf`** (needs Chrome installed) and commit the regenerated PDF. Vercel serves the committed file and doesn't regenerate it.
+
 ---
 
 ## 5. Testimonials

@@ -58,6 +58,7 @@ export const fr: Copy = {
         { label: "Basé au", value: "Maroc, à distance", sub: "Avec des équipes européennes (CET)" },
       ],
       resume: "Voir le CV (EN)",
+      pdf: "Télécharger le PDF",
     },
   },
 
@@ -94,6 +95,7 @@ export const fr: Copy = {
     earlier: "Avant",
     earlierRole: "Développeur full-stack chez",
     cta: "CV complet (EN)",
+    pdf: "Télécharger le PDF",
     secondary: "En savoir plus",
   },
 
@@ -309,7 +311,8 @@ export const fr: Copy = {
     skillsHeading: "Compétences",
     languagesHeading: "Langues",
     languages: "Arabe (langue maternelle), anglais (courant), français (courant).",
-    resumeCta: "Voir le CV d'une page (en anglais)",
+    resumeCta: "Voir le CV (en anglais)",
+    resumePdf: "Télécharger le PDF",
   },
 
   projectsPage: {

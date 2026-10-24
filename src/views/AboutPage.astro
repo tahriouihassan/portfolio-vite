@@ -32,8 +32,17 @@ const profileLd = {
       </div>
       <div class="flex flex-wrap items-center gap-3">
         <ActionButton link={t.resumeHref} variant="primary" event="resume_click" eventLabel="about">
-          <Icon name="download" size={18} />{a.resumeCta}
+          {a.resumeCta} <Icon name="arrow-right" size={18} />
         </ActionButton>
+        <a
+          href={SITE.resumePdf}
+          download
+          data-event="resume_pdf_download"
+          data-event-label="about"
+          class="inline-flex items-center gap-2 rounded-md border border-link_border bg-btn_back px-4 py-2.5 font-theme_bold text-sm text-btn_text transition-colors hover:bg-item_hover_back slg:px-5 slg:py-3 slg:text-base"
+        >
+          <Icon name="download" size={18} />{a.resumePdf}
+        </a>
         {
           profiles.map((s) => (
             <ActionButton link={s.url}>

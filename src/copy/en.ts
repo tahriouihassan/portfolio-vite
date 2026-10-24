@@ -63,6 +63,7 @@ export const en = {
         { label: "Based in", value: "Morocco, remote", sub: "Works with European teams (CET)" },
       ],
       resume: "View resume",
+      pdf: "Download PDF",
     },
   },
 
@@ -99,6 +100,7 @@ export const en = {
     earlier: "Earlier",
     earlierRole: "Full-Stack Developer at",
     cta: "Full resume",
+    pdf: "Download PDF",
     secondary: "More about me",
   },
 
@@ -314,7 +316,8 @@ export const en = {
     skillsHeading: "Skills",
     languagesHeading: "Languages",
     languages: "Arabic (native), English (fluent), French (fluent).",
-    resumeCta: "View the one-page resume",
+    resumeCta: "View resume",
+    resumePdf: "Download PDF",
   },
 
   projectsPage: {

@@ -9,7 +9,7 @@ import CtaSection from "../components/CtaSection.astro";
 import ActionButton from "../components/ActionButton.astro";
 import LinkBtn from "../components/LinkBtn.astro";
 import Icon from "../components/Icon.astro";
-import { CONTACT, SOCIALS } from "../consts";
+import { CONTACT, SITE, SOCIALS } from "../consts";
 import { getLocale, ui, localizePath } from "../i18n";
 import { EXPERIENCE } from "../data/experience";
 
@@ -110,8 +110,17 @@ const earlierCompanies = new Intl.ListFormat(locale, { type: "conjunction" }).fo
       </ol>
       <div class="flex flex-wrap items-center gap-x-5 gap-y-3">
         <ActionButton link={t.resumeHref} variant="primary" event="resume_click" eventLabel="home_experience">
-          <Icon name="download" size={18} />{t.experience.cta}
+          {t.experience.cta} <Icon name="arrow-right" size={18} />
         </ActionButton>
+        <a
+          href={SITE.resumePdf}
+          download
+          data-event="resume_pdf_download"
+          data-event-label="home_experience"
+          class="inline-flex items-center gap-2 rounded-md border border-link_border bg-btn_back px-4 py-2.5 font-theme_bold text-sm text-btn_text transition-colors hover:bg-item_hover_back slg:px-5 slg:py-3 slg:text-base"
+        >
+          <Icon name="download" size={18} />{t.experience.pdf}
+        </a>
         <ActionButton link={`${localizePath("/about", locale)}#experience`} variant="ghost">
           {t.experience.secondary} <Icon name="arrow-right" size={16} />
         </ActionButton>
@@ -128,7 +137,7 @@ const earlierCompanies = new Intl.ListFormat(locale, { type: "conjunction" }).fo
           <p class="text-sm leading-relaxed slg:text-base">{t.paths.employer.body}</p>
           <div class="mt-auto flex flex-wrap items-center gap-x-5 gap-y-3 pt-2">
             <ActionButton link={t.resumeHref} variant="primary" event="resume_click" eventLabel="home_path">
-              <Icon name="download" size={18} />{t.paths.employer.cta}
+              {t.paths.employer.cta} <Icon name="arrow-right" size={18} />
             </ActionButton>
             <ActionButton link={t.paths.employer.secondaryHref} variant="ghost">
               {t.paths.employer.secondary} <Icon name="arrow-right" size={16} />

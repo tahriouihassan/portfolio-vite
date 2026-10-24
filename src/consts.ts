@@ -22,6 +22,8 @@ export const SITE = {
   email: "tahrioui.hsn@gmail.com",
   /** Where you're based. */
   location: "Morocco · Remote, working with European teams",
+  /** Downloadable resume, generated from /resume/ by `npm run resume:pdf`. */
+  resumePdf: "/Hassan-Tahrioui-Resume.pdf",
   /** Google Analytics measurement ID. Set to "" to disable. */
   ga: "G-XZ86LZ27VZ",
 } as const;

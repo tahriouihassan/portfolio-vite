@@ -17,7 +17,7 @@
 
 - [Home](https://www.tahrioui.me/)
 - [About and experience](https://www.tahrioui.me/about/)
-- [Resume](https://www.tahrioui.me/resume/)
+- [Resume](https://www.tahrioui.me/resume/) ([PDF](https://www.tahrioui.me/Hassan-Tahrioui-Resume.pdf))
 - [Services](https://www.tahrioui.me/services/)
 - [Work and case studies](https://www.tahrioui.me/projects/)
 - [VisitFootball case study](https://www.tahrioui.me/projects/visitfootball/)

@@ -1,8 +1,8 @@
 ---
 /**
- * One-page resume for recruiters and hiring managers. Plain, single-column
- * HTML so it parses well in ATS tools; "Save as PDF" uses the print styles
- * below. Built from the same data as the About page.
+ * Resume for recruiters and hiring managers. Plain, single-column HTML so it
+ * parses well in ATS tools. The print styles below also produce the
+ * downloadable PDF (npm run resume:pdf). Built from the same data as About.
  */
 import BaseLayout from "../layouts/BaseLayout.astro";
 import Icon from "../components/Icon.astro";
@@ -12,25 +12,27 @@ import { EXPERIENCE, SKILLS } from "../data/experience";
 const linkedin = SOCIALS.find((s) => s.icon === "linkedin")!;
 const github = SOCIALS.find((s) => s.icon === "github")!;
 const upwork = SOCIALS.find((s) => s.icon === "upwork")!;
+const shortUrl = (u: string) => u.replace(/^https?:\/\/(www\.)?/, "").replace(/\/$/, "");
 
 const projects = [
   {
     name: "Tracefox",
-    href: "/projects/tracefox/",
+    href: `${SITE.url}/projects/tracefox/`,
     text: "Live SaaS for automated checkout testing, built solo: scheduled real-browser runs, step-level failure reports, agency workspaces and paid plans.",
   },
   {
     name: "VisitFootball group",
-    href: "/projects/visitfootball/",
+    href: `${SITE.url}/projects/visitfootball/`,
     text: "Multi-brand ticketing and travel platforms: shared Next.js codebase, Strapi backends, checkout and payments, multilingual SEO and order automation.",
   },
   {
     name: "OpenMatch (2022)",
-    href: "/projects/openmatch/",
+    href: `${SITE.url}/projects/openmatch/`,
     text: "Two-sided job platform with AI-assisted resume building, job matching, recruiter tools and Stripe subscriptions (Nuxt, Vue).",
   },
   {
     name: "L'Moniteur",
+    href: "https://lmoniteur.ma",
     text: "Booking platform connecting learner drivers with driving instructors across Morocco (Laravel, Flutter).",
   },
   {
@@ -52,14 +54,15 @@ const projects = [
   <article class="resume mx-auto flex max-w-3xl flex-col gap-10" lang="en">
     <header class="flex flex-col gap-4">
       <div class="no-print flex flex-wrap gap-3">
-        <button
-          type="button"
-          id="print-resume"
-          data-event="resume_print"
+        <a
+          href={SITE.resumePdf}
+          download
+          data-event="resume_pdf_download"
+          data-event-label="resume_page"
           class="inline-flex items-center gap-2 rounded-md border border-accent bg-accent px-4 py-2.5 font-theme_bold text-sm text-white transition hover:brightness-110"
         >
-          <Icon name="printer" size={18} /> Save as PDF
-        </button>
+          <Icon name="download" size={18} /> Download PDF
+        </a>
         <a
           href="/contact/?topic=role"
           class="inline-flex items-center gap-2 rounded-md border border-link_border bg-btn_back px-4 py-2.5 font-theme_bold text-sm text-btn_text transition-colors hover:bg-item_hover_back"
@@ -72,9 +75,10 @@ const projects = [
       <ul class="flex flex-wrap gap-x-5 gap-y-1 text-sm">
         <li>Morocco · Remote (CET-aligned)</li>
         <li><a href={`mailto:${SITE.email}`} class="hover:text-head_text">{SITE.email}</a></li>
-        <li><a href={`${SITE.url}/`} class="hover:text-head_text">tahrioui.me</a></li>
-        <li><a href={linkedin.url} class="hover:text-head_text">LinkedIn</a></li>
-        <li><a href={github.url} class="hover:text-head_text">GitHub</a></li>
+        <!-- Full addresses, not just names, so they still work on a printed page. -->
+        <li><a href={`${SITE.url}/`} class="hover:text-head_text">{shortUrl(SITE.url)}</a></li>
+        <li><a href={linkedin.url} class="hover:text-head_text">{shortUrl(linkedin.url)}</a></li>
+        <li><a href={github.url} class="hover:text-head_text">{shortUrl(github.url)}</a></li>
       </ul>
     </header>
 
@@ -150,13 +154,6 @@ const projects = [
   </article>
 </BaseLayout>
 
-<script is:inline data-astro-rerun>
-  (function () {
-    var btn = document.getElementById("print-resume");
-    if (btn) btn.addEventListener("click", function () { window.print(); });
-  })();
-</script>
-
 <style is:global>
   .resume-h2 {
     @apply border-b border-border_sm pb-2 font-theme_bold text-sm uppercase tracking-widest text-link_text_hover;
@@ -164,12 +161,41 @@ const projects = [
 
   @media print {
     @page {
-      margin: 14mm 14mm;
+      size: A4;
+      margin: 13mm 14mm;
     }
     body {
       background: #fff !important;
       color: #111 !important;
-      font-size: 10.5pt;
+      font-size: 10pt;
+    }
+    /* One plain sans face in print: the mono heading font's ligatures make
+       Chrome split words into fragments ("Ha ss a n") in the PDF text layer,
+       which ATS parsers then misread. */
+    .resume,
+    .resume * {
+      font-family: "Segoe UI", "Helvetica Neue", Arial, sans-serif !important;
+    }
+    .resume h1,
+    .resume h3,
+    .resume strong,
+    .resume dt,
+    .resume-h2,
+    .resume header p {
+      font-weight: 700 !important;
+    }
+    .resume h1 {
+      font-size: 22pt !important;
+      line-height: 1.1 !important;
+    }
+    .resume header {
+      gap: 6px !important;
+    }
+    .resume section {
+      break-inside: auto;
+    }
+    .resume-h2 {
+      break-after: avoid;
     }
     body > nav,
     body > footer,
