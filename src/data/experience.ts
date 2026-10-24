@@ -72,7 +72,7 @@ export const EXPERIENCE: Role[] = [
   },
   {
     company: "Audit Action Plus",
-    role: { en: "Junior Full-Stack Developer", fr: "Développeur full-stack junior" },
+    role: { en: "Full-Stack Developer", fr: "Développeur full-stack" },
     period: { en: "2019", fr: "2019" },
   },
 ];
