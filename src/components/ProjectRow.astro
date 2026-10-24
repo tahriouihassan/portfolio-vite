@@ -1,21 +1,31 @@
 ---
 import type { CollectionEntry } from "astro:content";
 import StageBadge from "./StageBadge.astro";
+import ProjectImage from "./ProjectImage.astro";
 import Icon from "./Icon.astro";
 import { getLocale, resolveProject } from "../i18n";
 
-/** Compact, image-free listing for smaller or older projects. */
+/** Compact listing for smaller or older projects. */
 interface Props {
   project: CollectionEntry<"projects">;
+  /** Show a small screenshot when the project has a real one (never a placeholder). */
+  thumbnail?: boolean;
 }
-const { project } = Astro.props;
+const { project, thumbnail = false } = Astro.props;
 const { data } = project;
 const locale = getLocale(Astro.url);
 const p = resolveProject(data, locale);
+const alt = (locale === "fr" ? data.fr?.imageAlt : undefined) ?? data.imageAlt;
 const domain = data.link ? new URL(data.link).hostname.replace(/^www\./, "") : null;
+const showImage = thumbnail && !!data.image;
 ---
 
-<li class="grid grid-cols-1 gap-2 border-t border-border_sm py-5 sm:grid-cols-[minmax(0,15rem)_1fr] sm:gap-8">
+<li
+  class:list={[
+    "grid grid-cols-1 gap-3 border-t border-border_sm py-5 sm:gap-8",
+    thumbnail ? "sm:grid-cols-[minmax(0,13rem)_1fr_11rem]" : "sm:grid-cols-[minmax(0,15rem)_1fr]",
+  ]}
+>
   <div class="flex flex-col items-start gap-2">
     <h3 class="font-theme_bold text-base text-head_text slg:text-lg">{data.title}</h3>
     <StageBadge stage={data.stage} />
@@ -40,4 +50,17 @@ const domain = data.link ? new URL(data.link).hostname.replace(/^www\./, "") : n
       }
     </div>
   </div>
+  {
+    showImage ? (
+      <ProjectImage
+        image={data.image}
+        title={data.title}
+        alt={alt}
+        class="hidden aspect-video sm:block"
+        sizes="176px"
+      />
+    ) : (
+      thumbnail && <span class="hidden sm:block" aria-hidden="true" />
+    )
+  }
 </li>

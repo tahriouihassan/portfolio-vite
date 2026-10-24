@@ -42,7 +42,7 @@ const archived = all.filter((p) => p.data.status === "archived").sort(byOrder);
         <section class="flex flex-col gap-6" aria-labelledby="more-work">
           <SectionHeading id="more-work" title={pp.moreHeading} sub={pp.moreSub} />
           <ul class="flex flex-col border-b border-border_sm">
-            {more.map((p) => <ProjectRow project={p} />)}
+            {more.map((p) => <ProjectRow project={p} thumbnail />)}
           </ul>
         </section>
       )
