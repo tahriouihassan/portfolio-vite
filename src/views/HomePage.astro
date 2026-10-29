@@ -29,7 +29,9 @@ const current = EXPERIENCE.slice(0, 2);
 const earlier = EXPERIENCE.slice(2);
 const earlierYears = earlier.flatMap((r) => r.period.en.match(/\d{4}/g) ?? []).map(Number);
 const earlierSpan = earlierYears.length ? `${Math.min(...earlierYears)} – ${Math.max(...earlierYears)}` : "";
-const earlierCompanies = new Intl.ListFormat(locale, { type: "conjunction" }).format(earlier.map((r) => r.company));
+const earlierCompanies = new Intl.ListFormat(locale, { type: "conjunction" }).format(
+  earlier.map((r) => (r.summary ? `${r.company} (${r.summary[locale]})` : r.company))
+);
 ---
 
 <BaseLayout title={t.meta.home.title || undefined} description={t.meta.home.description}>

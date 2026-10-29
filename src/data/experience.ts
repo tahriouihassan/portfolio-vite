@@ -13,6 +13,8 @@ export interface Role {
   period: Localized;
   /** Internal case study or a live external site. Leave out dead sites. */
   href?: string;
+  /** A few words on what the job was, for the homepage's one-line "Earlier" summary. */
+  summary?: Localized;
   bullets?: { en: string[]; fr: string[] };
 }
 
@@ -64,16 +66,31 @@ export const EXPERIENCE: Role[] = [
     company: "e-Coopera",
     role: { en: "Full-Stack Developer", fr: "Développeur full-stack" },
     period: { en: "2019 – 2021", fr: "2019 – 2021" },
+    summary: { en: "e-commerce", fr: "e-commerce" },
+    bullets: {
+      en: ["Built the company's e-commerce website from scratch with Laravel and Nuxt, handling both backend and storefront."],
+      fr: ["Développement complet du site e-commerce de l'entreprise avec Laravel et Nuxt, du backend à la boutique en ligne."],
+    },
   },
   {
     company: "FCPO",
     role: { en: "Full-Stack Developer", fr: "Développeur full-stack" },
     period: { en: "2020", fr: "2020" },
+    summary: { en: "agency client websites", fr: "sites clients d'agence" },
+    bullets: {
+      en: ["Built multiple client websites from scratch for this web development agency, handling frontend and backend on each."],
+      fr: ["Développement de plusieurs sites clients pour cette agence web, de zéro, en prenant en charge le frontend et le backend de chacun."],
+    },
   },
   {
     company: "Audit Action Plus",
     role: { en: "Full-Stack Developer", fr: "Développeur full-stack" },
     period: { en: "2019", fr: "2019" },
+    summary: { en: "ERP", fr: "ERP" },
+    bullets: {
+      en: ["Built an ERP for the company from scratch, handling both frontend and backend."],
+      fr: ["Développement d'un ERP pour l'entreprise, de zéro, en prenant en charge le frontend et le backend."],
+    },
   },
 ];
 
