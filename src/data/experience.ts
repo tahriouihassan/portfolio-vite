@@ -59,8 +59,19 @@ export const EXPERIENCE: Role[] = [
   },
   {
     company: "Inbetween",
+    detail: "OpenMatch",
     role: { en: "Full-Stack Developer", fr: "Développeur full-stack" },
     period: { en: "2020 – 2022", fr: "2020 – 2022" },
+    href: "/projects/openmatch/",
+    summary: { en: "OpenMatch job platform", fr: "plateforme d'emploi OpenMatch" },
+    bullets: {
+      en: [
+        "Built OpenMatch, a two-sided job platform with AI-assisted resume building, job matching, recruiter tools and Stripe subscriptions, using Nuxt and Vue.",
+      ],
+      fr: [
+        "Développement d'OpenMatch, une plateforme d'emploi à deux faces avec création de CV assistée par IA, matching d'offres, outils recruteurs et abonnements Stripe, avec Nuxt et Vue.",
+      ],
+    },
   },
   {
     company: "e-Coopera",
